@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Using SQL</title>
+    <link href="../css/bitbakery.css" title="primary" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+
+<h1>Using SQL</h1>
+
+<p>SQL is a set-based declarative language used to interact with relational databases. SQL is different from imperative
+    languages (such as Java) in that we do not use SQL to tell a relational database <i>what to do</i>; rather, we write
+    SQL statements which <i>describe the results we want</i>.</p>
+
+<p>We'll be using SQLite, a small, lightweight relational database which is freely available at
+    <a href="http://www.sqlite.org">http://www.sqlite.org</a>. Download SQLite for your particular platform,
+    and then place it in an appropriate spot within your file system. The examples shown here will be on Mac OS X,
+    with the sqlite3 executable file placed in the <a class="code">/Applications</a> directory.</p>
+
+<div class="terminal">
+    <div class="term-in">> sqlite3 test</div>
+    <div class="term-out">SQLite version 3.4.0</div>
+    <div class="term-out">Enter ".help" for instructions</div>
+    <div class="term-in-alt">sqlite></div>
+</div>
+
+<p>We now have a database called 'test', and we have a SQLite command shell which we can use to execute SQL statements
+    against our newly-created database. We'll start by creating a simple table to store employee data:</p>
+
+<div class="terminal">
+    <div class="term-in-alt">sqlite> CREATE TABLE employees (</div>
+    <div class="term-in-alt"> ...> id INTEGER PRIMARY KEY,</div>
+    <div class="term-in-alt"> ...> first_name TEXT NOT NULL,</div>
+    <div class="term-in-alt"> ...> last_name TEXT NOT NULL,</div>
+    <div class="term-in-alt"> ...> job_title TEXT,</div>
+    <div class="term-in-alt"> ...> dob DATE NOT NULL</div>
+    <div class="term-in-alt"> ...> );</div>
+</div>
+
+<p>(Note that we're following the commonly used convention of capitalizing SQL keywords, and using lowercase letters for
+    table and column names.)</p>
+
+In the previous create statement, we defined a table called <a class="code">employees</a> with
+
+<p>Insert some data...</p>
+
+<div class="terminal">
+    <div class="term-in-alt">sqlite> INSERT INTO employees VALUES (null, 'Kurt', 'Christensen', null, '1929-10-29', 6515552222);</div>
+</div>
+
+<p>...and then read it back out. The <a class="code">*</a> wildcard character is a shortcut indicating that we simply
+    which to see the data for every column in the table:</p>
+
+<div class="terminal">
+    <div class="term-in-alt">sqlite> SELECT * FROM employees;</div>
+    <div class="term-out">1|Kurt|Christensen||1929-10-29|6515552222</div>
+</div>
+
+<p>Most database command line shells enable you to modify the output formatting to make result sets easier to read:</p>
+
+<div class="terminal">
+    <div class="term-in-alt">sqlite> .mode column</div>
+    <div class="term-in-alt">sqlite> .header ON</div>
+    <div class="term-in-alt">sqlite> SELECT * FROM employees;</div>
+    <div class="term-out">id first_name last_name job_title dob phone_number</div>
+    <div class="term-out">---------- ---------- ----------- ---------- ---------- ------------</div>
+    <div class="term-out">1 Kurt Christensen 1929-10-29 2125225522</div>
+</div>
+
+<p>A little bit of magic happened when we executed our <a class="code">INSERT</a> statement: by specifying <a
+        class="code">null</a> for the primary key field, SQLite was kind enough to automatically generate a unique ID
+    for us, which is exactly what we want.</p>
+
+TBD - delete from WUBBA where x > 33
+
+
+TBD - update FUBBA set x = 33 where y < 100
+
+
+<div class="terminal">
+    <div class="term-in-alt">sqlite> CREATE TABLE phone_numbers (</div>
+    <div class="term-in-alt"> ...> id INTEGER PRIMARY_KEY,</div>
+    <div class="term-in-alt"> ...> number INTEGER NOT NULL,</div>
+    <div class="term-in-alt"> ...> employee_id INTEGER NOT NULL,</div>
+    <div class="term-in-alt"> ...> FOREIGN KEY(employee_id) REFERENCES employees(id)</div>
+    <div class="term-in-alt"> ...> );</div>
+</div>
+
+
+<div class="terminal">
+    <div class="term-in-alt">sqlite> DROP TABLE phone_numbers;(</div>
+</div>
+
+<div class="terminal">
+    <div class="term-in-alt">sqlite> ALTER TABLE employees ADD phone_number INTEGER;(</div>
+</div>
+
+
+create table FUBBA
+
+create table WUBBA
+
+
+select x, y, z from FUBBA where (x > 30)
+
+Join: select f.x g.y from FUBBA join WUBBA
+
+Left outer join:
+
+
+</body>
+</html>

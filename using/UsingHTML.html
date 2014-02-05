@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Using HTML 5</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link href="../css/bitbakery.css" title="primary" rel="stylesheet" type="text/css"/>
+    <!--<link href="html.css" title="primary" rel="stylesheet" type="text/css"/>-->
+    <script src="../js/vendor/modernizr-2.6.2.min.js"></script>
+</head>
+<body>
+<!--[if lt IE 7]>
+<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+<![endif]-->
+
+<h1>Using HTML 5</h1>
+
+<p>Hypertext Markup Language (HTML) is a standardized set of tags which, when used within a text document, instruct a web
+browser how to display that text. Based on a uniform resource locator (URL) input by a user in the browser's address bar,
+the web browser sends a "GET" request (via Hypertext Transfer Protocol (HTTP), which is a simple, text-based protocol built
+on top of TCP) to the web server specified by that URL. The web server responds with HTML which can then be rendered by
+the web browser.</p>
+
+
+<h3>Basic HTML Document Layout</h3>
+
+<pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Title of document goes here&lt;/title&gt;
+    &lt;!-- This is an HTML comment --&gt;
+    &lt;!-- meta, link and script tags are also often used in the head -->
+&lt;/head&gt;
+
+&lt;body&gt;
+    Visible text goes here...
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<h3>Simple Text Formatting</h3>
+
+<table>
+    <tr>
+        <td><b>Bold text</b></td>
+        <td> <pre>&lt;b&gt;Bold text&lt;/b&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td><strong>Important text</strong></td>
+        <td> <pre>&lt;strong&gt;Important text&lt;/strong&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td><i>Italic text</i></td>
+        <td> <pre>&lt;i&gt;Italic text&lt;/i&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td><em>Emphasized text</em></td>
+        <td> <pre>&lt;em&gt;Emphasized text&lt;/em&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td><small>Smaller text</small></td>
+        <td> <pre>&lt;small&gt;Smaller text&lt;/small&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td><del>Strikethrough (deleted) text</del></td>
+        <td> <pre>&lt;del&gt;Strikethrough (deleted) text&lt;/del&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td><s>Text that is no longer correct</s></td>
+        <td> <pre>&lt;s&gt;Text that is no longer correct&lt;/s&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td><ins>Inserted text</ins></td>
+        <td> <pre>&lt;ins&gt;Inserted text&lt;/ins&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td><u>Underlined text</u></td>
+        <td> <pre>&lt;u&gt;Underlined text&lt;/u&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td> <mark>Highlighted text</mark> </td>
+        <td> <pre>&lt;mark&gt;Highlighted text&lt;/mark&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td> <cite>Title of a work</cite> </td>
+        <td> <pre>&lt;cite&gt;Title of a work&lt;/cite&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td> <code>Computer code</code> </td>
+        <td> <pre>&lt;code&gt;Computer code&lt;/code&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td> <kbd>Keyboard input</kbd> </td>
+        <td> <pre>&lt;kbd&gt;Keyboard input&lt;/kbd&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td> <pre>Pre-formatted text -
+Leave all
+of this alone
+</pre> </td>
+        <td> <pre>
+&lt;pre&gt;Pre-formatted text -
+Leave all
+of this alone
+&lt;/pre&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td> <pre>Here is a <sub>subscript</sub></pre> </td>
+        <td> <pre>Here is a &lt;sub&gt;subscript&lt;/sub&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td> <pre>Here is a <sup>superscript</sup></pre> </td>
+        <td> <pre>Here is a &lt;sup&gt;superscript&lt;/sup&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td> <address>Contact information</address> </td>
+        <td> <pre>&lt;address&gt;Contact information&lt;/address&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td> <q>A short little quotation</q> </td>
+        <td> <pre>&lt;q&gt;A short little quotation&lt;/q&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td> <blockquote>"Of all life's pleasures, fornication is the most overrated, and defecation the most underrated"</blockquote> </td>
+        <td> <pre>&lt;blockquote&gt;"Of all life's pleasures, fornication is the most overrated,
+and defecation the most underrated"&lt;/blockquote&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td> <bdo dir="rtl">This text will be displayed right-to-left, <bdi>except for this</bdi></bdi></bdo> </td>
+        <td> <pre>&lt;bdo dir="rtl"&gt;This text will be displayed right-to-left, &lt;bdi&gt;except for this&lt;/bdi&gt;&lt;/bdo&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td><abbr title="Hypertext Markup Language">HTML (mouse over to display tooltip)</abbr></td>
+        <td>
+            <pre>
+&lt;abbr title="Hypertext Markup Language"&gt;
+    HTML (mouse over to display tooltip)
+&lt;/abbr&gt;</pre>
+        </td>
+    </tr>
+</table>
+
+<h3>Headers</h3>
+<table>
+    <tr>
+        <td><h1>Title</h1></td>
+        <td> <pre>&lt;h1&gt;Title&lt;/h1&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td><h2>Title</h2></td>
+        <td> <pre>&lt;h2&gt;Title&lt;/h2&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td><h3>Title</h3></td>
+        <td> <pre>&lt;h3&gt;Title&lt;/h3&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td><h4>Title</h4></td>
+        <td> <pre>&lt;h4&gt;Title&lt;/h4&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td><h5>Title</h5></td>
+        <td> <pre>&lt;h5&gt;Title&lt;/h5&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td><h6>Title</h6></td>
+        <td> <pre>&lt;h6&gt;Title&lt;/h6&gt;</pre> </td>
+    </tr>
+</table>
+
+<h3>General Formatting and Organization</h3>
+<table>
+    <tr>
+        <td>
+            HTML will ignore
+            your line breaks
+        </td>
+        <td>
+            <pre>
+HTML will ignore
+your line breaks
+            </pre>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Unless you explicitly<br/>
+            add them.
+        </td>
+        <td>
+            <pre>
+Unless you explicitly &lt;br/&gt; add them.
+            </pre>
+        </td>
+    </tr>
+    <tr>
+        <td><p>Blocks of text are often organized into paragraphs.</p>
+        <p>Paragraphs are usually displayed as distinct units.</p></td>
+        <td><pre>
+&lt;p&gt;Blocks of text are often organized into paragraphs.&lt;/p&gt;
+&lt;p&gt;Paragraphs are usually displayed as distinct units.&lt;/p&gt;
+        </pre></td>
+    </tr>
+    <tr>
+        <td>You can break apart sections<hr/>with horizontal rules</td>
+        <td><pre>You can break apart sections&lt;hr/&gt;with horizontal rules</pre></td>
+    </tr>
+</table>
+
+Styles/Sections
+<!--<style type="text/css">-->
+<!--h1 {color:red;}-->
+<!--p {color:blue;}-->
+<!--</style>-->
+
+<div>A block-level section in a document</div>
+<span>An inline section in a document</span>
+<article>New	Defines an article</article>
+<aside>New	Defines content aside from the page content</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Embedding External Content</h3>
+<table>
+    <tr>
+        <td>
+            <iframe width="320" height="195" src="http://www.youtube.com/embed/lEsPhTbJhuo" seamless></iframe>
+        </td>
+        <td>
+            <pre>
+&lt;iframe width="320" height="195"
+        src="http://www.youtube.com/embed/lEsPhTbJhuo"
+        seamless&gt;
+&lt;/iframe&gt;
+            </pre>
+        </td>
+    </tr>
+</table>
+
+
+
+<h3>Links</h3>
+
+<table>
+    <tr>
+        <td><a id="tips">We can simply mark a section with an ID</a></td>
+        <td><pre>&lt;a id="tips"&gt;We can simply mark a section with an ID&lt;/a&gt;</pre></td>
+    </tr>
+    <tr>
+        <td><a href="#tips">Jump to the section marked with the 'tips' id</a></td>
+        <td><pre>&lt;a href="#tips"&gt;Jump to the section marked with the 'tips' id&lt;/a&gt;</pre></td>
+    </tr>
+    <tr>
+        <td><a href="http://google.com">Click this link to go to Google</a></td>
+        <td> <pre>&lt;a href="http://google.com"&gt;Click this link to go to Google&lt;/a&gt;</pre> </td>
+    </tr>
+    <tr>
+        <td><a href="http://google.com"><img height="135" width="135" src="http://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57723/globe_east_540.jpg" alt="Click me to go to Google"/></a></td>
+        <td><pre>
+&lt;a href="http://google.com"&gt;
+    &lt;img height="135" width="135"
+        src="http://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57723/globe_east_540.jpg"
+        alt="Click me to go to Google"/&gt;
+&lt;/a&gt;</pre></td>
+    </tr>
+    <tr>
+        <td><a href="mailto:guy@example.com">Click this link to open your email client and send an email addressed to guy</a></td>
+        <td> <pre>
+&lt;a href="mailto:guy@example.com"&gt;
+    Click this link to open your email client and send an email addressed to guy
+&lt;/a&gt;</pre></td>
+    </tr>
+</table>
+
+
+
+<h3>Tables</h3>
+
+<table>
+    <tr>
+        <td>
+            <table>
+                <tr>
+                    <td>10</td>
+                    <td>Something</td>
+                </tr>
+                <tr>
+                    <td>20</td>
+                    <td>Something Else</td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <pre>
+&lt;table&gt;
+    &lt;tr&gt;
+        &lt;td&gt;10&lt;/td&gt;
+        &lt;td&gt;Something&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;20&lt;/td&gt;
+        &lt;td&gt;Something Else&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+            </pre>
+        </td>
+    </tr>
+
+</table>
+
+
+<h3>Lists</h3>
+
+<table>
+    <tr>
+        <td>
+            <ul>
+                <li>List Element 1</li>
+                <li>List Element 2</li>
+                <li>List Element 3</li>
+            </ul>
+        </td>
+        <td>
+            <pre>
+&lt;ul&gt;
+    &lt;li&gt;List Element 1&lt;/li&gt;
+    &lt;li&gt;List Element 2&lt;/li&gt;
+    &lt;li&gt;List Element 3&lt;/li&gt;
+&lt;/ul&gt;
+            </pre>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <ol>
+                <li>List Element 1</li>
+                <li>List Element 2</li>
+                <li>List Element 3</li>
+            </ol>
+        </td>
+        <td>
+            <pre>
+&lt;ol&gt;
+    &lt;li&gt;List Element 1&lt;/li&gt;
+    &lt;li&gt;List Element 2&lt;/li&gt;
+    &lt;li&gt;List Element 3&lt;/li&gt;
+&lt;/ol&gt;
+            </pre>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <dl>
+                <dt>Definition 1</dt>
+                <dd>Description 1</dd>
+                <dt>Definition 2</dt>
+                <dd>Description 2</dd>
+                <dt>Definition 3</dt>
+                <dd>Description 3</dd>
+            </dl>
+        </td>
+        <td>
+            <pre>
+&lt;dl&gt;
+    &lt;dt&gt;Definition 1&lt;/dt&gt;
+    &lt;dd&gt;Description 1&lt;/dd&gt;
+    &lt;dt&gt;Definition 2&lt;/dt&gt;
+    &lt;dd&gt;Description 2&lt;/dd&gt;
+    &lt;dt&gt;Definition 3&lt;/dt&gt;
+    &lt;dd&gt;Description 3&lt;/dd&gt;
+&lt;/dl&gt;
+            </pre>
+        </td>
+    </tr>
+</table>
+
+
+<h3>Escape Characters</h3>
+
+<p>A complete list can be found at <a href="http://www.w3schools.com/tags/ref_entities.asp">http://www.w3schools.com/tags/ref_entities.asp</a>
+    and <a href="http://www.w3schools.com/tags/ref_symbols.asp">http://www.w3schools.com/tags/ref_symbols.asp</a>, but here are some of the more commonly used elements:</p>
+
+<table>
+    <tr>
+        <td>&amp;</td>
+        <td>
+            <pre>&amp;amp;</pre>
+        </td>
+    </tr>
+    <tr>
+        <td>&lt;</td>
+        <td>
+            <pre>&amp;lt;</pre>
+        </td>
+    </tr>
+    <tr>
+        <td>&gt;</td>
+        <td>
+            <pre>&amp;gt;</pre>
+        </td>
+    </tr>
+    <tr>
+        <td>&#169;</td>
+        <td>
+            <pre>&amp;#169;</pre>
+        </td>
+    </tr>
+</table>
+
+
+<h3>Forms</h3>
+
+HTML forms enable a user to interact with a server-based web application. The form allows the user to enter input,
+which is then sent back to the server when the user submits the form. A variety of form elements are supported:
+
+<table>
+    <tr>
+        <td>
+            <form method="GET" action="url_which_will_accept_form_input">
+                <input type="checkbox" name="my-checkbox" checked/><br/>
+                <input type="file" name="my-file-chooser"/><br/>
+                <input type="hidden"/><br/>
+                <input type="image"/><br/>
+                <input type="radio"/><br/>
+                <select>
+                    <optgroup label="fruits">
+                        <option>Apples</option>
+                        <option selected="selected">Bananas</option>
+                        <option>Cherries</option>
+                    </optgroup>
+                    <optgroup label="vegetables">
+                        <option>Asparagus</option>
+                        <option>Beets</option>
+                        <option>Carrots</option>
+                    </optgroup>
+                </select><br/>
+                <input type="text" placeholder="Default text" name="blarg" size="40" maxlength="50"><br/>
+                <input type="text" value="Default text" name="email" size="40" maxlength="50"><br/>
+                <input type="password"/><br/>
+                <textarea name="my-textarea" rows="5" cols="40">This is the text</textarea><br/>
+                <input type="button" name="my-button" value="Hello"/><br/>
+                <input type="reset"/><br/>
+                <input type="submit" value="This will trigger form submission to the action URL "/><br/>
+            </form>
+        </td>
+        <td>
+            <pre>
+&lt;form method="GET" action="url_which_will_accept_form_input"&gt;
+    &lt;input type="checkbox" name="my-checkbox" checked/&gt;&lt;br/&gt;
+    &lt;input type="file" name="my-file-chooser"/&gt;&lt;br/&gt;
+    &lt;input type="hidden"/&gt;&lt;br/&gt;
+    &lt;input type="image"/&gt;&lt;br/&gt;
+    &lt;input type="radio"/&gt;&lt;br/&gt;
+    &lt;optgroup label="fruits"&gt;
+        &lt;option&gt;Apples&lt;/option&gt;
+        &lt;option selected="selected"&gt;Bananas&lt;/option&gt;
+        &lt;option&gt;Cherries&lt;/option&gt;
+    &lt;/optgroup&gt;
+    &lt;optgroup label="vegetables"&gt;
+        &lt;option&gt;Asparagus&lt;/option&gt;
+        &lt;option&gt;Beets&lt;/option&gt;
+        &lt;option&gt;Carrots&lt;/option&gt;
+    &lt;/optgroup&gt;
+    &lt;input type="text" Placeholder="Default text" name="email" size="40" maxlength="50"&gt;&lt;br/&gt;
+    &lt;input type="text" value="Default text" name="email" size="40" maxlength="50"&gt;&lt;br/&gt;
+    &lt;input type="password"/&gt;&lt;br/&gt;
+    &lt;textarea name="my-textarea" rows="5" cols="40"&gt;This is the text&lt;/textarea&gt;&lt;br/&gt;
+    &lt;input type="button" name="my-button" value="Hello"/&gt;&lt;br/&gt;
+    &lt;input type="reset"/&gt;&lt;br/&gt;
+    &lt;input type="submit" value="This will trigger form submission to the action URL "/&gt;&lt;br/&gt;
+&lt;/form&gt;
+            </pre>
+        </td>
+    </tr>
+</table>    
+
+
+
+
+<h3>Dynamic HTML</h3>
+
+By combining Javascript with out HTML, we can create a richer, interactive client-side environment.
+
+<table>
+    <tr>
+        <td>
+            <progress max="100" value="33" />
+        </td>
+        <td>
+            <pre>&lt;progress max="100" value="33" /&gt;</pre>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <meter min="10" max="100" value="63" />
+        </td>
+        <td>
+            <pre>&lt;meter min="10" max="100" value="63" /&gt;</pre>
+        </td>
+    </tr>
+</table>
+
+
+<h3>Media</h3>
+
+<table>
+    <tr>
+        <td>
+            <video width="320" height="240" src="http://www.youtube.com/watch?v=lEsPhTbJhuo" controls>
+                'video' tag not supported on this browser
+            </video>
+
+        </td>
+        <td>
+            <pre>
+&lt;video src="http://www.youtube.com/watch?v=lEsPhTbJhuo"
+       controls="controls"&gt;
+    'video' tag not supported on this browser
+&lt;/video&gt;
+            </pre>
+        </td>
+    </tr>
+</table>
+
+
+
+<h3>Canvas</h3>
+
+<table>
+    <tr>
+        <td>
+            <canvas id="graph" width="300" height="300">
+                This text is displayed if your browser does not support HTML5 Canvas.
+            </canvas>
+
+
+            <script type="text/javascript">
+
+                drawLineChart([5, 50, 100, 140, 180], [10, 15, 25, 22, 25], [52, 120, 132]);
+                //drawPieChart();
+
+            </script>
+
+        </td>
+        <td>
+            <canvas id="graph" width="300" height="300">
+                This text is displayed if your browser does not support HTML5 Canvas.
+            </canvas>
+        </td>
+    </tr>
+</table>
+
+
+
+
+<h3>Images and Image Maps</h3>
+
+<img src="../img/SunsetAboveClouds.jpg" height="300" width="500" />
+<!--<map>	Defines a client-side image-map-->
+<!--<area>	Defines an area inside an image-map-->
+
+
+
+
+
+
+
+<!--<audio>New	Defines sound content-->
+<!--<base>	Specifies the base URL/target for all relative URLs in a document-->
+<!--<button>	Defines a clickable button-->
+<!--<caption>	Defines a table caption-->
+<!--<cite>	Defines the title of a work-->
+<!--<col>	Specifies column properties for each column within a <colgroup> element-->
+<!--<colgroup>	Specifies a group of one or more columns in a table for formatting-->
+<!--<command>New	Defines a command button that a user can invoke-->
+<!--<datalist>New	Specifies a list of pre-defined options for input controls-->
+<!--<details>New	Defines additional details that the user can view or hide-->
+<!--<dfn>	Defines a definition term-->
+<!--<dialog>New	Defines a dialog box or window-->
+<!--<embed>New	Defines a container for an external (non-HTML) application-->
+<!--<fieldset>	Groups related elements in a form-->
+<!--<figcaption>New	Defines a caption for a <figure> element-->
+<!--<figure>New	Specifies self-contained content-->
+<!--<footer>New	Defines a footer for a document or section-->
+<!--<header>New	Defines a header for a document or section-->
+<!--<keygen>New	Defines a key-pair generator field (for forms)-->
+<!--<label>	Defines a label for an <input> element-->
+<!--<legend>	Defines a caption for a <fieldset> element-->
+<!--<link>	Defines the relationship between a document and an external resource (most used to link to style sheets)-->
+<!--<meta>	Defines metadata about an HTML document-->
+<!--<nav>New	Defines navigation links-->
+<!--<noscript>	Defines an alternate content for users that do not support client-side scripts-->
+<!--<object>	Defines an embedded object-->
+<!--<output>New	Defines the result of a calculation-->
+<!--<param>	Defines a parameter for an object-->
+<!--<samp>	Defines sample output from a computer program-->
+<!--<script>	Defines a client-side script-->
+<!--<section>New	Defines a section in a document-->
+<!--<source>New	Defines multiple media resources for media elements (<video> and <audio>)-->
+<!--<style>	Defines style information for a document-->
+<!--<summary>New	Defines a visible heading for a <details> element-->
+<!--<tbody>	Groups the body content in a table-->
+<!--<tfoot>	Groups the footer content in a table-->
+<!--<th>	Defines a header cell in a table-->
+<!--<thead>	Groups the header content in a table-->
+<!--<time>New	Defines a date/time-->
+<!--<track>New	Defines text tracks for media elements (<video> and <audio>)-->
+<!--<var>	Defines a variable-->
+<!--<video>New	Defines a video or movie-->
+<!--<wbr>New	Defines a possible line-break-->
+
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="js/plugins.js"></script>
+<script src="js/main.js"></script>
+<script src="js/chart.js"></script>
+
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+<script>
+    var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src='//www.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+</body>
+</html>

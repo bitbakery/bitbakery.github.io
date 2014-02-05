@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Using Clojure</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link href="../css/bitbakery.css" title="primary" rel="stylesheet" type="text/css"/>
+    <script src="../js/vendor/modernizr-2.6.2.min.js"></script>
+</head>
+<body>
+<!--[if lt IE 7]>
+<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to
+    improve your experience.</p>
+<![endif]-->
+
+
+<div class="table-of-contents">
+    <h3><a class="toc" href="#Clojure">Using Clojure</a></h3>
+    <a class="toc" href="#Setup">Basics</a><br />
+    <a class="toc" href="#DataStructures">Data Structures</a><br />
+    <a class="toc" href="#Functions">Functions</a><br />
+    <a class="toc" href="#Macros">Macros</a><br />
+    <a class="toc" href="#Multimethods">Multimethods</a><br />
+    <a class="toc" href="#Protocols">Protocols</a><br />
+</div>
+
+
+
+<h1 id="Clojure">Using Clojure</h1>
+
+<p>Clojure is a dialect of Lisp which runs on the Java virtual machine (JVM). Get the Clojure jar file (available at <a
+        href="http://clojure.org/downloads">http://clojure.org/downloads</a>) and add it to your classpath (as you would
+    for any other Java app).</p>
+
+
+<h3>The Basics</h3>
+
+<p>Running clojure.jar as a Java application from a terminal window brings up a <a class="new-term">read-eval-print loop
+    (REPL)</a> , an interactive command line in which we can evaluate Clojure expressions:</p>
+
+<div class="terminal">
+    <div class="term-in">> java -jar clojure.jar</div>
+    <div class="term-in-alt">Clojure 1.5.1</div>
+    <div class="term-in-alt">user=></div>
+</div>
+
+<p>In Lisp, everything is a statement which can be evaluated. Atoms evaluate to themselves:</p>
+
+<div class="terminal">
+    <div class="term-in-alt">user=> (def x (+ 1 2))</div>
+    <div class="term-out">#'user/x</div>
+    <div class="term-in-alt">user=> x</div>
+    <div class="term-out">3</div>
+    <div class="term-in-alt">user=> 'x</div>
+    <div class="term-out">x</div>
+</div>
+
+<p>Lists are evaluated in a special way: </p>
+
+<p>We can store values in variable, called vars:</p>
+
+<div class="terminal">
+    <div class="term-in-alt">user=> (def x (+ 1 2))</div>
+    <div class="term-out">#'user/x</div>
+    <div class="term-in-alt">user=> x</div>
+    <div class="term-out">3</div>
+    <div class="term-in-alt">user=> 'x</div>
+    <div class="term-out">x</div>
+</div>
+
+
+<h3 id="DataStructures">Data Structures</h3>
+
+<p>The four fundamental built-in collections in Clojure are lists, vectors, sets and maps. The list is the fundamental
+    collection type in Lisp:</p>
+
+<div class="terminal">
+    <div class="term-in-alt">user=> (def my-list '(1 2 :x))</div>
+    <div class="term-out">#'user/my-list</div>
+    <div class="term-in-alt">user=> (nth my-list 2)</div>
+    <div class="term-out">:x</div>
+</div>
+
+<p>Unless we're creating Clojure code, we will typically use a vector:</p>
+
+<div class="terminal">
+    <div class="term-in-alt">user=> (def my-vector [1 2 3 :x])</div>
+    <div class="term-out">#'user/my-vector</div>
+    <div class="term-in-alt">user=> (my-vector 3)</div>
+    <div class="term-out">:x</div>
+    <div class="term-in-alt">user=> (my-vector 4)</div>
+    <div class="term-out">IndexOutOfBoundsException clojure.lang.PersistentVector.arrayFor (PersistentVector.java:107)</div>
+    <div class="term-in-alt">user=> (conj my-vector :y)</div>
+    <div class="term-out">[1 2 3 :x :y]</div>
+    <div class="term-in-alt">user=> my-vector</div>
+    <div class="term-out">[1 2 3 :x]</div>
+</div>
+
+<p>Note that conj did not modify my-vector; rather it returned a new vector. In general, Clojure objects are immutable -
+    once created, they do not change. This enables a more functional programming style, but it does take some getting
+    used to for programmers accustomed to changing state within objects.</p>
+
+
+<div class="terminal">
+    <div class="term-in-alt">user=> (conj [1 2 3] 4)</div>
+    <div class="term-out">[1 2 3 4]</div>
+    <div class="term-in-alt">user=> (conj '(1 2 3) 4)</div>
+    <div class="term-out">(4 1 2 3)</div>
+    <div class="term-in-alt">user=> (conj {:x 1 :y 2} [:z 3])</div>
+    <div class="term-out">{:z 3, :y 2, :x 1}</div>
+</div>
+
+<h3>Variables and Immutability</h3>
+
+
+<h3>Sequences</h3>
+
+<p>Clojure provides a lovely abstraction on top of any data structure that contain sequential data, called a <a
+        class="new-term">sequence</a>, or <a class="new-term">seq</a>:</p>
+
+<div class="terminal">
+
+</div>
+
+<p>Clojure sequences have some handy properties. First, they enable us to define functions which work the same against
+    vectors and XML input streams and SQL data sets. Anyone who has used Common Lisp will appreciate the value of a
+    common API for sequential data. Second, we can have lazy sequences - sequences whose elemenst are only evaluated as
+    needed, meaning that we can define infinite sequences (such as the sequence of all integers).</p>
+
+
+<h3 id="Functions">Functions</h3>
+
+<p>So far we've been using a number of Clojure's functions. We can also create our own functions. In Lisp, a function is
+    defined with the special form 'fn', which takes a vector of zero or more parameters, followed by one or more
+    expressions which make up the body of the function. When a function is evaluated, all of the expressions in the body
+    of the
+    function will be evaluated in turn, and the value of the last expression will be returned as the value of the
+    function.</p>
+
+<div class="terminal">
+    <div class="term-in-alt">user=> (def add1 (fn [x] (+ 1 x)))</div>
+    <div class="term-out">#'user/add1</div>
+    <div class="term-in-alt">user=> (add1 3)</div>
+    <div class="term-out">4</div>
+</div>
+
+<p>Note what just happened: we created a 'function' object, which we then assigned to the variable add1. Creating a
+    function uses the special form 'fn', which takes a vector of parameters, followed by one or more expressions which
+    make up
+    the body of the function. We'll do this often enough that we have a special macro for doing so:</p>
+
+<div class="terminal">
+    <div class="term-in-alt">user=> (defn add1 [x] (+ 1 x))</div>
+    <div class="term-out">#'user/add1</div>
+</div>
+
+We can overload function definitions by adding multiple implementations, which are differentiated by their parameter
+lists (note that this is how we can
+
+<div class="terminal">
+    <div class="term-in-alt">user=> (defn hello</div>
+    <div class="term-in-alt">         ([] (str "Hello!"))</div>
+    <div class="term-in-alt">         ([name] (str "Hello, " name "!")))</div>
+    <div class="term-out">#'user/hello</div>
+    <div class="term-in-alt">user=> (hello)</div>
+    <div class="term-out">"Hello!"</div>
+    <div class="term-in-alt">user=> (hello "Tim")</div>
+    <div class="term-out">"Hello, Tim!"</div>
+</div>
+
+<p>Because functions are themselves objects, we can pass them to an expression or return them from an expression just like
+we pass around numbers and strings:</p>
+
+<div class="terminal">
+    <div class="term-in-alt">user=> (def make-adder (fn [n] (fn [x] (+ n x))))</div>
+    <div class="term-out">#'user/make-adder</div>
+    <div class="term-in-alt">user=> (def add1 (make-adder 1))</div>
+    <div class="term-out">#'user/add1</div>
+    <div class="term-in-alt">user=> (add1 3)</div>
+    <div class="term-out">4</div>
+    <div class="term-in-alt">user=> ((make-adder 10) 1)</div>
+    <div class="term-out">11</div>
+</div>
+
+<p>Because it's so common in Lisp to create little functions here and there and pass them around, Clojure provides
+a special shorthand for doing so:</p>
+
+<div class="terminal">
+    <div class="term-in-alt">user=> (def add1 #(+ 1 %))</div>
+    <div class="term-out">#'user/add1</div>
+    <div class="term-in-alt">user=> (add1 3)</div>
+    <div class="term-out">4</div>
+</div>
+
+Optional arguments - default arguments
+Keyword arguments?
+Rest arguments
+Destructuring arguments
+
+<h3>Locals</h3>
+
+<h3>Closures</h3>
+
+
+<h3 id="Macros">Macros</h3>
+
+<p>All programming languages contain a number of special forms - constructs which don't follow the normal evaluation
+    rules. A simple example is the 'if' statement - if the 'if' statement evaluated all of its arguments before
+    returning a
+    value, it wouldn't operate the way we need it to. To create a special form requires the ability to write code which
+    is
+    evaluated at compile-time, generating code which in turn is evaluated at runtime. In Lisp, we can do this with a
+    <i class="new-term ">macro</i>:</p>
+
+<div class="terminal">
+    <div class="term-in-alt">user=> (defmacro rev [x y z] (list z x y))</div>
+    <div class="term-out">#'user/rev</div>
+    <div class="term-in-alt">user=> (rev 3 2 +)</div>
+    <div class="term-out">5</div>
+</div>
+
+<p>Many other programming languages provide metaprogramming facilities, but the beauty of Lisp is that Lisp code is
+    essentially syntax-free. In other words, Lisp code is its own abstract syntax tree. This makes metaprogramming
+    easier because Lisp macros look more or less just like Lisp functions. Having said this, it can get a bit clunky
+    assembling all those lists by hand, so Clojure provides a simple template language:</p>
+
+<ul>
+    <li>' Shut off evaluation</li>
+    <li>` Shut off evaluation, but allow for ~ and ~@</li>
+    <li>~ Replace with the value</li>
+    <li>~@ Splice in the values of a list</li>
+</ul>
+
+<p>Revisiting our previous example using our template language, we write:</p>
+
+<div class="terminal">
+    <div class="term-in-alt">user=> (defmacro rev [x y z] `(~z ~x ~y))</div>
+    <div class="term-out">#'user/rev</div>
+    <div class="term-in-alt">user=> (rev 3 2 +)</div>
+    <div class="term-out">5</div>
+</div>
+
+<p>We can better appreciate the macro template language with a less trivial example:</p>
+
+<div class="terminal">
+    <div class="term-in-alt">user=> (defmacro rev [x y z] `(~z ~x ~y))</div>
+    <div class="term-out">#'user/rev</div>
+    <div class="term-in-alt">user=> (rev 3 2 +)</div>
+    <div class="term-out">5</div>
+</div>
+
+<p>Note that we have a problem here - the macro is expanded at compile time, meaning that any names we've defined within
+    the body of our macro could collide with names defined within whatever scope our macro is being evaluated. What we
+    need is a way to create generated symbols (called gensyms), which are guaranteed to not collide with any defined
+    names. Clojure provides a nice shorthand for doing this:</p>
+
+
+<p>Interestingly, we can intentionally capture names as a desired side effect:</p>
+
+<div class="terminal">
+</div>
+
+
+<p>Writing macros is an art unto its own, different from most of the programming you've probably done in the past. For
+    more info, read <a href="http://lib.store.yahoo.net/lib/paulgraham/onlisp.pdf">On Lisp [PDF]</a> by Paul Graham.</p>
+
+
+<h3>Java Interoperability</h3>
+
+
+<h3>Common Library Functions</h3>
+
+<h5>String Manipulation</h5>
+
+<h3>Concurrency</h3>
+
+
+<h3>clojure.core</h3>
+
+
+<h3>Leiningen</h3>
+
+<p><a href="http://leiningen.org/">Leiningen</a> is Clojure's very powerful project and dependency management tool which runs on top of Maven</p>
+
+<p>project.clj</p>
+
+<p>Heroku recognizes Leiningen-based projects...</p>
+
+<h3>Compojure</h3>
+
+<p>Compojure is the most popular framework in use for writing Clojure-based </p>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="../js/plugins.js"></script>
+<script src="../js/main.js"></script>
+
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+<script>
+    var _gaq = [
+        ['_setAccount', 'UA-XXXXX-X'],
+        ['_trackPageview']
+    ];
+    (function (d, t) {
+        var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+        g.src = '//www.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g, s)
+    }(document, 'script'));
+</script>
+</body>
+</html>

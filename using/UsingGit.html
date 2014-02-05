@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Using Git</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link href="../css/bitbakery.css" title="primary" rel="stylesheet" type="text/css"/>
+    <script src="../js/vendor/modernizr-2.6.2.min.js"></script>
+</head>
+
+<body>
+<!--[if lt IE 7]>
+<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+<![endif]-->
+
+<div class="table-of-contents">
+    <h3><a class="toc" href="#Git">Git</a><br /></h3>
+
+    <!-- We start with a focus on the individual, showing the commit/branch/merge/tag history graph as we go -->
+    <a class="toc" href="#Setup">Setup - Download, Install and Config</a><br />
+    <a class="toc" href="#Create">git init - Create a new repo</a><br /> <!-- First show that we would ordinarily -->
+    <a class="toc" href="#Add">git add - Adding and editing files</a><br /> <!-- (show status and log) -->
+    <a class="toc" href="#Commit">git commit - Committing your changes</a><br /> <!-- (include a view of what just happened - status and log) -->
+    <a class="toc" href="#Remove">git rm - Removing files</a><br /> <!-- (include remove --cached) -->
+    <a class="toc" href="#Move">git mv - Moving and renaming files</a><br /> <!-- Show how this is really just rm then add, because Git doe NOT care about individual files!! -->
+    <a class="toc" href="#Reset">git reset - Reverting changes</a><br /> <!-- (include reset --hard) -->
+
+    <a class="toc" href="#Philosophy">How Git views the world</a><br />
+    <a class="toc" href="#Branch">git branch</a><br /> <!-- Creating, switching (checkout), and removing branches (show graph, and explain that we shouldn't get confused by uncommitted local changes) -->
+    <a class="toc" href="#Branch">git checkout</a><br />
+    <!-- TODO - git diff -->
+
+    <a class="toc" href="#Merge">git diff</a><br />
+    <a class="toc" href="#Merge">git merge</a><br /> <!-- (include reset --merge, and merge --squash  - and show graph!) -->
+    <a class="toc" href="#ResolvingConflicts">Resolving Conflicts</a><br /> <!-- show how this is done, including cherry-picking (include mergetool, w/ Araxis Merge) -->
+    <a class="toc" href="#Rebase">git rebase</a><br /> <!-- changing commit messages, reordering commits, squashing commits, splitting commits (show graph!) -->
+    <a class="toc" href="#Stash">git stash</a><br />
+    <a class="toc" href="#Tag">git tag (show graph!)</a><br />
+    <a class="toc" href="#DeveloperWorkflow">Developer Workflow</a><br /> <!-- (stash, pull, topic branch (merge up from ->master->branch as needed), add & commit..., squash commits, rebase, fast-forward merge) -->
+    <!-- TODO - Something about hooks, perhaps? Show the post-commit music script? -->
+
+    <!-- We then show how we collaborate across repos - and that we merge "remote" branches just like we merge local
+          branches (you can show this with merging REPO A: 1 <-- 2 <-- 3 master with REPO B: 1 <-- 2 <-- 4 master) -->
+
+    <a class="toc" href="#Clone">git clone</a><br />    <!-- Explain local vs. remote branches -->
+    <a class="toc" href="#Remote">git remote</a><br />
+    <a class="toc" href="#Fetch">git fetch</a><br />
+    <a class="toc" href="#Pull">git pull</a><br />
+
+
+    <a class="toc" href="#DefiningWorkflow">Team Workflow</a><br />
+    <a class="toc" href="#Headless">git init --bare</a><br /> <!-- Create a headless repo for the team -->
+    <a class="toc" href="#Push">git push</a><br />
+
+
+    <a class="toc" href="#DefiningWorkflow">Organizational Workflow</a><br /> <!-- (describe release mgmt scenarios (e.g., removing a feature) -->
+    <a class="toc" href="#DeveloperTools">git bisect</a><br /> <!-- (bisect start, bisect run my-script.sh), also git log options... -->
+    <a class="toc" href="#DeveloperTools">git blame</a><br />
+    <a class="toc" href="#Admin">git fsck</a><br />
+    <a class="toc" href="#Admin">git gc</a><br />
+
+
+    <h3><a class="toc" href="#GitHub">GitHub</a><br /></h3>
+    <a class="toc" href="#PullRequest">Pull Request</a><br />
+    <a class="toc" href="#Fork">Fork</a><br />
+    <a class="toc" href="#DefiningWorkflow">Organizational Workflow with GitHub</a>
+</div>
+
+
+<h1 id="Git">Using Git</h1>
+
+<p>Git is a distributed version control system (DVCS), providing speed and power for individual
+    users while providing flexibility for groups to choose how they want to collaborate.</p>
+
+<!-- TODO - Show a picture of a commit graph -->
+
+<!-- TODO - There are some worthwhile additions in here
+It's just that easy - and note that we could have started in a directory already filled with a bunch of stuff. Git never
+forces you to "do things the right way" up front. In fact, Git doesn't force you to do much at all.
+
+But what if we just started at Zippy Zoomy Fly Inc, and we want to begin working on that new feature for which we were
+hired? With CVS, or SVN, or Clearcase, or a million other tools, we'd do an initial "checkout" from the central
+repository, In Git world there is no central repository - each and every Git repo - including yours - has all the
+history for a given project.
+
+
+
+
+-->
+
+
+<h3 id="Setup">Setup</h3>
+
+<p>The first step is to download and install Git:</p>
+
+<table>
+    <tr>
+        <td>Windows</td>
+        <td><a class="code" href="http://msysgit.github.com">http://msysgit.github.com</a></td>
+    </tr>
+    <tr>
+        <td>Linux</td>
+        <td><a class="code">apt-get install git</a> (or whichever package manager you use)</td>
+    </tr>
+    <tr>
+        <td>Mac OS X</td>
+        <td><a class="code">brew install git</a> (assuming you already have Homebrew)</td>
+    </tr>
+</table>
+
+<p>You can also visit the official download page at <a class="code" href="http://git-scm.com/download">http://git-scm.com/download</a>
+    for additional options and platforms. Once we've confirmed that Git has been installed, we'll let it know who we
+    are, and confirm that our settings have been saved:</p>
+
+<div class="terminal">
+    <div class="term-in">> git --version</div>
+    <div class="term-out">git version 1.8.3.1</div>
+    <div class="term-in">> git config --global user.name "Kurt Christensen"</div>
+    <div class="term-in">> git config --global user.email kurtc@bitbakery.com</div>
+    <div class="term-in">> git config -l</div>
+    <div class="term-out">user.name=Kurt Christensen</div>
+    <div class="term-out">user.email=kurtc@bitbakery.com</div>
+</div>
+
+<p>There are additional Git environment variables we could set, but this will be sufficient. These settings are stored
+    in <a class="code">~/.gitconfig</a>, which you can edit manually.</p>
+
+
+<h3 id="Clone">Clone an Existing Repository</h3>
+
+<!-- TODO - Point out that 'clone' is really just init + fetch. And this should come later... -->
+<p>Git is a distributed version control system, so to start working with an existing repository, we must actually <a
+    class="new-term">clone</a> that repository into our local development environment. </p>
+
+<div class="terminal">
+    <div class="term-in">> git clone https://github.com/projectileboy/Using.git</div>
+    <div class="term-out">Cloning into 'Using'...</div>
+    <div class="term-out">remote: Counting objects: 94, done.</div>
+    <div class="term-out">remote: Compressing objects: 100% (72/72), done.</div>
+    <div class="term-out">remote: Total 94 (delta 17), reused 89 (delta 12)</div>
+    <div class="term-out">Unpacking objects: 100% (94/94), done.</div>
+</div>
+
+<p>Here we cloned using an HTTPS connection, but other protocols can be used. Git has its own protocol (communicating on
+    port 9418), but probably the most common method is to use SSH - using SSH will save you from entering your username
+    and password in certain circumstances.</p>
+
+
+<h3 id="Create">Create a Repository</h3>
+
+<p>We can also simply create a local repository from scratch:</p>
+
+<div class="terminal">
+    <div class="term-in">> mkdir -p ~/alpha/git-repo</div>
+    <div class="term-in">> cd alpha/git-repo/</div>
+    <div class="term-in">> git init</div>
+    <div class="term-out">Initialized empty Git repository in /Users/kurtc/alpha/git-repo/.git/</div>
+</div>
+
+<p>Note that we could have created our new repo in a directory that already contained files; we simply chose to start
+    with an empty directory. It bears repeating that we're not somehow missing something just because we created our
+    repository locally - we have the full power of Git available to us, right on our own machine. For people
+    unaccustomed to working with distributed version control systems, this can take a while to absorb: for a given
+    codebase, no Git repo is inherently more or less important than any other repo (in fact, the <a
+            class="code">clone</a> command is simply a combination of <a class="code">init</a> and <a
+            class="code">fetch</a>). </p>
+
+
+<h3 id="Add">Adding Files</h3>
+
+<p>We'll start by creating a file and adding it to our repo, and see what happens:</p>
+
+<div class="terminal">
+    <div class="term-in">> echo "a" > a.txt</div>
+    <div class="term-in">> git add .</div>
+    <div class="term-in">> git status</div>
+    <div class="term-out"># On branch master</div>
+    <div class="term-out">#</div>
+    <div class="term-out"># Initial commit</div>
+    <div class="term-out">#</div>
+    <div class="term-out"># Changes to be committed:</div>
+    <div class="term-out"># (use "git rm --cached &lt;file&gt;..." to unstage)</div>
+    <div class="term-out">#</div>
+    <div class="term-out"># new file: a.txt</div>
+    <div class="term-out">#</div>
+</div>
+
+<!-- TODO - Need to explain about the staging area (aka index) -->
+
+<p>Notice that <a class="code">a.txt</a> is no longer untracked - is has been added to the <a class="new-term">staging
+    area</a> (also called the <a class="new-term">index</a>). Whenever we do add, edit, move or remove files in Git,
+    these changes are not immediately committed to the repo, but exist only in the staging area, which enables us to
+    pick and choose what exactly gets committed to our local Git repo, and when. The staging area also lets us easily
+    revert any changes without ever having touched our repo.</p>
+
+<p>We'll learn more about the staging area as we go, but for now, note that git status indicated that it hasn't yet been
+    saved within our repository, which we can confirm by checking the commit log:</p>
+
+<div class="terminal">
+    <div class="term-in">> git log</div>
+    <div class="term-out">fatal: bad default revision 'HEAD'</div>
+</div>
+
+<p id="Commit">That looks scary, but it isn't surprising. As with other version control systems, we must explicitly commit
+    any changes we wish to save:</p>
+
+<div class="terminal">
+    <div class="term-in">> git commit -m "Added a.txt to master branch in alpha repo"</div>
+    <div class="term-out">[master (root-commit) 00d110d] Added a.txt to master branch in alpha repo</div>
+    <div class="term-out">1 file changed, 1 insertion(+)</div>
+    <div class="term-out">create mode 100644 a.txt</div>
+</div>
+
+<p>At this point we can verify thet nothing is lingeirng in the staging area, and that <a class="code">a.txt</a> has
+    actually been committed:</p>
+
+<div class="terminal">
+    <div class="term-in">> git status</div>
+    <div class="term-out"># On branch master</div>
+    <div class="term-out">nothing to commit, working directory clean</div>
+    <div class="term-in">> git log</div>
+    <div class="term-out">commit 00d110dfb187371c60bcd485c124162361098a3b</div>
+    <div class="term-out">Author: Kurt Christensen &lt;kurtc@bitbakery.com&gt;</div>
+    <div class="term-out">Date: Thu Sep 5 15:52:09 2013 -0500</div>
+    <div class="term-out"></div>
+    <div class="term-out">Added a.txt to master branch in alpha repo</div>
+</div>
+
+<p><a class="code">git status</a> told us what branch we're looking at, what the most recent commit was, and what files
+    it sees that are 'untracked' - files and or directories that our Git repo is not yet aware of. Let's add <a
+            class="code">a.txt</a> (we'll actually use a shorthand that adds all new or modified files in the current
+    directory (including subdirectories)):</p>
+
+<!--
+********************************************************************************************
+Remove
+********************************************************************************************
+-->
+<div class="terminal">
+<div class="term-in">> echo "b" > b.txt</div>
+<div class="term-in">> git add .</div>
+<div class="term-in">> git commit -m "Added b.txt to master branch in alpha repo"</div>
+<div class="term-out">[master e29b824] Added b.txt to master branch in alpha repo</div>
+<div class="term-out">1 file changed, 1 insertion(+)</div>
+<div class="term-out">create mode 100644 b.txt</div>
+<div class="term-in">> git rm b.txt</div>
+<div class="term-out">rm 'b.txt'</div>
+<div class="term-in">> git status</div>
+<div class="term-out"># On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	deleted:    b.txt
+#</div>
+<div class="term-in">> git commit -m "Removed b.txt from master branch in alpha repo"</div>
+<div class="term-out">[master a880e1a] Removed b.txt from master branch in alpha repo</div>
+<div class="term-out">1 file changed, 1 deletion(-)</div>
+<div class="term-out">delete mode 100644 b.txt</div>
+<div class="term-in">> git log</div>
+<div class="term-out">commit a880e1a62effabc8d2c9f8fcffcdaa6ac9827d84</div>
+<div class="term-out">Author: Kurt Christensen &lt;kurtc@bitbakery.com></div>
+<div class="term-out">Date:   Thu Sep 5 15:54:02 2013 -0500</div>
+<div class="term-out"></div>
+<div class="term-out">Removed b.txt from master branch in alpha repo</div>
+<div class="term-out"></div>
+<div class="term-out">commit e29b824e8fb2049d76c7c67c159f1dfcd8c9e834</div>
+<div class="term-out">Author: Kurt Christensen &lt;kurtc@bitbakery.com></div>
+<div class="term-out">Date:   Thu Sep 5 15:53:20 2013 -0500</div>
+<div class="term-out"></div>
+<div class="term-out">Added b.txt to master branch in alpha repo</div>
+<div class="term-out"></div>
+<div class="term-out">commit 00d110dfb187371c60bcd485c124162361098a3b</div>
+<div class="term-out">Author: Kurt Christensen &lt;kurtc@bitbakery.com&gt;</div>
+<div class="term-out">Date:   Thu Sep 5 15:52:09 2013 -0500</div>
+<div class="term-out"></div>
+<div class="term-out">Added a.txt to master branch in alpha repo</div>
+<div class="term-out"></div>
+</div>
+
+<!--
+********************************************************************************************
+Reset --hard to delete history
+********************************************************************************************
+-->
+<div class="terminal">
+<div class="term-in">> git reset --hard HEAD~2</div>
+<div class="term-out">HEAD is now at 00d110d Added a.txt to master branch in alpha repo
+Valhalla:git-repo kurtc$ git log
+commit 00d110dfb187371c60bcd485c124162361098a3b
+Author: Kurt Christensen <kurtc@bitbakery.com>
+Date:   Thu Sep 5 15:52:09 2013 -0500
+
+Added a.txt to master branch in alpha repo</div>
+</div>
+<!--
+********************************************************************************************
+Branching and merging
+********************************************************************************************
+-->
+
+<div class="terminal">
+<div class="term-in">> git branch new-stuff</div>
+<div class="term-in">> git checkout new-stuff</div>
+<div class="term-out">Switched to branch 'new-stuff'</div>
+<div class="term-in">> git branch</div>
+<div class="term-out">master
+* new-stuff</div>
+<div class="term-in">> echo "b" > b.txt
+> git add .
+> git commit -m "Added b.txt to new-stuff branch in alpha repo"</div>
+<div class="term-out">[new-stuff feeb9fe] Added b.txt to new-stuff branch in alpha repo
+1 file changed, 1 insertion(+)
+create mode 100644 b.txt
+Valhalla:git-repo kurtc$ git checkout master
+Switched to branch 'master'</div>
+<div class="term-in">> echo "c" > c.txt
+> git add .
+> git commit -m "Added c.txt to master branch in alpha repo"</div>
+<div class="term-out">[master 4b93612] Added c.txt to master branch in alpha repo
+1 file changed, 1 insertion(+)
+create mode 100644 c.txt</div>
+<div class="term-in">> git merge new-stuff -m "Merged new-stuff branch into master"</div>
+<div class="term-out">Merge made by the 'recursive' strategy.
+b.txt | 1 +
+1 file changed, 1 insertion(+)
+create mode 100644 b.txt
+Valhalla:git-repo kurtc$ git log
+commit d5834b1e7710eac2779b49ea99ceed1591c6b8e9
+Merge: 4b93612 feeb9fe
+Author: Kurt Christensen <kurtc@bitbakery.com>
+Date:   Thu Sep 5 16:07:20 2013 -0500
+
+Merged new-stuff branch into master
+
+commit 4b93612fafd61298e88e051f540f2c0b6100c01a
+Author: Kurt Christensen <kurtc@bitbakery.com>
+Date:   Thu Sep 5 16:01:34 2013 -0500
+
+Added c.txt to master branch in alpha repo
+
+commit feeb9fef2fcab00667d97fd35ed4223883fca6cd
+Author: Kurt Christensen <kurtc@bitbakery.com>
+Date:   Thu Sep 5 15:59:48 2013 -0500
+
+Added b.txt to new-stuff branch in alpha repo
+
+commit 00d110dfb187371c60bcd485c124162361098a3b
+Author: Kurt Christensen <kurtc@bitbakery.com>
+Date:   Thu Sep 5 15:52:09 2013 -0500
+
+Added a.txt to master branch in alpha repo</div>
+</div>
+
+
+
+<!--
+********************************************************************************************
+Resolving conflicts on merge
+********************************************************************************************
+-->
+
+<div class="terminal">
+<div class="term-in">> git checkout -b conflicting-changes</div>
+<div class="term-out">Switched to a new branch 'conflicting-changes'</div>
+<div class="term-in">> echo "extra line added to a.txt on conflicting-changes" > a.txt</div>
+<div class="term-in">> git commit -a -m "Modified a.txt on conflicting-changes in alpha repo"</div>
+<div class="term-out">[conflicting-changes ce9f94c] Modified a.txt on conflicting-changes in alpha repo
+1 file changed, 1 insertion(+), 1 deletion(-)</div>
+<div class="term-in">> git checkout master</div>
+<div class="term-out">Switched to branch 'master'</div>
+<div class="term-in">> echo "extra line added to a.txt on master" > a.txt</div>
+<div class="term-in">> git commit -a -m "Modified a.txt on master in alpha repo"</div>
+<div class="term-out">[master 18a48d9] Modified a.txt on master in alpha repo
+1 file changed, 1 insertion(+), 1 deletion(-)</div>
+<div class="term-in">> git merge conflicting-changes -m "Merged conflicting-changes into master in alpha repo"</div>
+<div class="term-out">Auto-merging a.txt
+CONFLICT (content): Merge conflict in a.txt
+Automatic merge failed; fix conflicts and then commit the result.
+> cat a.txt
+<<<<<<< HEAD
+extra line added to a.txt on master
+=======
+extra line added to a.txt on conflicting-changes
+>>>>>>> conflicting-changes</div>
+<div class="term-in">> vi a.txt</div>
+<div class="term-in">> cat a.txt</div>
+<div class="term-out">We added this line on master
+And we merged in this line from conflicting-changes</div>
+<div class="term-in">> git status</div>
+<div class="term-out"># On branch master
+# You have unmerged paths.
+#   (fix conflicts and run "git commit")
+#
+# Unmerged paths:
+#   (use "git add <file>..." to mark resolution)
+#
+#	both modified:      a.txt
+#
+no changes added to commit (use "git add" and/or "git commit -a")</div>
+<div class="term-in">> git commit -a -m "Merged conflicting-changes into master in alpha repo"</div>
+<div class="term-out">[master 668cb00] Merged conflicting-changes into master in alpha repo</div>
+<div class="term-in">> git branch -d conflicting-changes</div>
+<div class="term-out">Deleted branch conflicting-changes (was ce9f94c).</div>
+<div class="term-in">> git branch</div>
+<div class="term-out">* master</div>
+<div class="term-in">> git log</div>
+<div class="term-out">commit 668cb00ded51ea8d764bc5ecc0d777d9a6e68877
+Merge: 18a48d9 ce9f94c
+Author: Kurt Christensen &lt;kurtc@bitbakery.com&gt;
+Date:   Thu Sep 5 16:26:33 2013 -0500
+
+Merged conflicting-changes into master in alpha repo
+
+commit 18a48d9f33dfec6c5bf911ca390b3bb9e56f875b
+Author: Kurt Christensen &lt;kurtc@bitbakery.com&gt;
+Date:   Thu Sep 5 16:20:26 2013 -0500
+
+Modified a.txt on master in alpha repo
+
+commit ce9f94ceb39d2d3e1954c3d0511f2137a0392aa7
+Author: Kurt Christensen &lt;kurtc@bitbakery.com&gt;
+Date:   Thu Sep 5 16:19:39 2013 -0500
+
+Modified a.txt on conflicting-changes in alpha repo
+
+commit d5834b1e7710eac2779b49ea99ceed1591c6b8e9
+Merge: 4b93612 feeb9fe
+Author: Kurt Christensen &lt;kurtc@bitbakery.com&gt;
+Date:   Thu Sep 5 16:07:20 2013 -0500
+
+Merged new-stuff branch into master
+
+commit 4b93612fafd61298e88e051f540f2c0b6100c01a
+Author: Kurt Christensen &lt;kurtc@bitbakery.com&gt;
+Date:   Thu Sep 5 16:01:34 2013 -0500
+
+Added c.txt to master branch in alpha repo
+
+commit feeb9fef2fcab00667d97fd35ed4223883fca6cd
+Author: Kurt Christensen &lt;kurtc@bitbakery.com&gt;
+Date:   Thu Sep 5 15:59:48 2013 -0500
+Valhalla:git-repo kurtc$</div>
+
+</div>
+
+
+
+
+
+
+
+Valhalla:~ kurtc$ mkdir -p ~/beta
+Valhalla:~ kurtc$ cd beta
+Valhalla:beta kurtc$ git clone ~/alpha/git-repo
+Cloning into 'git-repo'...
+done.
+Valhalla:beta kurtc$ cd git-repo/
+Valhalla:git-repo kurtc$ git remote
+origin
+Valhalla:git-repo kurtc$ git remote -v
+origin	/Users/kurtc/alpha/git-repo (fetch)
+origin	/Users/kurtc/alpha/git-repo (push)
+Valhalla:git-repo kurtc$ ll
+total 24
+drwxr-xr-x  12 kurtc  staff  408 Sep  6 00:34 .git/
+-rw-r--r--   1 kurtc  staff   81 Sep  6 00:34 a.txt
+-rw-r--r--   1 kurtc  staff    2 Sep  6 00:34 b.txt
+-rw-r--r--   1 kurtc  staff    2 Sep  6 00:34 c.txt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- TODO - Possibly helpful additions...
+Simple Operations: Update, Add, Remove, Commit
+
+Note that at this point, nothing has been committed to our repo. Instead, the changes are being tracked in the index,
+also called the staging area:
+> git status
+
+
+And now if we commit our changes...
+> git commit
+
+...we'll see that our changes have actually been merged into the repository, and our index is now clear:
+> git log
+> git status
+-->
+
+
+
+<p>Note that our entire commit has been marked with a globally unique identifier. We'll see later that this enables us
+    to share our work with others, but for now we should note that this reflects a certain philosophy of version control
+    that differs from Subversion and other file-based systems - that the state of any given file is unimportant; rather
+    what matters is the state of the entire project at a particular point in time.</p>
+
+<!-- TODO - Add picture showing the commit tree! -->
+
+
+<p>Let's review what has happened thus far, because if you don't understand how Git works, it will be hard for you
+    to ever really use it effectively. When we first created a.txt, it was not part of our Git repo. Running git status
+    told us this explicitly - Git saw it as an "untracked file". In order to add a.txt to out repo, we added it with git add.
+    Running git status </p>
+
+<h3 id="Pull">Sharing Changes</h3>
+
+<!-- TODO - Add picture showing the commit tree! -->
+
+<p>Any version control system that only lets us work with our local repository will be of limited utility - what we'd
+really like is to be able to share our changes with other developers. In order for another developer to contribute
+to our project, the first thing they'll need to do is clone our repo. Ordinarily this would be done over a network,
+but for now we'll simply clone our repo into a different spot in our filesystem:</p>
+
+<div class="terminal terminal-alt">
+    <div class="term-in">> mkdir ~/BETA/</div>
+    <div class="term-in">> cd ~/BETA/</div>
+    <div class="term-in">> git clone ~/playground/</div>
+    <div class="term-out">Cloning into 'playground'...</div>
+    <div class="term-out">done.</div>
+    <div class="term-in">> ll</div>
+    <div class="term-out">total 0</div>
+    <div class="term-out">drwxr-xr-x  4 kurtc  staff  136 Aug  7 09:31 playground/</div>
+</div>
+
+<p>When we say that we clone the repository, we mean that quite literally - our new BETA clone of the original
+    playground repo is (for the moment), identical to the original repo, with all of the same commit history.
+    (The actual picture is a bit more complicated, in that we cloned a particular branch of the repo (the master, in
+    this case), ignoring any other branches that might have existed in the original playground repo. We'll look into
+    this more later, but for now we simplify things, and in any case, for the master branch, we have created a perfect
+    clone.)</p>
+
+<p>Because we cloned our new repo from the original repo at ~/playground, Git assumes that in the future we will want
+    to fetch updates from that repo. Consequently, when we clone a repo, Git specifies the source as a remote repository
+    with which we're connected - more specifically, Git marks it as the origin:</p>
+
+<div class="terminal terminal-alt">
+    <div class="term-in">> git remote -v</div>
+    <div class="term-out">origin  /Users/kurtc/playground/ (fetch)</div>
+    <div class="term-out">origin  /Users/kurtc/playground/ (push)</div>
+</div>
+
+<p>The -v flag we passed to the git remote command gives us a little more information (namely, the URL of the remote
+repo). An interesting thing to note here is that we can specify additional remote repos. This might seem strange,
+but in fact is quite common. For example, developer A and developer B may both be working with clones from a repository
+which everyone defines as the central team repo. There may be occasions where developer A and developer B would like
+to push and pull changes from one another, before sharing their collective changes with the rest of the team.</p>
+
+<p>To collaborate, we can pull (that is, fetch and merge) each others' changes as they become available. To illustrate,
+let's start by adding a new file (b.txt) in the BETA/playground repo:</p>
+
+<div class="terminal terminal-alt">
+    <div class="term-in">> vi b.txt</div>
+    <div class="term-in">> git add .</div>
+    <div class="term-in">> git commit -m "Added all the great stuff in b.txt"</div>
+    <div class="term-out">[master ef651bf] Added all the great stuff in b.txt</div>
+    <div class="term-out">1 file changed, 2 insertions(+)</div>
+    <div class="term-out">create mode 100644 b.txt</div>
+</div>
+
+<p>And now let's add another file (c.txt) in our original playground repo:</p>
+
+<div class="terminal">
+    <div class="term-in">> cd ~/playground</div>
+    <div class="term-in">> vi c.txt</div>
+    <div class="term-in">> git add .</div>
+    <div class="term-in">> git commit -m "Added c.txt from ~/playground"</div>
+    <div class="term-out">[master c1d2c78] Added c.txt from ~/playground</div>
+    <div class="term-out">1 file changed, 2 insertions(+)</div>
+    <div class="term-out">create mode 100644 c.txt</div>
+    <div class="term-out">&nbsp;</div>
+</div>
+
+<p>At this point, in order to establish a truly peer-to-peer relationship between our BETA/playground repo and the
+original playground repo from which BETA was cloned, we'll explicitly add BETA as a remote repo for the original
+playground repo:</p>
+
+<div class="terminal">
+    <div class="term-in">> git remote add BETA ~/BETA/playground</div>
+    <div class="term-in">> git remote -v</div>
+    <div class="term-out">BETA	/Users/kurtc/BETA/playground (fetch)</div>
+    <div class="term-out">BETA	/Users/kurtc/BETA/playground (push)</div>
+</div>
+
+<p>git pull fetches any changes (since the last time we pulled) from a remote repo, and attempts to automatically
+merge those changes into our local repo. By default, git pull will look for a remote named 'origin', and will pull </p>
+<div class="terminal">
+    <div class="term-in">> git pull BETA master</div>
+    <div class="term-out">From /Users/kurtc/BETA/playground</div>
+    <div class="term-out">* branch master -> FETCH_HEAD</div>
+    <div class="term-out">Merge made by the 'recursive' strategy.</div>
+    <div class="term-out">b.txt | 2 ++</div>
+    <div class="term-out">1 file changed, 2 insertions(+)</div>
+    <div class="term-out">create mode 100644 b.txt</div>
+    <div class="term-in">> ll</div>
+    <div class="term-out">total 24</div>
+    <div class="term-out">drwxr-xr-x 15 kurtc staff 510 Aug 7 14:42 .git/</div>
+    <div class="term-out">-rw-r--r-- 1 kurtc staff 29 Aug 6 11:36 a.txt</div>
+    <div class="term-out">-rw-r--r-- 1 kurtc staff 38 Aug 7 14:40 b.txt</div>
+    <div class="term-out">-rw-r--r-- 1 kurtc staff 32 Aug 7 14:39 c.txt</div>
+    <div class="term-in">> git status</div>
+    <div class="term-out"># On branch master</div>
+    <div class="term-out">nothing to commit, working directory clean</div>
+    <div class="term-in">> git log</div>
+    <div class="term-out">commit acba5be8ee980d40e5a9b245979630de650e3180</div>
+    <div class="term-out">Merge: c1d2c78 ef651bf</div>
+    <div class="term-out">Author: Kurt Christensen &lt;kurt.j.christensen@gmail.com&gt;</div>
+    <div class="term-out">Date: Wed Aug 7 14:40:33 2013 -0500</div>
+    <div class="term-out">&nbsp;</div>
+    <div class="term-out">Merge branch 'master' of /Users/kurtc/BETA/playground</div>
+    <div class="term-out">&nbsp;</div>
+    <div class="term-out">Merging changes from BETA/playground into the original playground.</div>
+    <div class="term-out">At this point, we expect that to be b.txt. At this point, we also</div>
+    <div class="term-out">expect to have c.txt in the original playground repo, and NOT in</div>
+    <div class="term-out">the BETA/playground repo.</div>
+    <div class="term-out">&nbsp;</div>
+    <div class="term-out">commit c1d2c785b6d2d95d1481ac039092d9d7a7e8dc84</div>
+    <div class="term-out">Author: Kurt Christensen &lt;kurt.j.christensen@gmail.com&gt;</div>
+    <div class="term-out">Date: Wed Aug 7 14:39:32 2013 -0500</div>
+    <div class="term-out">&nbsp;</div>
+    <div class="term-out">Added c.txt from ~/playground</div>
+    <div class="term-out">&nbsp;</div>
+    <div class="term-out">commit ef651bfd815e80286b4caf1e6546129ba359b954</div>
+    <div class="term-out">Author: Kurt Christensen &lt;kurt.j.christensen@gmail.com&gt;</div>
+    <div class="term-out">Date: Wed Aug 7 13:20:24 2013 -0500</div>
+    <div class="term-out">&nbsp;</div>
+    <div class="term-out">Added all the great stuff in b.txt</div>
+    <div class="term-out">&nbsp;</div>
+    <div class="term-out">commit 4366c6a8c9d3066b07cddd550bb874d14b959abd</div>
+    <div class="term-out">Author: Kurt Christensen &lt;kurt.j.christensen@gmail.com&gt;</div>
+    <div class="term-out">Date: Tue Aug 6 11:56:12 2013 -0500</div>
+    <div class="term-out">&nbsp;</div>
+    <div class="term-out">Adding our first file to the repo</div>
+</div>
+
+<div class="terminal terminal-alt">
+    <div class="term-in">> cd ~/BETA/playground/</div>
+    <div class="term-in">> git pull</div>
+    <div class="term-out">From /Users/kurtc/playground</div>
+    <div class="term-out">4366c6a..acba5be  master     -> origin/master</div>
+    <div class="term-out">Updating ef651bf..acba5be</div>
+    <div class="term-out">Fast-forward</div>
+    <div class="term-out">c.txt | 2 ++</div>
+    <div class="term-out">1 file changed, 2 insertions(+)</div>
+    <div class="term-out">create mode 100644 c.txt</div>
+</div>
+
+
+<div class="terminal">
+    <div class="term-in">> vi a.txt</div>
+    <div class="term-in">> cd ~/playground/</div>
+    <div class="term-in">> git add .</div>
+    <div class="term-in">> git commit -m "Modified a.txt in the original playground repo"</div>
+    <div class="term-out">[master 9070f9d] Modified a.txt in the original playground repo</div>
+    <div class="term-out">1 file changed, 2 insertions(+)</div>
+    <div class="term-in">> cd ~/BETA/playground/</div>
+    <div class="term-in">> vi a.txt</div>
+    <div class="term-in">> git add .</div>
+    <div class="term-in">> git commit -m "Modified a.txt in the BETA/playground repo"</div>
+    <div class="term-out">[master 2b4635a] Modified a.txt in the BETA/playground repo</div>
+    <div class="term-out">1 file changed, 2 insertions(+)</div>
+</div>
+
+<div class="terminal">
+    <div class="term-in">> git pull</div>
+    <div class="term-out">remote: Counting objects: 5, done.</div>
+    <div class="term-out">remote: Compressing objects: 100% (3/3), done.</div>
+    <div class="term-out">remote: Total 3 (delta 0), reused 0 (delta 0)</div>
+    <div class="term-out">Unpacking objects: 100% (3/3), done.</div>
+    <div class="term-out">From /Users/kurtc/playground</div>
+    <div class="term-out">acba5be..9070f9d master -> origin/master</div>
+    <div class="term-out">Auto-merging a.txt</div>
+    <div class="term-out">CONFLICT (content): Merge conflict in a.txt</div>
+    <div class="term-out">Automatic merge failed; fix conflicts and then commit the result.</div>
+    <div class="term-in">> git status</div>
+    <div class="term-out"># On branch master</div>
+    <div class="term-out"># Your branch and 'origin/master' have diverged,</div>
+    <div class="term-out"># and have 1 and 1 different commit each, respectively.</div>
+    <div class="term-out"># (use "git pull" to merge the remote branch into yours)</div>
+    <div class="term-out">#</div>
+    <div class="term-out"># You have unmerged paths.</div>
+    <div class="term-out"># (fix conflicts and run "git commit")</div>
+    <div class="term-out">#</div>
+    <div class="term-out"># Unmerged paths:</div>
+    <div class="term-out"># (use "git add &lt;file&gt;..." to mark resolution) </div>
+    <div class="term-out">#</div>
+    <div class="term-out"># both modified: a.txt</div>
+    <div class="term-out">#</div>
+    <div class="term-out">no changes added to commit (use "git add" and/or "git commit -a")</div>
+    <div class="term-in">> git diff</div>
+    <div class="term-out">diff --cc a.txt</div>
+    <div class="term-out">index 77df6ba,efcd7b0..0000000</div>
+    <div class="term-out">--- a/a.txt</div>
+    <div class="term-out">+++ b/a.txt</div>
+    <div class="term-out">@@@ -1,4 -1,4 +1,8 @@@</div>
+    <div class="term-out">This is a simple text file.</div>
+    <div class="term-out"></div>
+    <div class="term-out">++<<<<<<< HEAD</div>
+    <div class="term-out">+This line was added in the BETA/playground repo</div>
+    <div class="term-out">++=======</div>
+    <div class="term-out">+ This line was added in the original playground repo.</div>
+    <div class="term-out">++>>>>>>> 9070f9d8bcfcd2c1ca3041c981104197ac1c62a4</div>
+</div>
+
+<p>a.txt is now in a conflicted state, and is marked up accordingly (similar to SVN):</p>
+<div class="terminal">
+    <div class="term-in">> more a.txt</div>
+    <div class="term-out">This is a simple text file.</div>
+    <div class="term-out">&nbsp;</div>
+    <div class="term-out"><<<<<<< HEAD</div>
+    <div class="term-out">This line was added in the BETA/playground repo</div>
+    <div class="term-out">=======</div>
+    <div class="term-out">This line was added in the original playground repo.</div>
+    <div class="term-out">>>>>>>> 9070f9d8bcfcd2c1ca3041c981104197ac1c62a4</div>
+    <div class="term-out">&nbsp;</div>
+</div>
+
+
+<h3 id="ResolvingConflicts">Resolving Conflicts</h3>
+
+
+<!-- TODO - Mention something about headless repos (how they're made, when and why they're used) -->
+
+
+<h3 id="DefiningWorkflow">Defining Workflow</h3>
+
+<p>The very nature of a centralized version control system such as SVN or Perforce encourages a certain workflow - how
+    team members share code in order to create a single coherent release. With Git however, we must consciously choose
+    our team workflow, because no Git repo is inherently more or less important than any other Git repo. The peer-to-peer
+    workflow we've been using so far may be fine for a team of two, but will quickly become unwieldy as our team grows.
+    Thus, a more typical workflow is to set up a hub-and-spoke relationship between developers and teams:</p>
+
+<p>In this workflow, the hubs could be developer repos, but this is probably a bad idea - in order to share changes,
+    the hub developer would have to pull changes from all of her other team members (and know when to do so), and then
+    notify all the other developers that they should, in turn, pull her repo to pick up any changes.</p>
+
+<p>Headless repos do not have local copies of the actual files, and therefore do not have a staging area. This enables
+    developers to push changes from their local repo to the shared repo - changes which in turn can be picked up by
+    the other team members.</p>
+
+<div class="terminal terminal-alt2">
+    <div class="term-in">> mkdir ~/headless</div>
+    <div class="term-in">> cd headless</div>
+    <div class="term-in">> git init --bare</div>
+    <div class="term-out">Initialized empty Git repository in /Users/kurtc/headless/</div>
+</div>
+
+<p>Now we must hydrate our headless hub repo. (Note that we could have also done this with git clone --bare)</p>
+<div class="terminal">
+    <div class="term-in">> cd ~/playground/</div>
+    <div class="term-in">> git remote -v</div>
+    <div class="term-out">BETA /Users/kurtc/BETA/playground (fetch)</div>
+    <div class="term-out">BETA /Users/kurtc/BETA/playground (push)</div>
+    <div class="term-in">> git remote add origin ~/headless</div>
+    <div class="term-in">> git push origin master</div>
+    <div class="term-out">Counting objects: 14, done.</div>
+    <div class="term-out">Delta compression using up to 8 threads.</div>
+    <div class="term-out">Compressing objects: 100% (10/10), done.</div>
+    <div class="term-out">Writing objects: 100% (14/14), 1.48 KiB | 0 bytes/s, done.</div>
+    <div class="term-out">Total 14 (delta 2), reused 3 (delta 0)</div>
+    <div class="term-out">To /Users/kurtc/headless</div>
+    <div class="term-out">* [new branch] master -> master</div>
+</div>
+
+<p>By convention, 'origin' points to the primary source from which we pull others' changes, and to which we push our
+changes to be pulled in by others. Thus, let's re-point the BETA repo's 'origin' to point to our new hub:</p>
+
+<div class="terminal terminal-alt">
+    <div class="term-in">> cd ~/BETA/playground/</div>
+    <div class="term-in">> git remote set-url origin ~/headless</div>
+    <div class="term-in">> git remote -v</div>
+    <div class="term-out">origin /Users/kurtc/headless (fetch)</div>
+    <div class="term-out">origin /Users/kurtc/headless (push)</div>
+</div>
+
+
+<!-- TODO - Mention something about different protocols and how it affects the ability to push...
+    "We can all see pictures from Harry and Kate's wedding, but most of us weren't invited to the ceremony" -->
+
+
+
+
+<h3>Removing Files</h3>
+
+<p>But back to work. Unfortunately, we accidentally committed our *.iws file, which contains user-specific IntelliJ
+    project desktop settings, and we'd like to remove it from our Git repo - without deleting the file itself:</p>
+
+<div class="terminal">
+    <div class="term-in">> git rm --cached test.iws</div>
+    <div class="term-out">rm 'test.iws'</div>
+    <div class="term-in">> git status</div>
+    <div class="term-out"># On branch master</div>
+    <div class="term-out"># Changes to be committed:</div>
+    <div class="term-out"># (use "git reset HEAD &lt;file&gt;..." to unstage)</div>
+    <div class="term-out">#</div>
+    <div class="term-out"># deleted: � �test.iws</div>
+    <div class="term-out">#</div>
+    <div class="term-out"># Untracked files:</div>
+    <div class="term-out"># (use "git add &lt;file&gt;..." to include in what will be committed)</div>
+    <div class="term-out">#</div>
+    <div class="term-out"># test.iws</div>
+</div>
+
+<p>Just as we must explicitly commit any file additions or modifications, so we must commit our removal:</p>
+
+<div class="terminal">
+    <div class="term-in">> git commit -m "Removed file which I had accidentally committed"</div>
+    <div class="term-out">[master]: created 0df874f: "Removed file which I had accidentally committed"</div>
+    <div class="term-out">1 files changed, 0 insertions(+), 525 deletions(-)</div>
+    <div class="term-out">delete mode 100644 test.iws</div>
+</div>
+
+<!-- TODO - Add picture showing the commit tree! -->
+
+
+<h3>Changing Your Mind</h3>
+<div class="terminal">
+    <div class="term-in">> git reset</div>
+    <div class="term-out">src/test.arc: locally modified</div>
+    <div class="term-out">src/test.clj: locally modified</div>
+    <div class="term-in">> git status</div>
+    <div class="term-out"># On branch master</div>
+    <div class="term-out"># Changed but not updated:</div>
+    <div class="term-out"># (use "git add &lt;file&gt;..." to update what will be committed)</div>
+    <div class="term-out"># (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)</div>
+    <div class="term-out">#</div>
+    <div class="term-out"># modified: src/test.arc</div>
+    <div class="term-out"># modified: src/test.clj</div>
+    <div class="term-out">#</div>
+    <div class="term-out">no changes added to commit (use "git add" and/or "git commit -a")</div>
+</div>
+
+
+
+<h3>Just Ignore It</h3>
+
+<p>To avoid this problem in the future, we need a way to tell Git to ignore any <a class="code">*.iws</a> files it finds
+    in this project, which we can do with a <a class="code">.gitignore</a> file:</p>
+
+<div class="terminal">
+    <div class="term-in">> vi .gitignore</div>
+</div>
+
+<p>In vi (or whichever text editor you prefer) we can edit the file to add specific files or else filname patterns)
+    which we would like our Git repository to ignore:</p>
+
+<div class="terminal">
+    <div class="term-out"># gitignore file for the 'test' project
+        *.iws
+        ~
+        ~
+    </div>
+</div>
+
+<p>We save the file, and then add and commit it to our Git repo:</p>
+
+<div class="terminal">
+    <div class="term-in">> git add .gitignore</div>
+    <div class="term-in">> git commit -m "Added .gitignore file for the project"</div>
+    <div class="term-out">[master]: created ad9ce7a: "Added .gitignore file for the project"</div>
+    <div class="term-out"> 1 files changed, 2 insertions(+), 0 deletions(-)</div>
+    <div class="term-out"> create mode 100644 .gitignore</div>
+</div>
+
+
+> git checkout test.arc
+> git status
+# On branch master
+# Changed but not updated:
+# � (use "git add &lt;file&gt;..." to update what will be committed)
+# � (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+#
+# modified: � test.clj
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+> git checkout test.clj�
+> git status
+# On branch master
+nothing to commit (working directory clean)
+> git checkout -- test.arc
+> ls
+total 16
+drwxr-xr-x �4 kurtc �kurtc � 136 Apr �5 22:37 ./
+drwxr-xr-x �8 kurtc �kurtc � 272 Apr �3 07:53 ../
+-rw-r--r-- �1 kurtc �kurtc � 425 Apr �5 22:35 test.arc
+-rw-r--r-- �1 kurtc �kurtc �1921 Apr �5 22:37 test.clj
+> git mv src/test.clj src/tutorial.clj
+> git status
+# On branch master
+# Changes to be committed:
+# � (use "git reset HEAD &lt;file&gt;..." to unstage)
+#
+# renamed: � �src/test.clj -> src/tutorial.clj
+#
+> ls src
+total 16
+drwxr-xr-x �4 kurtc �kurtc � 136 Apr �5 22:57 ./
+drwxr-xr-x �8 kurtc �kurtc � 272 Apr �3 07:53 ../
+-rw-r--r-- �1 kurtc �kurtc � 425 Apr �5 22:35 test.arc
+-rw-r--r-- �1 kurtc �kurtc �1921 Apr �5 22:37 tutorial.clj
+> git checkout -- src/tutorial.clj�
+> ls src
+total 16
+drwxr-xr-x �4 kurtc �kurtc � 136 Apr �5 22:57 ./
+drwxr-xr-x �8 kurtc �kurtc � 272 Apr �3 07:53 ../
+-rw-r--r-- �1 kurtc �kurtc � 425 Apr �5 22:35 test.arc
+-rw-r--r-- �1 kurtc �kurtc �1921 Apr �5 22:37 tutorial.clj
+> git status
+# On branch master
+# Changes to be committed:
+# � (use "git reset HEAD &lt;file&gt;..." to unstage)
+#
+# renamed: � �src/test.clj -> src/tutorial.clj
+#
+> git checkout -- src/test.clj
+error: pathspec 'src/test.clj' did not match any file(s) known to git.
+> git checkout
+D src/test.clj
+A src/tutorial.clj
+> ls
+total 104
+drwxr-xr-x � 8 kurtc �kurtc � �272 Apr �3 07:53 ./
+drwxr-xr-x �76 kurtc �kurtc � 2584 Mar 10 01:04 ../
+drwxr-xr-x �13 kurtc �kurtc � �442 Apr �5 22:59 .git/
+-rw-r--r-- � 1 kurtc �kurtc � � 46 Apr �1 14:08 .gitignore
+drwxr-xr-x � 4 kurtc �kurtc � �136 Apr �5 22:57 src/
+-rw-r--r-- � 1 kurtc �kurtc � �446 Feb �4 �2009 test.iml
+-rw-r--r-- � 1 kurtc �kurtc �12600 Dec �1 01:09 test.ipr
+-rw-r--r-- � 1 kurtc �kurtc �27115 Jan 26 00:25 test.iws
+> cd src
+> ls
+total 16
+drwxr-xr-x �4 kurtc �kurtc � 136 Apr �5 22:57 ./
+drwxr-xr-x �8 kurtc �kurtc � 272 Apr �3 07:53 ../
+-rw-r--r-- �1 kurtc �kurtc � 425 Apr �5 22:35 test.arc
+-rw-r--r-- �1 kurtc �kurtc �1921 Apr �5 22:37 tutorial.clj
+> rm tutorial.clj�
+> git status
+# On branch master
+# Changes to be committed:
+# � (use "git reset HEAD &lt;file&gt;..." to unstage)
+#
+# renamed: � �test.clj -> tutorial.clj
+#
+# Changed but not updated:
+# � (use "git add/rm &lt;file&gt;..." to update what will be committed)
+# � (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+#
+# deleted: � �tutorial.clj
+#
+> git reset -- test.clj
+src/test.clj: locally modified
+src/tutorial.clj: locally modified
+> ls
+total 8
+drwxr-xr-x �3 kurtc �kurtc �102 Apr �5 23:00 ./
+drwxr-xr-x �8 kurtc �kurtc �272 Apr �3 07:53 ../
+-rw-r--r-- �1 kurtc �kurtc �425 Apr �5 22:35 test.arc
+> git checkout test.clj
+> ls
+total 16
+drwxr-xr-x �4 kurtc �kurtc � 136 Apr �5 23:01 ./
+drwxr-xr-x �8 kurtc �kurtc � 272 Apr �3 07:53 ../
+-rw-r--r-- �1 kurtc �kurtc � 425 Apr �5 22:35 test.arc
+-rw-r--r-- �1 kurtc �kurtc �1921 Apr �5 23:01 test.clj
+> git status
+# On branch master
+# Changes to be committed:
+# � (use "git reset HEAD &lt;file&gt;..." to unstage)
+#
+# new file: � tutorial.clj
+#
+# Changed but not updated:
+# � (use "git add/rm &lt;file&gt;..." to update what will be committed)
+# � (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+#
+# deleted: � �tutorial.clj
+#
+> ls
+total 16
+drwxr-xr-x �4 kurtc �kurtc � 136 Apr �5 23:01 ./
+drwxr-xr-x �8 kurtc �kurtc � 272 Apr �3 07:53 ../
+-rw-r--r-- �1 kurtc �kurtc � 425 Apr �5 22:35 test.arc
+-rw-r--r-- �1 kurtc �kurtc �1921 Apr �5 23:01 test.clj
+> git reset --hard
+HEAD is now at ad9ce7a Added .gitignore file for the project
+> ls
+total 16
+drwxr-xr-x �4 kurtc �kurtc � 136 Apr �5 23:01 ./
+drwxr-xr-x �8 kurtc �kurtc � 272 Apr �3 07:53 ../
+-rw-r--r-- �1 kurtc �kurtc � 425 Apr �5 22:35 test.arc
+-rw-r--r-- �1 kurtc �kurtc �1921 Apr �5 23:01 test.clj
+> git status
+# On branch master
+nothing to commit (working directory clean)
+> git branch experimental
+> git branch
+��experimental
+* master
+> git checkout experimental
+Switched to branch "experimental"
+> ls
+total 104
+drwxr-xr-x � 8 kurtc �kurtc � �272 Apr �3 07:53 ./
+drwxr-xr-x �76 kurtc �kurtc � 2584 Mar 10 01:04 ../
+drwxr-xr-x �13 kurtc �kurtc � �442 Apr �5 23:24 .git/
+-rw-r--r-- � 1 kurtc �kurtc � � 46 Apr �1 14:08 .gitignore
+drwxr-xr-x � 4 kurtc �kurtc � �136 Apr �5 23:01 src/
+-rw-r--r-- � 1 kurtc �kurtc � �446 Feb �4 �2009 test.iml
+-rw-r--r-- � 1 kurtc �kurtc �12600 Dec �1 01:09 test.ipr
+-rw-r--r-- � 1 kurtc �kurtc �27115 Jan 26 00:25 test.iws
+> cd src
+> ls
+total 16
+drwxr-xr-x �4 kurtc �kurtc � 136 Apr �5 23:01 ./
+drwxr-xr-x �8 kurtc �kurtc � 272 Apr �3 07:53 ../
+-rw-r--r-- �1 kurtc �kurtc � 425 Apr �5 22:35 test.arc
+-rw-r--r-- �1 kurtc �kurtc �1921 Apr �5 23:01 test.clj
+> vi test.arc
+> git status
+# On branch experimental
+# Changed but not updated:
+# � (use "git add &lt;file&gt;..." to update what will be committed)
+# � (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+#
+# modified: � test.arc
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+> git checkout master
+M src/test.arc
+Switched to branch "master"
+> vi test.arc
+> git checkout experimental
+M src/test.arc
+Switched to branch "experimental"
+> less test.arc�
+> git status
+# On branch experimental
+# Changed but not updated:
+# � (use "git add &lt;file&gt;..." to update what will be committed)
+# � (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+#
+# modified: � test.arc
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+> git add .
+> git commit -m "Committed on the experimental branch"
+[experimental]: created 730831c: "Committed on the experimental branch"
+�1 files changed, 3 insertions(+), 1 deletions(-)
+> git branch
+* experimental
+��master
+> git checkout master
+Switched to branch "master"
+</div>
+</div>
+
+
+<div class="terminal">
+    <div class="term-in">> git commit -am "Committed change on the master branch"
+        [master]: created 413c0bd: "Committed change on the master branch"
+        �1 files changed, 3 insertions(+), 1 deletions(-)
+        > git status
+        # On branch master
+        nothing to commit (working directory clean)
+        > git status
+        # On branch master
+        nothing to commit (working directory clean)
+        > git branch
+        ��experimental
+        *�master
+        > git merge experimental
+        Auto-merging src/test.arc
+        CONFLICT (content): Merge conflict in src/test.arc
+        Automatic merge failed; fix conflicts and then commit the result.
+        > ls
+        total 16
+        drwxr-xr-x �4 kurtc �kurtc � 136 Apr �5 23:38 ./
+        drwxr-xr-x �8 kurtc �kurtc � 272 Apr �3 07:53 ../
+        -rw-r--r-- �1 kurtc �kurtc � 582 Apr �5 23:38 test.arc
+        -rw-r--r-- �1 kurtc �kurtc �1921 Apr �5 23:01 test.clj
+        > vi test.arc
+        > git merge experimental
+        fatal: You are in the middle of a conflicted merge.
+        > git merge -summary
+        fatal: You are in the middle of a conflicted merge.
+        > git status
+        src/test.arc: needs merge
+        # On branch master
+        # Changed but not updated:
+        # � (use "git add &lt;file&gt;..." to update what will be committed)
+        # � (use "git checkout -- &lt;file&gt;..." to discard changes in working directory)
+        #
+        # unmerged: � test.arc
+        #
+        no changes added to commit (use "git add" and/or "git commit -a")
+        > git commit -am "Resolved merge conflict from the 'experimental' branch"
+        [master]: created 4bbe17d: "Resolved merge conflict from the 'experimental' branch"
+        > git merge experimental
+        Already up-to-date.
+        > git branch -d experimental
+        Deleted branch experimental (730831c).
+    </div>
+</div>
+
+
+git pull
+
+- merging, rebasing, etc.
+
+git push
+
+
+
+
+
+
+    Simple Collaboration: Pull and Push
+
+    Now let's assume we want to push our changes to our team's shared Git repository. We need to get our changes there
+    because this is the repo against which the continuous integration server runs, and which produces builds that are
+    actually used by people outside of our dev team.
+
+    > git
+
+    WTF? Why is Git complaining? Well, the problem is that someone else pushed some changes into the team's shared repo,
+    and when that happened, a new commit was created in that repo. That commit has its very own SHA-1 identifer
+    (remember?), and that SHA-1 identifier does NOT exist in your local repo. Consequently, Git doesn't know where to
+    put your changes. (Possible analogy: Imagine that each commit is a piece of paper in a stack of paper. )
+
+    So the *first* thing we'll do to share our stuff with everyone else is we'll first pull the latest stuff from our
+    team's shared repo, where� pull� is really just a combined� fetch� and� merge:
+
+    > git pull
+
+    Note that we could have merged in changes from any repo. For example, perhaps I'm working on a feature for which I
+    need Alyssa's code, but I don't yet want to worry about merging in anyone else's changes. Then I could simply pull
+    from Alyssa's repo:
+
+    > git pull (buhhkjhkjhklhkljhlkjlkjh)
+
+    And when I'm finally ready to push my changes and Alyssa's changes to our team's shared repo, everything will "just
+    work", (assuming no one else has pushed any changes to our team's shared repo since our last pull):
+
+    > git push
+
+    Again, note that we don't need to specify the team's shared repo, since that's the repo from which we originaly
+    cloned our own local repo.
+
+    So that's the simple case. But what happens when we pull from a repo that contains changes which conflict withour
+    own local changes?
+
+    (TODO)
+
+
+    (TODO - Describe flattening� stuff so that your oddball local branches don't get pushed to the shared repo)
+
+    - Commits and SHA-1 identifiers
+
+    - Fast forward merges
+
+
+<h3>Reeling In The Years</h3>
+
+<p>Git provides a variety of options for searching through our commit log:</p>
+
+<div class="terminal">
+    <div class="term-in">> git log --since=yesterday</div>
+    <div class="term-out">commit 4366c6a8c9d3066b07cddd550bb874d14b959abd</div>
+    <div class="term-out">Author: Kurt Christensen &lt;kurt.j.christensen@gmail.com&gt;</div>
+    <div class="term-out">Date: Tue Aug 6 11:56:12 2013 -0500</div>
+    <div class="term-out"> </div>
+    <div class="term-out">    Adding our first file to the repo</div>
+    <div class="term-out"> </div>
+</div>
+
+
+<h3>Simple Branching and Merging</h3>
+
+<p>We can create branches (for research projects, released versions, etc.) just as we can in any other source control
+system. Ordinarily, we are working within the trunk, labeled "master". We can create a new branch labeled
+"version-3" like so:</p>
+
+    > git branch version-3
+    > git branch
+    version-3
+    * master
+
+    Note that git branch listed out all the branches in the repo, with a little asterisk next to the current branch.
+    Note that creating a branch didn't automatically move us to that branch. We can totally annihilate our new branch
+    like so:
+
+    > git branch -D version-3
+    > git branch
+    * master
+
+    Go ahead and create a new branch again:
+
+    > git branch research-project
+    > git checkout research-project
+    > git branch
+    * research-project
+    master
+
+    We are now working in the branch "version-3". If we make a change to a file, the change will be visible in
+    "version-3", but not in the trunk, which we can see if we move back to the trunk:
+
+    > git checkout master
+
+    We can merge changes from the main line into our "version-3" branch (for example, to keep a research branch sync'ed
+    up with changes in the main line as much as possible):
+
+    > git buh
+
+    ...or we can merge changes from "version-3" down into main line (this is what we normally do if we're fixing bugs on
+    a released version, and we want to try and apply the same bug fixes back down to the main line):
+
+
+    > git goo
+
+    As of right now, no one else yet knows about the existence of our "research-project" branch. But I can pull updates
+    from our shared team repo, and I'll get any mainline changes merged in. Also, I'll see any branches that anyone else
+    has pushed into our team's shared repo:
+
+    > git goo
+
+    Similarly, I can push my changes into the shared repo, and people will now see my "research-branch"
+
+
+    But what if I don't want people to see my "research-branch"? Can I push stuff from a local branch to a remote
+    branch? Just how fine-grained and crazy can we get?
+
+
+<h3>Simple Maintenance</h3>
+
+    <p>Validate that our repo isn't messed up:</p>
+
+    <div class="terminal">
+        <div class="term-in">> git fsck</div>
+        <div class="term-out">Checking object directories: 100% (256/256), done.</div>
+    </div>
+
+
+    <p>Clean up the repo:</p>
+
+    <div class="terminal">
+        <div class="term-in">> git gc</div>
+        <div class="term-out">Counting objects: 3, done.</div>
+        <div class="term-out">Writing objects: 100% (3/3), done.</div>
+        <div class="term-out">Total 3 (delta 0), reused 0 (delta 0)</div>
+    </div>
+
+
+    <p>REALLY clean up the repo (TODO: What's the difference??):</p>
+
+    <div class="terminal">
+        <div class="term-in">> git gc --prune</div>
+    </div>
+
+
+    Etc.
+    D'oh! I messed up the commit message! Let's fix that...
+
+
+    > git commit --amend
+
+    This opens up our default text editor (vi, in my case) so that we can edit the previous commit message:
+
+
+<h3>Git Internals</h3>
+
+    <div class="terminal">
+        <div class="term-in">> ll .git</div>
+        <div class="term-out">total 40</div>
+        <div class="term-out">COMMIT_EDITMSG</div>
+        <div class="term-out">HEAD</div>
+        <div class="term-out">config</div>
+        <div class="term-out">description</div>
+        <div class="term-out">hooks/</div>
+        <div class="term-out">index</div>
+        <div class="term-out">info/</div>
+        <div class="term-out">logs/</div>
+        <div class="term-out">objects/</div>
+        <div class="term-out">refs/</div>
+    </div>
+
+    <!--<div class="terminal">-->
+        <!--<div class="term-in">> ll .git</div>-->
+        <!--<div class="term-out">total 40</div>-->
+        <!--<div class="term-out">-rw-r--r--  1 kurtc staff 34 Aug 6 11:56 COMMIT_EDITMSG</div>-->
+        <!--<div class="term-out">-rw-r--r--  1 kurtc staff 23 Aug 6 11:25 HEAD</div>-->
+        <!--<div class="term-out">-rw-r--r--  1 kurtc staff 138 Aug 6 11:25 config</div>-->
+        <!--<div class="term-out">-rw-r--r--  1 kurtc staff 73 Aug 6 11:25 description</div>-->
+        <!--<div class="term-out">drwxr-xr-x 11 kurtc staff 374 Aug 6 11:25 hooks/</div>-->
+        <!--<div class="term-out">-rw-r--r--  1 kurtc staff 104 Aug 6 11:41 index</div>-->
+        <!--<div class="term-out">drwxr-xr-x  3 kurtc staff 102 Aug 6 11:25 info/</div>-->
+        <!--<div class="term-out">drwxr-xr-x  4 kurtc staff 136 Aug 6 11:56 logs/</div>-->
+        <!--<div class="term-out">drwxr-xr-x  6 kurtc staff 204 Aug 6 11:56 objects/</div>-->
+        <!--<div class="term-out">drwxr-xr-x  4 kurtc staff 136 Aug 6 11:25 refs/</div>-->
+    <!--</div>-->
+
+    <div class="terminal">
+        <div class="term-in">> vi .git/HEAD</div>
+        <div class="term-in">> vi .git/COMMIT_EDITMSG</div>
+        <div class="term-in">> vi .git/config</div>
+        <div class="term-in">> vi .git/description</div>
+        <div class="term-in">> vi .git/index</div>
+    </div>
+
+    Valhalla:playground kurtc$ ll .git/hooks/
+    total 80
+    -rwxr-xr-x  1 kurtc  staff   452 Aug  6 11:25 applypatch-msg.sample
+    -rwxr-xr-x  1 kurtc  staff   896 Aug  6 11:25 commit-msg.sample
+    -rwxr-xr-x  1 kurtc  staff   189 Aug  6 11:25 post-update.sample
+    -rwxr-xr-x  1 kurtc  staff   398 Aug  6 11:25 pre-applypatch.sample
+    -rwxr-xr-x  1 kurtc  staff  1704 Aug  6 11:25 pre-commit.sample
+    -rw-r--r--  1 kurtc  staff  1348 Aug  6 11:25 pre-push.sample
+    -rwxr-xr-x  1 kurtc  staff  4951 Aug  6 11:25 pre-rebase.sample
+    -rwxr-xr-x  1 kurtc  staff  1239 Aug  6 11:25 prepare-commit-msg.sample
+    -rwxr-xr-x  1 kurtc  staff  3611 Aug  6 11:25 update.sample
+
+    Valhalla:playground kurtc$ vi .git/hooks/pre-commit.sample
+
+    Valhalla:playground kurtc$ ll .git/info/
+    total 8
+    -rw-r--r--  1 kurtc  staff  240 Aug  6 11:25 exclude
+    Valhalla:playground kurtc$ vi .git/info/exclude
+
+    Valhalla:playground kurtc$ ll .git/logs/
+    total 8
+    -rw-r--r--  1 kurtc  staff  199 Aug  6 11:56 HEAD
+    drwxr-xr-x  3 kurtc  staff  102 Aug  6 11:56 refs/
+
+    Valhalla:playground kurtc$ ll .git/logs/refs/
+    total 0
+    drwxr-xr-x  3 kurtc  staff  102 Aug  6 11:56 heads/
+
+    Valhalla:playground kurtc$ ll .git/logs/refs/heads/
+    total 8
+    -rw-r--r--  1 kurtc  staff  199 Aug  6 11:56 master
+
+    Valhalla:playground kurtc$ vi .git/logs/refs/heads/master
+
+    Valhalla:playground kurtc$ ll .git/objects/
+    total 0
+    drwxr-xr-x  3 kurtc  staff  102 Aug  6 11:56 43/
+    drwxr-xr-x  4 kurtc  staff  136 Aug  6 11:56 57/
+    drwxr-xr-x  2 kurtc  staff   68 Aug  6 11:25 info/
+    drwxr-xr-x  2 kurtc  staff   68 Aug  6 11:25 pack/
+
+    Valhalla:playground kurtc$ ll .git/objects/43/
+    total 8
+    -r--r--r--  1 kurtc  staff  151 Aug  6 11:56 66c6a8c9d3066b07cddd550bb874d14b959abd
+
+    Valhalla:playground kurtc$ ll .git/objects/57
+    total 16
+    -r--r--r--  1 kurtc  staff  49 Aug  6 11:56 0a2a2340e8423e39098a9daabaaa173385aa64
+    -r--r--r--  1 kurtc  staff  43 Aug  6 11:41 b015418629c0453f3810c709994e1b5057c97c
+
+    Valhalla:playground kurtc$ ll .git/objects/info/
+    Valhalla:playground kurtc$ ll .git/objects/pack/
+
+    Valhalla:playground kurtc$ ll .git/refs/
+    total 0
+    drwxr-xr-x  3 kurtc  staff  102 Aug  6 11:56 heads/
+    drwxr-xr-x  2 kurtc  staff   68 Aug  6 11:25 tags/
+
+    Valhalla:playground kurtc$ ll .git/refs/heads/
+    total 8
+    -rw-r--r--  1 kurtc  staff  41 Aug  6 11:56 master
+
+    Valhalla:playground kurtc$ vi .git/refs/heads/master
+
+    Valhalla:playground kurtc$ ll .git/refs/tags/
+
+
+
+
+
+<h1 id="GitHub">Using GitHub</h1>
+
+<p>GitHub (http://github.com) is probably the single largest contributing factor to the widespread adoption
+of Git. Beyond hosting repositories</p>
+
+<h3 id="PullRequest">Pull Requests</h3>
+
+<h3 id="Fork">Forking a GitHub Repo</h3>
+
+
+
+
+
+
+
+Using Git is much easier if you understand how Git views the world. Git does not think about files, changes,
+branches and merges the same way as many other version control systems.</p>
+
+<p>With Git, when we think of checkouts, updates, adds, removes, and commits, we think of these things relative to our
+    own personal Git repo (which is often local, but doesn't need to be). And when we want to interact with the rest of
+    the world, we think in terms of merging repositories. So, to get working on a project for the first time, you'll
+    clone someone else's repository.</p>
+
+<p>Now, when you're working as part of a team, your team may have some notion of a "central repository" in order to
+    coordinate your work, but this will only be by convention - there is nothing inherent in Git that makes any
+    repository more or less important than any other repository. Let that sink in a second, because it's big - in the
+    world of Git, everyone has a complete repository with a complete history, and no repository is inherently more
+    important than any other repository.</p>
+
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="../js/plugins.js"></script>
+<script src="../js/main.js"></script>
+
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+<script>
+    var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src='//www.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+</body>
+</html>
+
+

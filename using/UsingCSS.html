@@ -1,0 +1,229 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Using CSS</title>
+    <link href="../css/bitbakery.css" title="primary" rel="stylesheet" type="text/css"/>
+    <link href='http://fonts.googleapis.com/css?family=Patrick+Hand+SC' rel='stylesheet' type='text/css'>
+
+    <style>
+        @media  all and (min-width:0px) {
+            .media-specific-box {
+                background-color: white;
+            }
+        }
+        @media all and (min-width:800px) {
+            .media-specific-box {
+                background-color: yellow;
+            }
+        }
+        @media all and (min-width:1200px) {
+            .media-specific-box {
+                background-color: red;
+            }
+        }
+    </style>
+</head>
+<body style="">
+	
+<h1>Using CSS</h1>
+
+<p>CSS enables more flexibility in the display of content. Where HTML describes <i>what</i> a particular piece of
+    content is, CSS enables us to describe exactly <i>how</i> to display that content. CSS can be applies very generally
+    to an entire class of HTML elements, it can be applied to a certain class of elements (defined by us), or it may
+    even be applied only to </p>
+
+<p>CSS allows us to specify the <i>style</i> (fonts, colors, etc.) of an individual HTML element by including CSS
+    declarations within a 'style' attribute</p>
+
+<h3>The Box</h3>
+
+<p>CSS styling is applied within a box, which is the bounding area of the element to which the CSS is being applied:</p>
+
+
+<!-- TODO: Draw some CSS mojo here to show the CSS box! -->
+
+<h3>The Cascade</h3>
+
+
+
+<h3>Fonts</h3>
+<table>
+    <tr>
+        <td><pre class="pre-padding">&lt;div style="font-family: Verdana, sans-serif;
+            font-size: 22pt;
+            font-style: italic"&gt;
+    wubba
+&lt;/div&gt;</pre></td>
+        <td><div style="font-family: Verdana, sans-serif; font-size: 22pt; font-style: italic">wubba</div></td>
+    </tr>
+    <tr>
+        <td><pre class="pre-padding">&lt;div style="font-family: 'Patrick Hand SC', cursive;
+            font-size: 22pt;"&gt;
+    wubba
+&lt;/div&gt;</pre></td>
+        <td><div style="font-family: 'Patrick Hand SC', cursive; font-size: 22pt;">wubba</div></td>
+    </tr>
+</table>
+
+<h3>Text Effects</h3>
+<table>
+    <tr>
+        <td><pre class="pre-padding">&lt;div style="text-shadow: 5px 5px 5px #666666;"&gt;
+    This is the text
+&lt;/div&gt;</pre></td>
+        <td><div style="text-shadow: 5px 5px 5px #666666;">This is the text</div></td>
+    </tr>
+</table>
+
+<h3>Borders, Margins and Padding</h3>
+<table>
+    <tr>
+        <td><pre class="pre-padding">&lt;div style="margin-bottom: 40px;"&gt;
+    wubba
+&lt;/div&gt;</pre></td>
+        <td><div style="margin-bottom: 40px;">wubba</div></td>
+    </tr>
+
+    <tr>
+        <td><pre class="pre-padding">&lt;div style="padding:10px;
+            border:2px solid;
+            border-radius:25px;"&gt;
+    This is the text&lt;br/&gt;This is more text
+&lt;/div&gt;</pre></td>
+        <td><div style="padding:10px; border:2px solid; border-radius:25px;">This is the text<br/>This is more text</div></td>
+    </tr>
+
+    <tr>
+        <td><pre class="pre-padding">&lt;div style="box-shadow: 10px 10px 5px #888888;"&gt;
+    This is the text
+&lt;/div&gt;</pre></td>
+        <td><div style="box-shadow: 10px 10px 5px #888888;">This is the text</div></td>
+    </tr>
+
+</table>
+
+<h3>Colors and Backgrounds</h3>
+<table>
+    <tr>
+        <td><pre class="pre-padding">&lt;div style="color: chartreuse; background: #000000"&gt;wubba&lt;/div&gt;</pre></td>
+        <td><div style="color: chartreuse; background: #000000">wubba</div></td>
+    </tr>
+    <tr>
+        <td>
+<pre class="pre-padding">&lt;div style="background-image: url(../img/SunsetAboveClouds.jpg);
+            cursor: crosshair;
+            zoom: 300%"&gt;
+    wubba
+&lt;/div&gt;</td>
+        <td><div style="background-image: url(../img/SunsetAboveClouds.jpg); cursor: crosshair; zoom: 300%">wubba</div></td>
+    </tr>
+</table>
+
+
+Note that URLs are relative to the location of the CSS file, not the
+
+, but is more typically
+defined in one or more *.css files, which in turn are linked to the HTML page.
+
+
+
+<h3>2D Transforms</h3>
+<table>
+    <tr>
+        <td><pre class="pre-padding">
+&lt;div style="transform: rotate(30deg);
+            -ms-transform: rotate(30deg); /* IE 9 */
+            -webkit-transform: rotate(30deg); /* Safari and Chrome */"&gt;
+    This is the text
+&lt;/div&gt;
+</pre></td>
+        <td><div style="transform: rotate(30deg);
+-ms-transform: rotate(30deg); /* IE 9 */
+-webkit-transform: rotate(30deg); /* Safari and Chrome */">This is the text</div></td>
+    </tr>
+    <tr>
+        <td>
+<pre class="pre-padding">
+&lt;div style="transform: translate(30px, 50px);
+            -ms-transform: translate(30px, 10px); /* IE 9 */
+            -webkit-transform: translate(30px, 10px); /* Safari and Chrome */"&gt;
+    This is the text
+&lt;/div&gt;
+</pre></td>
+        <td><div style="transform: translate(30px, 50px);
+-ms-transform: translate(30px, 10px); /* IE 9 */
+-webkit-transform: translate(30px, 10px); /* Safari and Chrome */">This is the text</div></td>
+    </tr>
+    <tr>
+        <td>
+<pre class="pre-padding">
+&lt;div style="transform: scale(1.5, 1.5);
+            -ms-transform: scale(1.5, 1.5); /* IE 9 */
+            -webkit-transform: scale(1.5, 1.5); /* Safari and Chrome */"&gt;
+    This is the text
+&lt;/div&gt;
+</pre></td>
+        <td><div style="transform: scale(1.5, 1.5);
+-ms-transform: scale(1.5, 1.5); /* IE 9 */
+-webkit-transform: scale(1.5, 1.5); /* Safari and Chrome */">This is the text</div></td>
+    </tr>
+    <tr>
+        <td>
+<pre class="pre-padding">
+&lt;div style="transform: skew(20deg, 10deg);
+            -ms-transform: skew(20deg, 10deg); /* IE 9 */
+            -webkit-transform: skew(20deg, 10deg); /* Safari and Chrome */"&gt;
+    This is the text
+&lt;/div&gt;</pre></td>
+        <td><div style="transform: skew(20deg, 10deg);
+-ms-transform: skew(20deg, 10deg); /* IE 9 */
+-webkit-transform: skew(20deg, 10deg); /* Safari and Chrome */">This is the text</div></td>
+    </tr>
+</table>
+
+
+<h3>Media Queries</h3>
+
+CSS media queries support responsive design by enabling or disabling styles based on the capabilities of the device
+on which the CSS is being applied. For example:
+
+<p class="media-specific-box">The background color of this section will change depending on the browser size</p>
+
+<p>The behavior shown above was specified with the following style element embedded in our header:</p>
+
+<pre class="pre-padding">
+&lt;style&gt;
+    @media all and (min-width:0px) {
+        .media-specific-box {
+            background-color: white;
+        }
+    }
+    @media all and (min-width:800px) {
+        .media-specific-box {
+            background-color: yellow;
+        }
+    }
+    @media all and (min-width:1200px) {
+        .media-specific-box {
+            background-color: red;
+        }
+    }
+&lt;/style&gt;
+</pre>
+
+<p>This behavior is quite rich, enabling us to apply different styles based on different devices, including:
+    embossed, all, screen, braille, handheld, print, projection, speech, tty, tv.</p>
+
+<p>Although it works to define the media queries inline, more typically we apply entirely different stylesheets based
+    on the device (or device size):</p>
+
+<pre>
+<link
+</pre>
+
+
+
+
+</body>
+</html>

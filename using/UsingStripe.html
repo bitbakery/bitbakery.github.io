@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Using Stripe</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link href="../css/bitbakery.css" title="primary" rel="stylesheet" type="text/css"/>
+    <script src="../js/vendor/modernizr-2.6.2.min.js"></script>
+</head>
+<body>
+<!--[if lt IE 7]>
+<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+<![endif]-->
+
+
+<h1>Using Stripe</h1>
+
+<p>Stripe is a service which handles almost all of the details of collecting credit card payments from your
+    customers. The basic flow is simple:
+    <ol>
+        <li>Customers enter their credit card information in a form supplied by stripe.js, included within a form in our client HTML</li>
+        <li>Submitting the form sends the credit card information to Stripe, which then returns to our client a "Stripe token", added as a hidden input "stripeToken" within our form</li>
+        <li>On our server side, we then receive any other form input (e.g., name and address), along with the stripeToken</li>
+        <li>On our server side, we use the Stripe client library (available for Ruby, Python, PHP and Java) to charge our customer using the stripeToken</li>
+    </ol>
+</p>
+
+<h3>Setting Up Your Account</h3>
+
+<p>Talk about the signup process, costs, and what the competition offers.</p>
+
+
+<h3>Adding Stripe to Your Client</h3>
+
+<p>Simple example of using their form</p>
+<p>Slightly better example, using your own form - CALL OUT the pitfalls of JS script ordering!</p>
+
+
+<h3>Calling Stripe from Your Server</h3>
+
+<p>Show the API, and point out the different language-specific libraries that already exist</p>
+
+
+<h3>Subscriptions</h3>
+
+<p>Setting up subscription plans - via the dashboard, and programmatically</p>
+
+
+<h3>Coupons</h3>
+
+<p>Setting up coupons - via the dashboard, and programmatically</p>
+
+
+<h3>Testing</h3>
+
+<p>Show the distinction between prod and test, and </p>
+
+
+<h3>Reporting</h3>
+
+<p>Show reports that are available via the dashboard, as well as programmatic access to data</p>
+
+
+<h3>Chargebacks</h3>
+
+<p>Explain what a chargeback is, and what the process is to get it resolved.</p>
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="../js/plugins.js"></script>
+<script src="../js/main.js"></script>
+
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+<script>
+    var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src='//www.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+</body>
+</html>

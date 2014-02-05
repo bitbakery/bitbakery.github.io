@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Using Unix</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link href="../css/bitbakery.css" title="primary" rel="stylesheet" type="text/css"/>
+    <script src="../js/vendor/modernizr-2.6.2.min.js"></script>
+</head>
+
+<body>
+<!--[if lt IE 7]>
+<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+<![endif]-->
+
+
+
+<div class="table-of-contents">
+    <a class="toc" href="UsingUnix.html"><b>Using Unix</b></a><br />
+    <a class="toc" href="#Exploring">Exploring</a><br />
+    <a class="toc" href="#TheFileSystem">The File System</a><br />
+    <a class="toc" href="#MovingStuff">Moving Stuff</a><br />
+    <a class="toc" href="#MakingLinks">Making Links</a><br />
+    <a class="toc" href="#ControllingTheCommandLine">Controlling the Command Line</a><br />
+    <a class="toc" href="#Permissions">Permissions</a><br />
+    <a class="toc" href="#CombiningCommands">Combining Commands</a><br />
+    <a class="toc" href="#DisplayingFiles">Displaying Files</a><br />
+    <a class="toc" href="#EditingFiles">Editing Files</a><br />
+    <a class="toc" href="#FindingStuff">Finding Stuff</a><br />
+    <a class="toc" href="#RegularExpressions">Regular Expressions</a><br />
+    <a class="toc" href="#Processes">Processes</a><br />
+    <a class="toc" href="#CommonUtilities">Common Utilities</a><br />
+    <a class="toc" href="#UncommonUtilities">Uncommon Utilities</a><br />
+    <a class="toc" href="#GettingHelp">Getting Help</a><br />
+    <a class="toc" href="#PimpYourShell">Pimp Your Shell</a><br />
+    <a class="toc" href="#KeepingYourSystemHealthy">Keeping Your System Healthy</a><br />
+</div>
+
+
+
+<h1>Using Unix</h1>
+
+<p>The Unix operating system is a program - or rather, a collection of programs - which control your computer. You can
+    interact with Unix (and thus interact with your computer) using a <a class="new-term">command shell</a> (sometimes
+    called a <a class="new-term">terminal</a>). There are different flavors of command shells (I recommend <a
+            href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a>); we'll be using the <a class="new-term">Bash
+        shell</a> because this is the default on Mac OS X, and on many flavors of Linux.</P>
+
+
+
+
+<h3 id="Exploring">Exploring</h3>
+
+<p>Let's poke around the <a class="new-term">file system</a> - a hierarchy of directories which can contain files and
+    other directories (and more, which we'll discuss later). Using the <a class="code">cd</a> (change directory)
+    command, go to your <a class="new-term">home directory</a> (the tilde character serves as a shortcut for this):</p>
+
+<div class="terminal">
+    <div class="term-in">> cd ~</div>
+</div>
+
+<p>Print out the <a class="new-term">current directory</a> (also called the <a class="new-term">working directory</a>):
+</p>
+
+<div class="terminal">
+    <div class="term-in">> pwd</div>
+    <div class="term-out">/Users/kurtc</div>
+</div>
+
+<p>We can can change our current directory, using either <a class="new-term">relative paths</a> (file paths relative to
+    the current directory) or <a class="new-term">absolute paths</a> (file paths relative to the root of the file
+    system):</p>
+
+<div class="terminal">
+    <div class="term-in">> cd ..</div>
+    <div class="term-in">> pwd</div>
+    <div class="term-out">/Users</div>
+    <div class="term-in">> cd /Applications/IntelliJ\ IDEA\ 8.0.app/help</div>
+    <div class="term-in">> pwd</div>
+    <div class="term-out">/Applications/IntelliJ IDEA 8.0.1.app/help</div>
+</div>
+
+<p>Using the <a class="code">ls</a> command displays the contents of the current directory:</p>
+
+<div class="terminal">
+<div class="term-in">> ls -lAp</div>
+<div class="term-out">total 27720
+-rw-r--r-- 1 kurtc admin 321297 Nov 6 07:40 ReferenceCard.pdf
+-rw-r--r-- 1 kurtc admin 345226 Nov 6 07:40 ReferenceCardForMac.pdf
+-rw-r--r-- 1 kurtc admin 0 Nov 17 12:09 help.txt
+-rw-r--r-- 1 kurtc admin 13518530 Nov 6 08:15 ideahelp.jar
+drwxr-xr-x 8 kurtc admin 272 Nov 10 12:40 openapi</div>
+</div>
+
+<p>Notice that the behavior of commands can be modified with <a class="new-term">options</a> (also called <a
+        class="new-term">switches</a>). Some command options even take their own arguments. Different commands have
+    different options. In the above example, we set the following options on the ls command:</p>
+
+<table>
+<tr>
+    <td class="code">l</td>
+    <td>displays extended information</td>
+</tr>
+<tr>
+    <td class="code">a</td>
+    <td>displays hidden files and directories (anything prepended with a period)</td>
+</tr>
+<tr>
+    <td class="code">p</td>
+    <td>appends a slash to directory names</td>
+</tr>
+</table>
+
+<p>The output of <a class="code">ls -l</a> displays a wealth of information:</p>
+
+<div class="terminal">
+    <div class="term-anno"> __ Is this a file, directory, link, device, socket or a named pipe?</div>
+    <div class="term-anno">| __ Read/write/execute permissions for the file owner</div>
+    <div class="term-anno">| | __ Read/write/execute permissions for the owner's user group</div>
+    <div class="term-anno">| | | __ Read/write/execute permissions for 'other' (= everybody)</div>
+    <div class="term-anno">| | | | __ Number of child elements (if this is a directory)</div>
+    <div class="term-anno">| | | | | __ File owner</div>
+    <div class="term-anno">| | | | | | __ File owner's user group</div>
+    <div class="term-anno">| | | | | | | __ Size (in bytes)</div>
+    <div class="term-anno">| | | | | | | | __ Last modified timestamp</div>
+    <div class="term-anno">| | | | | | | | | __ File/directory name</div>
+    <div class="term-anno">| | | | | | | | | |</div>
+    <div class="term-anno">---------- - ----- ----- --- ------------ -------</div>
+    <div class="term-in">d<a class="term-anno">rwx</a>r-x<a class="term-anno">r-x</a> 8 kurtc admin 272 Nov 10 12:40 openapi</div>
+</div>
+
+We can also list the contents of another directory, and filter the results:
+
+<div class="terminal">
+<div class="term-in">> ls -la /Applications/IntelliJ\ IDEA\ 8.0.app/help/*.pdf</div>
+<div class="term-out">-rw-r--r-- 1 kurtc admin 321297 Nov 6 07:40 ReferenceCard.pdf
+-rw-r--r-- 1 kurtc admin 345226 Nov 6 07:40 ReferenceCardForMac.pdf</div>
+</div>
+
+Note the use of the <a class="code">*</a> wildcard character, which matches any number of characters (the <a
+        class="code">?</a> wildcard character matches any
+single character).
+
+Commands like <a class="code">cd</a> and <a class="code">ls</a> are themselves small programs. We can find their
+location within the file system by using the
+<a class="code">which</a> utility:
+
+
+<div class="terminal">
+    <div class="term-in">> which ls</div>
+    <div class="term-out">/bin/ls</div>
+    <div class="term-in">> which ruby</div>
+    <div class="term-out">/opt/local/bin/ruby</div>
+    <div class="term-in">> which which</div>
+    <div class="term-out">/usr/bin/which</div>
+</div>
+
+
+
+
+<h3 id="TheFileSystem">The File System</h3>
+
+We can put anything anywhere we choose within the file system, but by convention certain types of files are located in
+certain directories:
+<table>
+    <tr>
+        <td class="code">/</td>
+        <td>The root directory</td>
+    </tr>
+    <tr>
+        <td class="code">/bin</td>
+        <td>Shell commands, including the various shells themselves (<a class="code">bash</a>, <a class="code">zsh</a>,
+            <a class="code">csh</a>, <a class="code">ksh</a>)
+        </td>
+    </tr>
+    <tr>
+        <td class="code">/dev</td>
+        <td>Device files (CD-ROM drive, USB devices, etc.)</td>
+    </tr>
+    <tr>
+        <td class="code">/etc</td>
+        <td>Common location for system and application-specific configuration files (e.g., <a class="code">hosts</a>, <a
+                class="code">ssh_config</a>, etc.)
+        </td>
+    </tr>
+    <tr>
+        <td class="code">/opt/local</td>
+        <td>Common utilities (<a class="code">git</a>, <a class="code">curl</a>, <a class="code">perl</a>, <a
+                class="code">ruby</a>, <a class="code">ssh</a>, etc.)
+        </td>
+    </tr>
+    <tr>
+        <td class="code">/private</td>
+        <td>Some system programs, and SSH configuration files</td>
+    </tr>
+    <tr>
+        <td class="code">/sbin</td>
+        <td>System utilities, such as fsck</td>
+    </tr>
+    <tr>
+        <td class="code">/usr/bin</td>
+        <td>More essential programs (<a class="code">vi</a>, <a class="code">emacs</a>, <a class="code">grep</a>, etc.)
+        </td>
+    </tr>
+    <tr>
+        <td class="code">/usr/sbin</td>
+        <td>More essential programs (<a class="code">chown</a>, <a class="code">cron</a>, etc.)</td>
+    </tr>
+    <tr>
+        <td class="code">/usr/local/...</td>
+        <td>Still more essential programs</td>
+    </tr>
+    <tr>
+        <td class="code">/var</td>
+        <td>Common location for files which vary in size over time: log files, database file, etc.</td>
+    </tr>
+    <tr>
+        <td class="code">/Applications</td>
+        <td>Mac OS X - Default location of application bundles</td>
+    </tr>
+    <tr>
+        <td class="code">/Developer</td>
+        <td>Mac OS X - Developer SDK</td>
+    </tr>
+    <tr>
+        <td class="code">/Library</td>
+        <td>Mac OS X - Contains third party tools and frameworks such as Java, Ruby and Python, as well as
+            application-specific data and settings
+        </td>
+    </tr>
+    <tr>
+        <td class="code">/System/Library</td>
+        <td>Mac OS X - Contains application-specific data and settings</td>
+    </tr>
+    <tr>
+        <td class="code">/Users</td>
+        <td>User home directories</td>
+    </tr>
+</table>
+
+
+
+
+<h3 id="MovingStuff">Moving Stuff</h3>
+
+Let's organize the "Documents" directory:
+
+<div class="terminal">
+<div class="term-in">> cd ~/Documents/
+> ls -la *.txt</div>
+<div class="term-out">-rwxr-xr-x 1 kurtc kurtc 1287 Apr 27 2007 RandomIdeas.txt
+-rw-r--r--@ 1 kurtc kurtc 11008 Jan 6 11:16 pagequotes.txt
+-rwxr-xr-x@ 1 kurtc kurtc 1574 Jul 30 13:11 todo.txt</div>
+</div>
+
+
+We'll create a spot for all of our text files by making a directory where we'll
+collect our <a class="code">*.txt</a> files (the <a class="code">p</a> option enables us to specify an entire path,
+creating
+any intermediate directories as needed):
+
+
+<div class="terminal">
+    <div class="term-in">> mkdir -p TxtDocuments/New</div>
+</div>
+
+
+<a class="new-term">Move</a> all of the text files in the current directory (that is, any files whose names match the
+pattern <a class="code">*.txt</a>) to our new
+directory:
+
+
+<div class="terminal">
+    <div class="term-in">> mv *.txt TxtDocuments/New</div>
+    <div class="term-in">> ls -l TxtDocuments/New</div>
+    <div class="term-out">total 40</div>
+    <div class="term-out">-rwxr-xr-x 1 kurtc kurtc 1287 Apr 27 2007 RandomIdeas.txt</div>
+    <div class="term-out">-rw-r--r--@ 1 kurtc kurtc 11008 Jan 6 11:16 pagequotes.txt</div>
+    <div class="term-out">-rwxr-xr-x@ 1 kurtc kurtc 1574 Jul 30 13:11 todo.txt</div>
+</div>
+
+
+Wait a minute - actually, we don't want to lose these documents while we're experimenting, so we'll <a class="new-term">copy</a>
+them back to
+where they were (which, in this case, is simply the current directory):
+
+
+<div class="terminal">
+    <div class="term-in">> cp TxtDocuments/New/*.txt .</div>
+</div>
+
+
+In fact, let's start over - we'll <a class="new-term">remove</a> the directory we just created, along with anything
+in it (the <a class="code">r</a> option recursively removes any child directories or files):
+
+<div class="terminal">
+    <div class="term-in">> rm -r TxtDocuments/New</div>
+</div>
+
+
+
+
+<h3 id="MakingLinks">Making Links</h3>
+
+Sometime we don't want to make a copy; we just want to create a shortcut by creating a <a class="new-term">link</a>:
+
+
+<div class="terminal">
+    <div class="term-in">> ln real-file.txt hard-link.txt</div>
+    <div class="term-in">> ls -lap *.txt</div>
+    <div class="term-out">-rw-r--r-- 2 kurtc kurtc 3 Mar 24 03:46 hard-link.txt</div>
+    <div class="term-out">-rw-r--r-- 2 kurtc kurtc 3 Mar 24 03:46 real-file.txt</div>
+</div>
+
+
+This creates a <a class="new-term">hard link</a>. Alternately, we can create a <a class="new-term">symbolic link</a> (or
+"<a class="new-term">soft link</a>"):
+
+
+<div class="terminal">
+    <div class="term-in">> ln -s real-file.txt soft-link.txt</div>
+    <div class="term-in">> ls -lap *.txt</div>
+    <div class="term-out">-rw-r--r-- 2 kurtc kurtc 9 Mar 24 03:48 hard-link.txt</div>
+    <div class="term-out">-rw-r--r-- 2 kurtc kurtc 9 Mar 24 03:48 real-file.txt</div>
+    <div class="term-out">lrwxr-xr-x 1 kurtc kurtc 13 Mar 26 02:02 soft-link.txt -> real-file.txt</div>
+</div>
+
+
+Hard links and symbolic links behave identically for most purposes. The difference is that a hard link points at
+the inode (small data structure in ) of a file, whereas a symbolic link simply contains the name of the file to which it
+is linked (in other
+words, a pointer to a pointer of the inode of a file). Most filesystems do not allow hard links to directories. Hard
+links are also limited to the local filesystem. So whether you choose to create a hard link or a soft link will
+ordinarily be determined by the type of entity to which you're linking, and how you're using that link (e.g., if you're
+creating
+a link which you wish to have persisted in a version control system).
+
+
+
+
+<h3 id="ControllingTheCommandLine">Controlling The Command Line</h3>
+
+By now you're probably sick of typing so much. Fortunately, the shell provides some relief:
+<table>
+    <tr>
+        <td class="code">ctrl-C</td>
+        <td>Stop the current command</td>
+    </tr>
+    <tr>
+        <td class="code">&lt;up/down arrows&gt;</td>
+        <td>Go through the history of recently executed commands</td>
+    </tr>
+    <tr>
+        <td class="code">tab</td>
+        <td>Completes the path or command</td>
+    </tr>
+    <tr>
+        <td class="code">tab tab</td>
+        <td>Displays all possible path or command completions</td>
+    </tr>
+    <tr>
+        <td class="code">ctrl-S</td>
+        <td>Pause output</td>
+    </tr>
+    <tr>
+        <td class="code">ctrl-Q</td>
+        <td>Resume output</td>
+    </tr>
+    <tr>
+        <td class="code">ctrl-A</td>
+        <td>Go to the beginning of the line</td>
+    </tr>
+    <tr>
+        <td class="code">ctrl-E</td>
+        <td>Go to the end of the line</td>
+    </tr>
+    <tr>
+        <td class="code">ctrl-U</td>
+        <td>Deletes from the cursor to the beginning of the line</td>
+    </tr>
+    <tr>
+        <td class="code">ctrl-K</td>
+        <td>Deletes from the cursor to the end of the line</td>
+    </tr>
+    <tr>
+        <td class="code">ctrl-R</td>
+        <td>Search backwards through your command history</td>
+    </tr>
+</table>
+
+Make yourself use these shortcuts when opportunities present themselves, and they'll soon be a part of your muscle
+memory.
+
+
+
+
+<h3 id="Permissions">Permissions</h3>
+
+Security and permissions in UNIX is a large topic; for now it's sufficient to know that every file has "mode bits" which
+determine the read, write and execute permissions for the file's owner, the file owner's user group, and everyone else.
+We can change these mode bits using the <a class="code">chmod</a> (<a class="new-term">change mode</a>) command:
+
+<div class="terminal">
+    <div class="term-in">> ls -l *.txt</div>
+    <div class="term-out">-rw-r--r-- 1 kurtc admin 446 Nov 17 12:09 help.txt</div>
+    <div class="term-in">> chmod +x help.txt</div>
+    <div class="term-in">> ls -l *.txt</div>
+    <div class="term-out">-rwxr-xr-x 1 kurtc admin 446 Nov 17 12:09 help.txt</div>
+</div>
+
+We can also change the owner of a file:
+
+<div class="terminal">
+    <div class="term-in">> ls -l new.txt</div>
+    <div class="term-out">-rw-r--r-- 1 kurtc kurtc 7 Jan 20 21:52 new.txt</div>
+    <div class="term-in">> sudo chown jfilardo new.txt</div>
+    <div class="term-out">Password: ****</div>
+    <div class="term-in">> ls -l new.txt</div>
+    <div class="term-out">-rw-r--r-- 1 jfilardo kurtc 7 Jan 20 21:52 new.txt</div>
+</div>
+
+Note that in the previous example
+
+
+sudo
+
+
+
+
+<h3 id="CombiningCommands">Combining Commands</h3>
+
+One of the greatest features of the command shell is the ability to feed the output of commands as the input to files or
+other commands, and vice-versa:
+
+<table>
+    <tr>
+        <td><a class="code">&lt;</a></td>
+        <td>Read in from file</td>
+    </tr>
+    <tr>
+        <td><a class="code">&gt;</a></td>
+        <td>Write out to file</td>
+    <tr>
+        <td><a class="code">|</a></td>
+        <td>Pipe output from one process to another</td>
+    </tr>
+    <tr>
+        <td><a class="code">&gt;&gt;</a></td>
+        <td>Append to an existing file</td>
+    </tr>
+    <tr>
+        <td><a class="code">&amp;</a></td>
+        <td>Execute the process in the background</td>
+    </tr>
+</table>
+
+The ability to "pipe" input and output from one program to another is really a manifestation of a larger philosophy
+which underpins much of Unix: small, simple things which do one thing well, which in turn can be combined to do more
+complex things. For example:
+
+
+<div class="terminal">
+    <div class="term-in">> ls -la > help.txt</div>
+    <div class="term-in">> vi help.txt</div>
+    <div class="term-out">total 27720</div>
+    <div class="term-out">drwxr-xr-x 7 kurtc admin 238 Nov 17 12:09 .</div>
+    <div class="term-out">drwxr-xr-x 18 kurtc admin 612 Nov 10 12:40 ..</div>
+    <div class="term-out">-rw-r--r-- 1 kurtc admin 321297 Nov 6 07:40 ReferenceCard.pdf</div>
+    <div class="term-out">-rw-r--r-- 1 kurtc admin 345226 Nov 6 07:40 ReferenceCardForMac.pdf</div>
+    <div class="term-out">-rw-r--r-- 1 kurtc admin 0 Nov 17 12:09 help.txt</div>
+    <div class="term-out">-rw-r--r-- 1 kurtc admin 13518530 Nov 6 08:15 ideahelp.jar</div>
+    <div class="term-out">drwxr-xr-x 8 kurtc admin 272 Nov 10 12:40 openapi</div>
+    <div class="term-out">~</div>
+    <div class="term-out">~</div>
+    <div class="term-out">"help.txt" 8L, 446C</div>
+</div>
+
+
+As a concrete example, consider this use of the xargs command, which applies a command to each line of output fed to it
+by a different command:
+
+xargs...?
+
+
+sort
+
+
+
+
+<h3 id="DisplayingFiles">Displaying Files</h3>
+
+Display the contents of one or more files with less (because less is more):
+
+
+<div class="terminal">
+    <div class="term-in">> less list.txt</div>
+    <div class="term-out">apple</div>
+    <div class="term-out">orange</div>
+    <div class="term-out">banana</div>
+    <div class="term-out">cucumber</div>
+    <div class="term-out">blueberry</div>
+    <div class="term-out">pomegranate</div>
+    <a class="term-out-inverse">list.txt (END)</a>
+</div>
+
+
+less has useful commands for navigating within files:
+
+<table>
+    <tr>
+        <td class="code">&lt;space&gt;</td>
+        <td>Next page</td>
+    </tr>
+    <tr>
+        <td class="code">&lt;return&gt;</td>
+        <td>Next line</td>
+    </tr>
+    <tr>
+        <td class="code">&lt;n&gt;f</td>
+        <td>move forward &lt;n&gt; lines</td>
+    </tr>
+    <tr>
+        <td class="code">&lt;n&gt;b</td>
+        <td>Move backwards &lt;n&gt; lines</td>
+    </tr>
+    <tr>
+        <td class="code">/&lt;word&gt; </td>
+        <td>Search forward for &lt;word&gt; </td>
+    </tr>
+    <tr>
+        <td class="code">?&lt;word&gt; </td>
+        <td>Search backwards for &lt;word&gt; </td>
+    </tr>
+    <tr>
+        <td class="code">v</td>
+        <td>Jump into vi editor</td>
+    </tr>
+    <tr>
+        <td class="code">:n</td>
+        <td>Go to the next file (if we opened multiple files)</td>
+    </tr>
+    <tr>
+        <td class="code">:p</td>
+        <td>Go to the previous file (if we opened multiple files)</td>
+    </tr>
+    <tr>
+        <td class="code">q</td>
+        <td>Quit</td>
+    </tr>
+</table>
+
+
+
+
+<h3 id="EditingFiles">Editing Files</h3>
+
+The big dogs are vi and emacs, along with various lighter-weight alternatives (pico, for example). These tools are too
+rich to explore in any depth here, but we can quickly give ourselves enough information to be dangerous:
+
+
+<h5>vi</h5>
+
+vi operates in two very distinct modes: command mode, and entry mode. When you first open vi, you are in command mode.
+In this mode, typing i or a will drop you into entry mode, which enables us to actually enter text. Hitting the esc key
+at any time will drop us back into command mode, in which we can actually run commands. The strength of vi is its
+simplicity, ubiquity, and exceptionally powerful text processing tools.
+
+<table>
+    <tr>
+        <td class="code">i</td>
+        <td>Insert</td>
+        <td>Go into entry mode, beginning at the current cursor location</td>
+    </tr>
+    <tr>
+        <td class="code">a</td>
+        <td>Append</td>
+        <td>Go into entry mode, beginning at the current cursor location</td>
+    </tr>
+    <tr>
+        <td class="code">:q!</td>
+        <td>Quit</td>
+        <td>Abandon any changes since the last save, and exit vi</td>
+    </tr>
+    <tr>
+        <td class="code">ZZ</td>
+        <td>Save and exit</td>
+        <td>Save the current file and exit vi</td>
+    </tr>
+</table>
+
+<h5>emacs</h5>
+
+emacs is an exceptionally powerful text editor which has a built in extension mechanism, enabling power users
+to write their own macros to accomplish just about anything. In contrast to vi, emacs is more similar to modern
+word processors, in that rather than have a separate "command mode", emacs has elaborate key combinations (called
+"chords")
+which enable users to process text while still in "entry mode".
+
+<table>
+    <tr>
+        <td class="code">XXX</td>
+        <td>TBD</td>
+        <td>Do the thing</td>
+    </tr>
+</table>
+
+
+
+
+<h3 id="FindingStuff">Finding Stuff</h3>
+
+Unix gives us two essential search tools: find, which finds files and directories which match certain search criteria,
+and grep, which finds files containing certain text. To find one or more files with a specific name within the current
+directory:
+
+<div class="terminal">
+    <div class="term-in"> find . -name "*.pdf" -print</div>
+    <div class="term-out">./help/ReferenceCard.pdf</div>
+    <div class="term-out">./help/ReferenceCardForMac.pdf</div>
+</div>
+
+<h4>TBD - Find out what works and what doesn't on Linux, Mac OS X, and Solaris</h4>
+
+
+Apply a unix command to a set of files:
+
+
+<div class="terminal">
+    <div class="term-in">> find . -name "rc.conf" -exec chmod o+r '{} ' \;</div>
+</div>
+
+This command will search in the current directory and all sub directories. All files named rc.conf will be processed by
+the chmod -o+r command. The argument '{}' inserts each found file into the chmod command line. The \; argument indicates
+the exec command line has ended.
+
+The end results of this command is all rc.conf files have the other permissions set to read access (assuming the current
+user is
+the owner of the file).
+
+
+How to apply a complex selection of files (-o and -a).
+
+<div class="terminal">
+    <div class="term-in">> find /usr/src -not \( -name "*,v" -o -name ".*,v" \) '{}' \; -print</div>
+</div>
+
+This command will search in the /usr/src directory and all sub directories. All files that are of the form '*,v' and
+'.*,v' are excluded. Important arguments to note are:
+-not means the negation of the expression that follows
+\( means the start of a complex expression.
+\) means the end of a complex expression.
+-o means a logical or of a complex expression.
+In this case the complex expression is all files like '*,v' or '.*,v'
+
+The above example is shows how to select all file that are not part of the RCS system. This is important when you want
+go through a source tree and modify all the source files... but ... you don't want to affect the RCS version control
+files.
+
+
+How to search for a string in a selection of files (-exec grep ...).
+
+> find . -exec grep "www.athabasca" '{}' \; -print
+
+This command will search in the current directory and all sub directories. All files that contain the string will have
+their path printed to standard output.
+
+
+
+
+<h3 id="RegularExpressions">Regular Expressions</h3>
+
+To effectively use grep (and many other commands), you need to know some regular expressions. A regular expression (or
+"regex") is simply a pattern which can be applied to some block of text to return all of the character sequences within
+that block of text which match the specified pattern:
+
+<b>TODO - Display standard text, with appropriate highlighting for each case</b>
+
+<table>
+    <tr>
+        <td class="code">.</td>
+        <td>Matches any single character</td>
+        <td>b.t matches bat and but</td>
+    </tr>
+    <tr>
+        <td class="code">^</td>
+        <td> Anchors to the beginning</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td class="code">$</td>
+        <td> Anchors to the end</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td class="code">A</td>
+        <td> Matches any...</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="code">a</td>
+        <td> Matches any single alphabetic character</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="code">\d</td>
+        <td> Matches any single digit</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td class="code">\D</td>
+        <td> Matches any single character NOT a digit</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td class="code">\w</td>
+        <td> Matches any word (a set of characters separated from other sets of characters by whitespace)</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="code">[xy7]</td>
+        <td> Matches any one of the characters 'x', 'y' or '7'</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="code">[A-E]</td>
+        <td> Matches the range of characters from 'A' through 'E'</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td class="code">[^A-E]</td>
+        <td></td>
+        <td></td>
+    </tr>
+
+
+    <tr>
+        <td class="code">X?</td>
+        <td> Matches X zero or one time</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td class="code">X*</td>
+        <td> Matches X zero or more times</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td class="code">X+</td>
+        <td> Matches X one or more times</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td class="code">X{n}</td>
+        <td> Matches X exactly n times</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td class="code">X{n,m}</td>
+        <td> Matches X n through m times</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td class="code">(X|Y)</td>
+        <td> Matches X or Y</td>
+        <td></td>
+    </tr>
+</table>
+
+
+These elements can be combined to form sophisticated patterns. For example, we could...
+
+
+If you want to just find each file then pass it on for processing use the -q grep option. This finds the first
+occurrance of the search string. It then signals success to find and find continues searching for more files.
+find . -exec grep -q "www.athabasca" '{}' \; -print
+
+
+
+
+<h3 id="Processes">Processes</h3>
+The operating system allocates a process to run any given program. The OS can (and does) run many processes
+simultaneously,
+and is responsible for allocating resources (CPU, memory, etc.) to these processes, as well as ensuring that processes
+do not unintentionally (or maliciously) interfere with one another. The <a class="code">ps</a> command shows the
+currently running processes
+(the <a class="code">A</a> option displays <i>all</i> processes, not just those owned by the current user):
+<div class="terminal">
+    <div class="term-in">> ps -A</div>
+    <div class="term-out"> PID TTY TIME CMD</div>
+    <div class="term-out"> 1 ?? 0:02.37 /sbin/launchd</div>
+    <div class="term-out"> 17 ?? 0:01.09 /usr/libexec/kextd</div>
+    <div class="term-out"> 18 ?? 0:25.20 /usr/sbin/DirectoryService</div>
+    <div class="term-out"> 19 ?? 0:04.95 /usr/sbin/notifyd</div>
+    <div class="term-out"> 20 ?? 0:04.84 /usr/sbin/syslogd</div>
+    <div class="term-out"> 21 ?? 0:25.97 /usr/sbin/configd</div>
+    <div class="term-out"></div>
+    <div class="term-anno"><i>...snipped...</i></div>
+    <div class="term-out"></div>
+    <div class="term-out"> 870 ttys000 0:00.05 -bash</div>
+    <div class="term-out"> 3015 ttys000 0:00.00 ps -A</div>
+</div>
+
+Processes have owners, and thus also have permissions... TBD
+
+<br/><br/>
+
+We create a new process simply by running a program (recall that appending an ampersand to a command spawns a child
+process for that command):
+
+<div class="terminal">
+    <div class="term-in">> cd /Applications/Calculator.app/Contents/MacOS</div>
+    <div class="term-in">> ./Calculator &</div>
+    <div class="term-out">>[1] 3122</div>
+</div>
+
+Now if we list the currently running processes, we would expect to see our Calculator process. Here we'll only display
+the processes that we own:
+
+<div class="terminal">
+    <div class="term-in">> ps</div>
+    <div class="term-out"> PID TTY TIME CMD</div>
+    <div class="term-out"> 870 ttys000 0:00.09 -bash</div>
+    <div class="term-out"> 3122 ttys000 0:00.25 ./Calculator</div>
+</div>
+
+As we create, so can we destroy. The <a class="code">kill</a> command destroys a process:
+
+<div class="terminal">
+    <div class="term-in">> kill 3122</div>
+    <div class="term-in">> ps</div>
+    <div class="term-out"> PID TTY TIME CMD</div>
+    <div class="term-out"> 870 ttys000 0:00.09 -bash</div>
+    <div class="term-out">[1]+ Terminated ./Calculator</div>
+</div>
+
+
+
+
+<h3 id="CommonUtilities">Common Utilities</h3>
+<table>
+    <tr>
+        <td class="code">vi</td>
+        <td>The primary Unix text editor</td>
+    </tr>
+    <tr>
+        <td class="code">emacs</td>
+        <td>The other primary Unix text editor</td>
+    </tr>
+    <tr>
+        <td class="code">pico</td>
+        <td>Yet another text editor</td>
+    </tr>
+    <tr>
+        <td class="code">cron</td>
+        <td>Job scheduler</td>
+    </tr>
+    <tr>
+        <td class="code">tar</td>
+        <td>The standard compression/decompression utility</td>
+    </tr>
+    <tr>
+        <td class="code">wget</td>
+        <td>command-line http client</td>
+    </tr>
+    <tr>
+        <td class="code">curl</td>
+        <td>wget on steroids</td>
+    </tr>
+    <tr>
+        <td class="code">telnet</td>
+        <td>Open a shell on another computer</td>
+    </tr>
+    <tr>
+        <td class="code">ftp</td>
+        <td>Copy files to and from another computer</td>
+    </tr>
+    <tr>
+        <td class="code">ssh</td>
+        <td>Open a secure shell on another computer</td>
+    </tr>
+    <tr>
+        <td class="code">scp</td>
+        <td>Securely copy files over SSH</td>
+    </tr>
+    <tr>
+        <td class="code">rsync</td>
+        <td></td>
+    </tr>
+</table>
+
+
+
+
+<h3 id="UncommonUtilities">Uncommon Utilities</h3>
+
+<table>
+    <tr>
+        <td class="code">cal</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="code">date</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="code">netstat</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="code">ifconfig</td>
+        <td></td>
+    </tr>
+</table>
+
+
+
+
+<h3 id="GettingHelp">Getting Help</h3>
+
+If you want detailed documentation for a given command, check out its man(ual) page:
+
+<div class="terminal">
+<div class="term-in">> man who</div>
+<div class="term-out">
+WHO(1) BSD General Commands Manual WHO(1)
+
+NAME
+who -- display who is on the system
+
+SYNOPSIS
+who [-HmqsTu] [am I] [file]
+
+DESCRIPTION
+The who utility displays information about currently logged in users...
+</div>
+</div>
+
+...and so on, including detailed descriptions of the various options, expected arguments, and common usage
+scenarios.
+
+
+
+
+<h3 id="PimpYourShell">Pimp Your Shell</h3>
+
+There are a variety of other configuration files which customize your environment, depending on the shell and
+applications you use. Configuration filenames normally begin with a period, which tells the shell (and most GUI file
+managers)
+to hide them by default. The Bash shell itself is configured (per user) within the user's <a
+        class="code">.bash_profile</a> file:
+
+<div class="terminal">
+<div class="term-in">> cd ~</div>
+<div class="term-in">> less .bash_profile</div>
+
+<div class="term-out">export PATH=/Applications/MzScheme\ v372/bin:/opt/local/bin:/opt/local/sbin:$PATH</div>
+<div class="term-out">export DISPLAY=:0.0</div>
+<br/>
+
+<a class="term-out-inverse">.bash_profile (END)</a>
+</div>
+
+.bash_profile is a simple shell script, a file where each line is executed as if it were entered at the command prompt.
+This enables us to do all sorts of things, like customizing the command prompt (using the built-in system property
+<a class="code">PS1</a>):
+
+
+<div class="terminal">
+    <div class="term-in">> export PS1="\h \u \d \t \w \# >"</div>
+    <div class="term-in">Elysium kurtc Sun Mar 28 10:06:29 ~/dev/test 41 > pwd</div>
+    <div class="term-out">/Users/kurtc/dev/test</div>
+    <div class="term-in">Elysium kurtc Sun Mar 28 10:06:38 ~/dev/test 42 ></div>
+</div>
+
+
+...or creating <a class="new-term">aliases</a>, which are shortcuts for more complicated commands. For example, if we
+find ourselves <i>always</i> typing in <a class="code">ls -lAp</a>, we can add the following line to our <a
+        class="code">.bash_profile</a>:
+
+<div class="terminal">
+    <div class="term-in">alias ll="ls -lAp"</div>
+</div>
+
+
+TBD
+
+Customized Key Bindings
+
+All examples given above are default key bindings in BASH. There are additional BASH functions that are not
+automatically bound to a key sequence. To see all current key bindings, plus all unmapped functions, run this command:
+
+bind -P
+If you want to set your own key sequences or macros, you can define them in a readline run control file in your home
+directory called .inputrc (you will need to create one). Readline is a library that provides command line control for
+BASH. To define a new key sequence, edit the .inputrc file and enter your new definitions one per line. You need to use
+the readline syntax as follows:
+
+key-sequence: function
+\C- means Ctrl plus another key
+\M- means Meta (Option) plus another key
+\e is the ESC character
+\\ is a backslash
+\" is a double quote
+\' is a single quote
+For example, to bind Option-z (meta-z) to the tty-status function, add this line to your .inputrc file:
+
+"\M-z": tty-status
+
+
+
+
+<h3 id="Scripting">Scripting</h3>
+
+Every Unix command shell supports one or more scripting languages, which enables us to stitch together shell commands
+with loops and conditional logic in order to perform more sophisticated tasks. The simplest scripts contain a simple
+sequence of one or more shell commands (like <a class="code">.bash_profile</a>, for example); such scripts are helpful
+for automating complex and tedious sequences of commands.
+
+
+
+
+<h3>sed-fu</h3>
+
+The Unix stream editor is a small but powerful text manipulation language. Although sed is capable of many things, it's
+ordinarily used as string substitution tool:
+
+TBD
+
+Substitution with sed is particularly handy as a tool to modify the input or output for other Unix commands. For
+example,
+
+TBD
+
+
+If you need more than sed and bash can provide, then you should consider a fully-featured scripting language like Perl
+or Python or Ruby.
+
+
+
+
+<h3 id="KeepingYourSystemHealthy">Keeping Your System Healthy</h3>
+
+fsck
+
+
+<br />
+<br />
+<br />
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+<script src="../js/plugins.js"></script>
+<script src="../js/main.js"></script>
+
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+<script>
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+        e.src='//www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-XXXXX-X');ga('send','pageview');
+</script>
+
+</body>
+</html>

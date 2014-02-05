@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>On Clojure</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link href="../css/bitbakery.css" title="primary" rel="stylesheet" type="text/css"/>
+    <script src="../js/vendor/modernizr-2.6.2.min.js"></script>
+</head>
+<body>
+<!--[if lt IE 7]>
+<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+<![endif]-->
+
+
+<h1>On (Clojure)</h1>
+
+<p>An outline of Paul Graham's On Lisp, with examples and exercises done in Clojure.</p>
+
+
+<h3>Chapter 1 - The Extensible Language</h3>
+
+<p>What can you do in Lisp that
+you can’t do in other languages? One of the most distinctive qualities of Lisp is
+the way it can be tailored to suit the program being written in it. Lisp itself is a
+Lisp program, and Lisp programs can be expressed as lists, which are Lisp data
+structures. Together, these two principles mean that any user can add operators to
+Lisp which are indistinguishable from the ones that come built-in</p>
+
+<h3>Chapter 2 - Functions</h3>
+2.1. Functions as Data 9
+2.2. Deﬁning Functions 10
+2.3. Functional Arguments 13
+2.4. Functions as Properties 15
+2.5. Scope 16
+2.6. Closures 17
+2.7. Local Functions 21
+2.8. Tail-Recursion 22
+2.9. Compilation 24
+2.10. Functions from Lists 27
+
+<h3>Chapter 3 - Functional Programming</h3>
+3.1. Functional Design 28
+3.2. Imperative Outside-In 33
+3.3. Functional Interfaces 35
+3.4. Interactive Programming 37
+
+<h3>Chapter 4 - Utility Functions</h3>
+4.1. Birth of a Utility 40
+4.2. Invest in Abstraction 43
+4.3. Operations on Lists 44
+4.4. Search 48
+4.5. Mapping 53
+4.6. I/O 56
+4.7. Symbols and Strings 57
+4.8. Density 59
+
+<h3>Chapter 5 - Returning Functions</h3>
+5.1. Common Lisp Evolves 61
+5.2. Orthogonality 63
+5.3. Memoizing 65
+5.4. Composing Functions 66
+5.5. Recursion on Cdrs 68
+5.6. Recursion on Subtrees 70
+5.7. When to Build Functions 75
+
+<h3>Chapter 6 - Functions as Representation</h3>
+6.1. Networks 76
+6.2. Compiling Networks 79
+6.3. Looking Forward 81
+
+<h3>Chapter 7 - Macros</h3>
+7.1. How Macros Work 82
+7.2. Backquote 84
+7.3. Deﬁning Simple Macros 88
+7.4. Testing Macroexpansion 91
+7.5. Destructuring in Parameter Lists 93
+7.6. A Model of Macros 95
+7.7. Macros as Programs 96
+7.8. Macro Style 99
+7.9. Dependence on Macros 101
+7.10. Macros from Functions 102
+7.11. Symbol Macros 105
+
+<h3>Chapter 8 - When to Use Macros</h3>
+8.1. When Nothing Else Will Do 106
+8.2. Macro or Function? 109
+8.3. Applications for Macros 111
+
+<h3>Chapter 9. Variable Capture</h3>
+9.1. Macro Argument Capture 118
+9.2. Free Symbol Capture 119
+9.3. When Capture Occurs 121
+9.4. Avoiding Capture with Better Names 125
+9.5. Avoiding Capture by Prior Evaluation 125
+9.6. Avoiding Capture with Gensyms 128
+9.7. Avoiding Capture with Packages 130
+9.8. Capture in Other Name-Spaces 130
+9.9. Why Bother? 132
+
+<h3>Chapter 10 - Other Macro Pitfalls</h3>
+10.1. Number of Evaluations 133
+10.2. Order of Evaluation 135
+10.3. Non-functional Expanders 136
+10.4. Recursion 139
+
+<h3>Chapter 11 - Classic Macros</h3>
+11.1. Creating Context 143
+11.2. The with- Macro 147
+11.3. Conditional Evaluation 150
+11.4. Iteration 154
+11.5. Iteration with Multiple Values 158
+11.6. Need for Macros 161
+
+<h3>Chapter 12 - Generalized Variables</h3>
+12.1. The Concept 165
+12.2. The Multiple Evaluation Problem 167
+12.3. New Utilities 169
+12.4. More Complex Utilities 171
+12.5. Deﬁning Inversions 178
+
+<h3>Chapter 13 - Computation at Compile-Time</h3>
+13.1. New Utilities 181
+13.2. Example: Bezier Curves 185
+13.3. Applications 186
+
+<h3>Chapter 14 - Anaphoric Macros</h3>
+14.1. Anaphoric Variants 189
+14.2. Failure 195
+14.3. Referential Transparency 198
+
+<h3>Chapter 15 - Macros Returning Functions</h3>
+15.1. Building Functions 201
+15.2. Recursion on Cdrs 204
+15.3. Recursion on Subtrees 208
+15.4. Lazy Evaluation 211
+
+<h3>Chapter 16 - Macro-Deﬁning Macros</h3>
+16.1. Abbreviations 213
+16.2. Properties 216
+16.3. Anaphoric Macros 218
+
+<h3>Chapter 17 - Read-Macros</h3>
+17.1. Macro Characters 224
+17.2. Dispatching Macro Characters 226
+17.3. Delimiters 227
+17.4. When What Happens 229
+
+<h3>Chapter 18 - Destructuring</h3>
+18.1. Destructuring on Lists 230
+18.2. Other Structures 231
+18.3. Reference 236
+18.4. Matching 238
+
+<h3>Chapter 19 - A Query Compiler</h3>
+19.1. The Database 247
+19.2. Pattern-Matching Queries 248
+19.3. A Query Interpreter 250
+19.4. Restrictions on Binding 252
+19.5. A Query Compiler 254
+
+<h3>Chapter 20 - Continuations</h3>
+20.1. Scheme Continuations 258
+20.2. Continuation-Passing Macros 266
+20.3. Code-Walkers and CPS Conversion 272
+
+<h3>Chapter 21 - Multiple Processes</h3>
+21.1. The Process Abstraction 275
+21.2. Implementation 277
+21.3. The Less-than-Rapid Prototype 284
+
+<h3>Chapter 22 - Nondeterminism</h3>
+22.1. The Concept 286
+22.2. Search 290
+22.3. Scheme Implementation 292
+22.4. Common Lisp Implementation 294
+22.5. Cuts 298
+22.6. True Nondeterminism 302
+
+<h3>Chapter 23 - Parsing with ATNs</h3>
+23.1. Background 305
+23.2. The Formalism 306
+23.3. Nondeterminism 308
+23.4. An ATN Compiler 309
+23.5. A Sample ATN 314
+
+<h3>Chapter 24 - Prolog</h3>
+24.1. Concepts 321
+24.2. An Interpreter 323
+24.3. Rules 329
+24.4. The Need for Nondeterminism 333
+24.5. New Implementation 334
+24.6. Adding Prolog Features 337
+24.7. Examples 344
+24.8. The Senses of Compile 346
+
+<h3>Chapter 25 - Object-Oriented Lisp</h3>
+25.1. Plus c¸a Change 348
+25.2. Objects in Plain Lisp 349
+25.3. Classes and Instances 364
+25.4. Methods 368
+25.5. Auxiliary Methods and Combination 374
+25.6. CLOS and Lisp 377
+25.7. When to Object 379
+
+
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="../js/plugins.js"></script>
+<script src="../js/main.js"></script>
+
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+<script>
+    var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src='//www.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+</body>
+</html>

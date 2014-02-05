@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Using VersionOne</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link href="../css/bitbakery.css" title="primary" rel="stylesheet" type="text/css"/>
+    <script src="../js/vendor/modernizr-2.6.2.min.js"></script>
+</head>
+<body>
+<!--[if lt IE 7]>
+<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to
+    improve your experience.</p>
+<![endif]-->
+
+
+<div class="table-of-contents">
+    <a class="toc" href="#UsingVersionOne"><b>Using VersionOne</b></a><br />
+    <a class="toc" href="#ViewStories">View Stories (and Epics)</a><br />
+    <a class="toc" href="#AddStory">Add Story (or Epic)</a><br />
+    <a class="toc" href="#AddStory">Add Story (or Epic)</a><br />
+</div>
+
+
+<h1 id="UsingVersionOne">Using VersionOne</h1>
+
+<p>VersionOne is a web-based project management and collaboration tool. There are often many ways to accomplish the same
+    thing within VersionOne. In this cheat sheet, we will focus on a minimal subset of the available views, but as you
+    become more comfortable with the tool, you may wish to explore some of the other views and customization options to
+    create the environment which works best for you.</p>
+
+
+<h3 id="ViewStories">View Stories (and Epics)</h3>
+
+
+
+
+<h3 id="AddStory">Add a Story (or Epic)</h3>
+
+
+
+Clicking the "Add Backlog Item" button displays the Backlog Item dialog box:
+
+
+
+When entering epics for future release candidates, entering the initial backlog item is all that needs to be done - don't worry about breaking down an epic into child sprint-level stories until you're actually ready to do so.
+
+
+
+<h3>Delete a Story</h3>
+
+xx
+
+
+<h3>Break Down an Epic into Stories</h3>
+
+
+
+Clicking the "Breakdown Epic" button displays the Breakdown Epic dialog box:
+
+
+
+
+
+<h3>Tracking Dependencies Between Backlog Items</h3>
+
+To establish a dependency between two epics or stories, we must open one of the two backlog items (this can be done from many places within VersionOne):
+
+
+
+Clicking the "Relationships" tab displays the following:
+
+
+
+
+After clicking the "Assign" button, the "Dependencies" dialog box appears, from which we can pick one or more backlog items with which we wish to establish dependencies:
+
+
+
+
+
+Upon closing the "Dependencies" dialog box, we see that the newly-created dependency is now displayed:
+
+
+
+See "Customizing a View" (below) to find out how to customize a view to display dependency information.
+
+Changing the Parent Epic of a Story
+
+XXX
+
+<< IMAGE - Edit Backlog Item Dialog Box>>
+
+<< IMAGE - Parent Epic List Dialog Box>>
+
+
+To move multiple stories from one epic to another,
+
+
+
+
+<h3>Assigning a Backlog Item to a Release Candidate</h3>
+
+At PTC, we have chosen to model product releases and their associated release candidates (as well as ongoing maintenance streams) by way of the project hierarchy:
+
+Thus, to move an epic (or a story) to a particular release candidate, simply set its project (e.g., to assign this epic to X-20 Release Candidate 1, set its project as "X-20 RC1"):
+
+Note, however, that moving an epic to a different project does NOT automatically move any child stories of that epic!
+
+
+
+<h3>Assigning a Story to a Sprint</h3>
+
+VersionOne enables a variety of ways to assign a story to a sprint. The most direct way is to simply set the sprint within the story itself:
+
+
+
+Adding Tasks to a Story
+
+VersionOne provides a variety of ways to add a task to a story. One way to easily add multiple tasks to multiple stories within a sprint (as you might like to do during a sprint planning session) is to do so within the "Sprint Tracking" view:
+
+
+Clicking "Add Task" displays the Task dialog box:
+
+Split a Story
+
+Occasionally during sprint planning we would like to take some tasks that were defined as part of an existing story and break them out into a new, separate story. This can be done by "splitting" the story:
+
+
+Clicking "Split" brings up the Split dialog box:
+
+Splitting a story at the beginning of a sprint can sometimes be a helpful way of managing the sprint backlog, but - in general - if a team is nearing the end of a sprint and it looks as though a particular story won't get completed, it's best to simply move the story to the next sprint, as opposed to splitting the story. Splitting stories at the end of a sprint is usually done for the wrong reasons (i.e., trying to boost a team's numbers, instead of proactively managing a team's sprint backlog).
+
+
+
+<h3>View Sprint Burnup</h3>
+
+After clicking the "Go" button, various charts will be generated for the selected sprint and sprint team:
+
+
+
+<h3>View Release Candidate Burnup</h3>
+
+
+After clicking the "Go" button, a burnup chart will be generated showing the progress made against the epics assigned to the currently selected project node:
+
+
+Note that when you're generating release or release candidate burnup charts, it's very important that you have the correct project node selected in order to properly specify the collection of stories against which you wish to track progress. To illustrate the point, if you want to generate a burnup chart for the first release candidate of X-20 but you have the "X-20" project node selected instead of "X-20 RC1", you'll see a report of progress made against the entire release backlog, instead of the backlog for that particular release candidate.
+
+
+
+<h3>View Progress for a Capability Package</h3>
+
+Viewing the burnup for a particular capability package is just like viewing the progress for the overall release candidate, except that you apply the appropriate "Feature Group" filter:
+
+
+
+
+<h3>Customize a View</h3>
+
+Most views within VersionOne can be customized to only display certain fields:
+
+
+
+After clicking "Customize", a dialog box will be displayed for customizing this particular view:
+
+
+
+
+Creating a Custom Filter
+
+For some, it's helpful to create very specific filters - for example, the localization team is in a position to begin working on an epic once that epic has been reviewed by the PM product owner. Thus, someone in localization might wish to view any epic with a status of "Reviewed", "In Testing", "Tested", "Test Failures", or "Accepted". Here's how this can be done:
+
+<< image - my home --> preferences --> filters >>
+
+<< image - custom filter dialog box >>
+
+<< image - dropdown with the custom filter >>
+
+
+
+Viewing Work and Tracking Time
+
+The "My Home" view shows only those tasks assigned to you, and thus also provides a convenient view for tracking your time spent against those tasks:
+
+<< image - my home --> my work >>
+
+
+Creating and Using Subscriptions
+
+VersionOne enables you to be notified of changes which are interest to you. For example, you may wish to...
+
+<< image - my home --> my preferences --> subscriptions >>
+
+<< image - my home --> my notifications >>
+
+
+
+Facilitate a Sprint Planning Session
+
+<< image - creating a new retrospective >>
+
+<< image - "facilitate retrospective" menu item >>
+
+<< image - facilitate retrospective dialog box >>
+
+
+
+Facilitate a Retrospective
+
+<< image - creating a new retrospective >>
+
+<< image - "facilitate retrospective" menu item >>
+
+<< image - facilitate retrospective dialog box >>
+
+
+
+
+
+
+<br />
+<br />
+<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="../js/plugins.js"></script>
+<script src="../js/main.js"></script>
+
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+<script>
+    var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src='//www.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+</body>
+</html>

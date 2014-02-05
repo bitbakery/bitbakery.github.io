@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Using Subversion</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link href="../css/bitbakery.css" title="primary" rel="stylesheet" type="text/css"/>
+    <script src="../js/vendor/modernizr-2.6.2.min.js"></script>
+</head>
+
+<body>
+<!--[if lt IE 7]>
+<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+<![endif]-->
+
+
+
+<div class="table-of-contents">
+    <a class="toc" href="#UsingSubversion">Using Subversion</a><br /></h3>
+    <a class="toc" href="#Remove">git rm - Removing files</a><br />
+    <a class="toc" href="#Move">git mv - Moving and renaming files</a><br />
+    <a class="toc" href="#Reset">git reset - Reverting changes</a><br />
+</div>
+
+
+
+<h1 id="UsingSubversion">Using Subversion</h1>
+
+<p>Subversion (SVN) is one of the most popular version control tools in use today. SVN is a centralized
+    version control system, meaning that users download working copies of files from a central repository,
+    make changes, and then upload the modified files back to the server. Concurrent modifications from
+    multiple users are handled with optimistic locking - instead of forcing users to lock files and then
+    unlock them after they've been modified, SVN allows anyone to modify any file at any time, and then
+    commit those changes. If SVN detects a conflict (either when attempting to commit local changes to the server,
+    or else upon updating local files with changes from the server), SVN requires the user to resolve that conflict
+    manually. The idea is that merge conflicts should be relatively rare if we're doing an effective job of planning
+    and partitioning our work.</p>
+
+<p>Subversion is available at http://subversion.apache.org, which includes the server as well as a command line client.
+    As with most tools, the command line is fast and flexible, but most users prefer to use an SVN client with a
+    graphical
+    user interface, which include such tools as:
+<ul>
+    <li>TortoiseSVN (Windows client which integrates beautifully with Windows Explorer)</li>
+    <li>Subversive (Eclipse plugin)</li>
+</ul>
+</p>
+
+Create a simple SVN repo
+
+<div class="terminal">
+    <div class="term-in">> svnadmin create /test-svn-repo</div>
+    <div class="term-in">> svn mkdir -m "Creating trunk directory" file:///test-svn-repo/trunk</div>
+    <div class="term-out">Committed revision 1.</div>
+    <div class="term-in">> svn mkdir -m "Creating tags directory" file:///test-svn-repo/tags</div>
+    <div class="term-out">Committed revision 2.</div>
+    <div class="term-in">> svn mkdir -m "Creating releases directory" file:///test-svn-repo/releases</div>
+    <div class="term-out">Committed revision 3.</div>
+</div>
+
+
+Create users Kurt and Jen
+
+
+<h3>Browse</h3>
+
+<p>From the command line, you can browse the contents of our newly-created repository</p>
+
+<div class="terminal">
+    <div class="term-in">> svn list --username kurtc https://bitbakery.svn.cvsdude.com/sample</div>
+    <div class="term-out">Authentication realm:
+        <https:
+        //bitbakery.svn.cvsdude.com:443> bitbakery login
+    </div>
+    <div class="term-out">Password for 'kurtc': *********</div>
+    <div class="term-out">branches/</div>
+    <div class="term-out">tags/</div>
+    <div class="term-out">trunk/</div>
+</div>
+
+Note that while Subversion allows you to set up any directory structure you'd like, we see here the standard convention:
+the trunk directory contains the most current set of files shared across the organization, the tags directory contains
+snapshots in time, and branches contain variations from trunk.
+
+Also note that we had to specify our username and password, because this is the first time we've accesed the repository
+from this client. Doing this creates an authentication token file in ~/.subversion/auth/svn.simple which maps to this
+particular repository, and so we won�t always have to give our username and password for every svn command (you can
+prevent this from happening by specifying the --no-auth-cache option).
+
+
+In Eclipse with Subversive, one can use the "SVN Repository Exploring" perspective. First we must add the repository:
+
+<show example>
+
+...and then we can simply browse the contents of that repository:
+
+<show example>
+
+
+
+
+<h3>Checkout</h3>
+
+Once the appropriate... XXXX
+
+<div class="terminal">
+    <div class="term-in">> svn co https://bitbakery.svn.cvsdude.com/sample/trunk</div>
+    <div class="term-out">A sample/trunk</div>
+    <div class="term-out">Checked out revision 3.</div>
+    <div class="term-in">> ls</div>
+    <div class="term-out">trunk</div>
+</div>
+
+<p>You can checkout snapshots of the code from various points in time, either by specifying the time or by specifying a
+named tag. You can also check out variations of the code which exist in branches. Normally, however, you will want the
+most recent, most common view of the code (called the HEAD of Trunk). Later we'll see how to checkout from a tag, or a
+branch, or even an arbitrary snapshot in time.</p>
+
+<p>At this point you have a local copy of the repository contents (called your workspace, or working directory), and you
+can begin working.</p>
+
+
+
+
+<h3>Update</h3>
+
+This is the single most frequent operation for most users, because you'll want to stay in sync with others' work as
+frequently as possible:
+
+svn up
+
+...or in Eclipse:
+
+<show example>
+
+
+<h3>Add</h3>
+
+When you want to add a new or existing file to the repository, you must tell
+
+
+<div class="terminal">
+    <div class="term-in">> cd sample/trunk/</div>
+    <div class="term-in">> echo "The very first committed code" > file1.txt</div>
+    <div class="term-in">> ls -lAp</div>
+    <div class="term-out">total 8</div>
+    <div class="term-out">drwxr-xr-x 8 a106358 184630988 272 Nov 15 23:43 .svn/</div>
+    <div class="term-out">-rw-r--r-- 1 a106358 184630988 30 Nov 15 23:47 file1.txt</div>
+    <div class="term-in">> svn status</div>
+    <div class="term-out">? file1.txt</div>
+    <div class="term-in">> svn log</div>
+    <div class="term-out">------------------------------------------------------------------------</div>
+    <div class="term-out">r1 | system | 2011-11-15 23:33:08 -0600 (Tue, 15 Nov 2011) | 1 line</div>
+    <div class="term-out">&nbsp;</div>
+    <div class="term-out">"Initial Setup"</div>
+    <div class="term-out">------------------------------------------------------------------------</div>
+    <div class="term-in">> svn add file1.txt</div>
+    <div class="term-out">A file1.txt</div>
+    <div class="term-in">> svn status</div>
+    <div class="term-out">A file1.txt</div>
+    <div class="term-in">> svn commit -m "Initial commit of file1.txt" file1.txt</div>
+    <div class="term-out">Adding file1.txt</div>
+    <div class="term-out">Transmitting file data .</div>
+    <div class="term-out">Committed revision 2.</div>
+</div>
+
+In Eclipse, created files are added automatically, which are then included with the next commit.
+
+SHOW RECURSIVE ADD
+
+
+<h3>Commit</h3>
+
+The next most frequent operation will be committing your local changes to the central repository:
+
+svn ci
+
+...or in Eclipse:
+
+<show example>
+
+The modified files that we commit to Subversion are collectively referred to as a changeset.
+
+Every time we commit a changeset to SVN, Subversion labels that changeset with a revision number, beginning with r1.
+
+
+<h3>History</h3>
+
+I can see the history for a particular file...
+
+...or for the entire tree:
+
+
+<div class="terminal">
+    <div class="term-in">> svn log -r HEAD:1</div>
+    <div class="term-out">------------------------------------------------------------------------</div>
+    <div class="term-out">r4 | kurtc | 2011-12-21 11:18:48 -0600 (Wed, 21 Dec 2011) | 1 line</div>
+    <div class="term-out">&nbsp;</div>
+    <div class="term-out">Adding a directory tree to trunk</div>
+    <div class="term-out">------------------------------------------------------------------------</div>
+    <div class="term-out">r2 | a106358 | 2011-12-21 10:53:49 -0600 (Wed, 21 Dec 2011) | 1 line</div>
+    <div class="term-out">&nbsp;</div>
+    <div class="term-out">Creating trunk directory</div>
+    <div class="term-out">------------------------------------------------------------------------</div>
+</div>
+
+
+<h3>Delete</h3>
+
+Just as you must tell Subversion when you've added a file, you must also tell Subversion when you've removed a
+file.
+
+As with
+
+
+View History
+
+
+View Changesets
+
+Subversion is a file based version control system
+
+
+Resolve Conflicts
+
+When you get an update that contains changes to a file which you've modified locally, you'll need to resolve the
+associated merge conflict. The conflicts are represented in text like this:
+
+<<<<<<<< wubba
+
+public void foo()
+
+>>>>>>>> fubba
+
+private void foo()
+
+<<<<<<<<
+
+...but most SVN clients (such as the Subversive plugin for Eclipse) will present this visually, with your local file and
+the incoming file shown in two different window panes, with differences highlighted:
+
+<show example>
+
+
+<h3>Move</h3>
+
+svn move
+
+Actually, this is the same as svn copy and svn delete
+
+
+<h3>Undo</h3>
+
+svn revert
+
+
+<h3>Tag</h3>
+
+Often we want to apply a tag to the our SVN repository to create a snapshot of our project. For example, after a
+successful build on trunk, we might wish to tag it, so that we can unambiguously refer to the state of trunk at a
+particular instant. We might do this, for example, in the event we need to get back to the last known stable state of
+our code after someone commits some broken code.
+
+Interestingly, SVN doesn't actually have a built-in tagging mechanism. Instead, SVN makes a copy of a particular
+revision
+
+Creating a tag
+
+GUI-based SVN clients often add support for tagging on top of the existing functionality:
+
+...but under the hood, we're still just doing an svn copy.
+
+
+Checking out a tagged
+
+
+<h3>Branch</h3>
+
+Creating a branch
+
+
+So what's the difference between a tag and a branch? As it turns out, nothing! The only difference is in how we treat
+them by convention.
+
+
+Switching to a branch
+
+NOTE: If you do an svn switch from within a hierarchy, you're going to get some seriously borked behavior. So always do
+this from the root of your workspace
+
+
+Deleting a branch
+
+
+<h3>Merge</h3>
+
+Merge from trunk to branch
+
+Merge from branch to trunk
+
+Merge from branch to sibling branch
+
+
+<h3>Working From Behind a Proxy Server</h3>
+
+<p>Any SVN client will have some way of setting proxy server settings. For example, the Subversive plugin simply use
+    whatever proxy settings have been specified for Eclipse (Preferences ? General ? Network Connections).
+    For the command-line client, you can add proxy settings in the servers configuration file:</p>
+
+<div class="terminal">
+    <div class="term-in">> cd ~/.subversion</div>
+    <div class="term-in">> less servers</div>
+    <div class="term-out">&nbsp;</div>
+    <div class="term-out">### This file contains lots of stuff; you only care about adding these lines:</div>
+    <div class="term-out">&nbsp;</div>
+    <div class="term-out">http-proxy-host = proxy.yourcompany.com</div>
+    <div class="term-out">http-proxy-port = 8080</div>
+    <div class="term-out">http-proxy-username = joe.blow</div>
+    <div class="term-out">http-proxy-password = your.proxy.password</div>
+</div>
+
+<h3>SVN Internals : The Client Side</h3>
+
+> ll .svn/
+total 8
+-r--r--r-- 1 a106358 NA\domain users 162 Dec 21 11:18 entries
+drwxr-xr-x 2 a106358 NA\domain users 68 Dec 21 11:17 prop-base/
+drwxr-xr-x 2 a106358 NA\domain users 68 Dec 21 11:17 props/
+drwxr-xr-x 2 a106358 NA\domain users 68 Dec 21 11:17 text-base/
+drwxr-xr-x 5 a106358 NA\domain users 170 Dec 21 11:18 tmp/
+
+
+<p>Every directory in the workspace has a .svn directory which contains various types of metadata.</p>
+
+
+THE OVERALL SCENARIO TO GUIDE THIS DOCUMENT
+
+create repo with the standard setup: tags / branches / trunk
+create users Jack and Jill
+
+Jack:
+
+list
+checkout (or, export)
+create a file in trunk
+svn status
+svn add
+<file>
+svn status
+svn log
+svn commit (mention what a good commit message looks like)
+svn status
+svn log
+
+Jill:
+
+svn checkout
+modify the file
+svn commit
+
+Jack:
+
+modify file
+svn status -s (get a preview of upcoming merge conflicts!)
+svn update
+resolve merge conflicts
+svn commit
+
+
+-- tag
+svn move
+svn copy
+svn delete
+
+
+-- branch
+svn copy
+
+
+svn revert
+
+
+<hr/>
+<hr/>
+
+
+<div class="terminal">
+    <div class="term-in">> cd /
+        > svnadmin create repo
+        > ll repo
+    </div>
+    <div class="term-out">-rw-r--r-- 1 jack users 229 Dec 28 23:21 README.txt
+        drwxr-xr-x 5 jack users 170 Dec 28 23:21 conf/
+        drwxr-sr-x 15 jack users 510 Dec 28 23:21 db/
+        -r--r--r-- 1 jack users 2 Dec 28 23:21 format
+        drwxr-xr-x 11 jack users 374 Dec 28 23:21 hooks/
+        drwxr-xr-x 4 jack users 136 Dec 28 23:21 locks/
+    </div>
+</div>
+
+
+<div class="terminal">
+    <div class="term-in">> vi repo/conf/authz
+    </div>
+    <div class="term-out">[/]
+        jack = rw
+        jill = rw
+        * = r
+    </div>
+</div>
+
+
+<div class="terminal">
+    <div class="term-in">> vi repo/conf/passwd
+    </div>
+    <div class="term-out">[users]
+        jack = pwd
+        jill = pwd
+    </div>
+</div>
+
+
+<div class="terminal">
+    <div class="term-in">> vi repo/conf/svnserve.conf
+    </div>
+    <div class="term-out">[general]
+        anon-access = read
+        auth-access = write
+        password-db = passwd
+        authz-db = authz
+        realm = My Repository
+    </div>
+</div>
+
+
+<div class="terminal">
+    <div class="term-in">> svnserve -d
+        > mkdir project
+        > cd project/
+        > mkdir trunk
+        > mkdir tags
+        > mkdir branches
+        > cd ..
+        > svn import --username jack --password pwd project svn://localhost/svn/project -m "Initial setup"
+    </div>
+    <div class="term-out">Adding project/trunk
+        Adding project/branches
+        Adding project/tags
+
+        Committed revision 1.
+    </div>
+</div>
+
+
+<div class="terminal">
+    <div class="term-in">> svn ls svn://localhost/svn/project</div>
+    <div class="term-out">branches/
+        tags/
+        trunk/
+    </div>
+</div>
+
+
+<div class="terminal">
+    <div class="term-in">> svn co svn://localhost/svn/project/trunk project</div>
+    <div class="term-out">Checked out revision 1.</div>
+</div>
+
+
+<div class="terminal">
+    <div class="term-in">> cd project/.svn
+        > ll
+    </div>
+    <div class="term-out">total 0
+        drwxr-xr-x 7 a106358 users 238 Dec 29 13:06 .svn/
+    </div>
+    <div class="term-in">> ll .svn</div>
+    <div class="term-out">total 8
+        -r--r--r-- 1 jack users 155 Dec 29 13:06 entries
+        drwxr-xr-x 2 jack users 68 Dec 29 13:06 prop-base/
+        drwxr-xr-x 2 jack users 68 Dec 29 13:06 props/
+        drwxr-xr-x 2 jack users 68 Dec 29 13:06 text-base/
+        drwxr-xr-x 5 jack users 170 Dec 29 13:06 tmp/
+    </div>
+</div>
+
+
+<div class="terminal">
+    <div class="term-in">> mkdir -p com/bitbakery/project
+        > echo "; This is our first source file" >> com/bitbakery/project/foo.arc
+        > svn st
+    </div>
+    <div class="term-out">? com</div>
+</div>
+
+
+<div class="terminal">
+    <div class="term-in">> svn add com</div>
+    <div class="term-out">A com
+        A com/bitbakery
+        A com/bitbakery/project
+        A com/bitbakery/project/foo.arc
+    </div>
+    <div class="term-in">> svn commit -m "Added first source code file to the project"</div>
+    <div class="term-out">Adding com
+        Adding com/bitbakery
+        Adding com/bitbakery/project
+        Adding com/bitbakery/project/foo.arc
+        Transmitting file data .
+        Committed revision 2.
+    </div>
+    <div class="term-in">> svn st</div>
+</div>
+
+
+<div class="terminal">
+    <div class="term-in">> vi com/bitbakery/project/foo.arc
+    </div>
+    <div class="term-out">; This is our first source file
+        (def hello (name) (str "Hello, " name))
+    </div>
+</div>
+
+
+<div class="terminal">
+    <div class="term-in">> svn revert -R .</div>
+    <div class="term-out">Reverted 'com/bitbakery/project/foo.arc'</div>
+    <div class="term-in">> svn st
+        > less com/bitbakery/project/foo.arc
+    </div>
+    <div class="term-out">; This is our first source file
+        com/bitbakery/project/foo.arc (END)
+    </div>
+</div>
+
+
+A few notes about svn revert:
+
+
+<div class="terminal">
+    <div class="term-in">> cd /Users/jill/dev
+        > svn co svn://localhost/svn/project/trunk project
+    </div>
+    <div class="term-out">A project/com
+        A project/com/bitbakery
+        A project/com/bitbakery/project
+        A project/com/bitbakery/project/foo.arc
+        Checked out revision 2.
+    </div>
+</div>
+
+<div class="terminal">
+    <div class="term-in">> cd project/
+        > svn log
+    </div>
+    <div class="term-out">------------------------------------------------------------------------
+        r2 | jack | 2011-12-29 13:14:13 -0600 (Thu, 29 Dec 2011) | 1 line
+
+        Added first source code file to the project
+        ------------------------------------------------------------------------
+        r1 | jack | 2011-12-29 11:37:16 -0600 (Thu, 29 Dec 2011) | 1 line
+
+        Initial setup
+        ------------------------------------------------------------------------
+    </div>
+</div>
+
+<div class="terminal">
+    <div class="term-in">> vi com/bitbakery/project/foo.arc
+    </div>
+    <div class="term-out">; This is our first source file
+        (mac hi (name) `(str "Hello, " ,name))
+
+    </div>
+    <div class="term-in">> svn commit -m "Added a 'Hello, world' macro"</div>
+    <div class="term-out">Sending com/bitbakery/project/foo.arc
+        Transmitting file data .
+        Committed revision 3.
+    </div>
+</div>
+
+
+FROM JACK:
+
+<div class="terminal">
+    <div class="term-in">> svn up</div>
+    <div class="term-out">Conflict discovered in 'com/bitbakery/project/foo.arc'.
+        Select: (p) postpone, (df) diff-full, (e) edit,
+        (mc) mine-conflict, (tc) theirs-conflict,
+        (s) show all options: s
+
+        (e) edit - change merged file in an editor
+        (df) diff-full - show all changes made to merged file
+        (r) resolved - accept merged version of file
+
+        (dc) display-conflict - show all conflicts (ignoring merged version)
+        (mc) mine-conflict - accept my version for all conflicts (same)
+        (tc) theirs-conflict - accept their version for all conflicts (same)
+
+        (mf) mine-full - accept my version of entire file (even non-conflicts)
+        (tf) theirs-full - accept their version of entire file (same)
+
+        (p) postpone - mark the conflict to be resolved later
+        (l) launch - launch external tool to resolve conflict
+        (s) show all - show this list
+
+        Select: (p) postpone, (df) diff-full, (e) edit, (r) resolved,
+        (mc) mine-conflict, (tc) theirs-conflict,
+        (s) show all options: e
+    </div>
+</div>
+
+This will open a text editor
+
+
+<div class="terminal">
+    <div class="term-out">; This is our first source file
+        <<<<<<< .mine
+        (def hello (name) (str "Hello, " name))
+
+        =======
+        (mac hi (name) `(str "Hello, " ,name))
+
+        >>>>>>> .r3
+    </div>
+</div>
+
+
+...modify the file to reflect the changes we wish to save in this file:
+
+<div class="terminal">
+    <div class="term-out">; This is our first source file
+        (def hello (name) (str "Hello, " name))
+    </div>
+</div>
+
+
+Upon saving the file, you're once again asked what to do with it. Assuming we resolved our merge conflicts,
+we would now want to mark the file as resolved:
+
+<div class="terminal">
+    <div class="term-out">Select: (p) postpone, (df) diff-full, (e) edit, (r) resolved,
+        (mc) mine-conflict, (tc) theirs-conflict,
+        (s) show all options: r
+        G com/bitbakery/project/foo.arc
+        Updated to revision 3.
+    </div>
+</div>
+
+
+<div class="terminal">
+    <div class="term-in">> svn commit -m "Replaced 'hi' macro with function 'hello'"</div>
+    <div class="term-out">Sending com/bitbakery/project/foo.arc
+        Transmitting file data .
+        Committed revision 4.
+    </div>
+</div>
+
+
+Note that we could have chosen 'p' to postpone the merge, and then edited the conflicted file(s) later. If we do this,
+then we would need to run svn resolve to mark the conflicted files as resolved before we can commit our changes.
+
+
+FROM JILL:
+
+<div class="terminal">
+    <div class="term-in">> svn up .</div>
+    <div class="term-out">U com/bitbakery/project/foo.arc
+        Updated to revision 4.
+    </div>
+</div>
+
+
+FROM JACK:
+
+
+Tag the build:
+
+<div class="terminal">
+    <div class="term-in">> svn cp svn://localhost/svn/project/trunk svn://localhost/svn/project/tags/4 -m "Tagging the
+        latest successful build (r4)"
+    </div>
+    <div class="term-out">Committed revision 5.
+    </div>
+
+    <div class="term-in">> svn log -v -r5 svn://localhost/svn/project</div>
+    <div class="term-out">------------------------------------------------------------------------
+        r5 | jack | 2011-12-29 14:13:02 -0600 (Thu, 29 Dec 2011) | 1 line
+        Changed paths:
+        A /project/tags/4 (from /project/trunk:4)
+
+        Tagging the latest successful build (r4)
+        ------------------------------------------------------------------------
+        > svn ls svn://localhost/svn/project/tags
+        4/
+    </div>
+</div>
+
+
+Jack wants to be able to do some work in isolation without having to worry about whether or not he's making problems
+for Jill, so he decides to work in his own branch for a while. During this time, he'll periodically update his branch
+with any changes that Jill makes to trunk, but he won't merge his changes back to trunk until he's finished.
+Until then, Jack can commit changes to his branch, and they won't be visible to Jill, who's working in trunk.
+
+
+<div class="terminal">
+    <div class="term-in">> svn cp svn://localhost/svn/project/trunk svn://localhost/svn/project/branches/jacks-branch -m
+        "Branching from trunk at r4 to develop a particular feature"
+    </div>
+    <div class="term-in">Committed revision 6.
+    </div>
+    <div class="term-in">> svn log -q svn://localhost/svn/project/tags/4</div>
+    <div class="term-out">------------------------------------------------------------------------
+        r5 | jack | 2011-12-29 14:13:02 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r4 | jack | 2011-12-29 14:03:48 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r3 | jack | 2011-12-29 13:48:37 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r2 | jack | 2011-12-29 13:14:13 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r1 | jack | 2011-12-29 11:37:16 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+    </div>
+    <div class="term-in">> svn log -q svn://localhost/svn/project/trunk</div>
+    <div class="term-out">------------------------------------------------------------------------
+        r4 | jack | 2011-12-29 14:03:48 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r3 | jack | 2011-12-29 13:48:37 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r2 | jack | 2011-12-29 13:14:13 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r1 | jack | 2011-12-29 11:37:16 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+    </div>
+    <div class="term-in">> svn log -q svn://localhost/svn/project/branches/jacks-branch</div>
+    <div class="term-out">------------------------------------------------------------------------
+        r6 | jack | 2011-12-29 14:21:26 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r4 | jack | 2011-12-29 14:03:48 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r3 | jack | 2011-12-29 13:48:37 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r2 | jack | 2011-12-29 13:14:13 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r1 | jack | 2011-12-29 11:37:16 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+    </div>
+</div>
+
+
+A couple of things to note here:
+<ul>
+    <li>Subversion does not explicitly support the notions of tagging and branching; Subversion merely creates
+        lightweight copies. Thus, the only difference between copying and tagging and branching is by convention
+    </li>
+    <li>Every change to the repository (copy, commit, merge, import...) creates a unique revision number with a
+        Subversion repository. However, any given branch will only see certain revisions.
+    </li>
+</ul>
+
+
+Jack is travelling in time and space... Note that conceptually, svn switch is no different than deleting your local
+workspace,
+and checking out from a different location in the repository.
+
+<div class="terminal">
+    <div class="term-in">> svn switch -r 2 svn://localhost/svn/project/trunk</div>
+    <div class="term-out">U com/bitbakery/project/foo.arc
+        Updated to revision 2.
+    </div>
+    <div class="term-in">> svn switch -r HEAD svn://localhost/svn/project/trunk</div>
+    <div class="term-out">U com/bitbakery/project/foo.arc
+        Updated to revision 6.
+    </div>
+    <div class="term-in">> svn switch svn://localhost/svn/project/branches/jacks-branch</div>
+    <div class="term-out">At revision 6.</div>
+    <div class="term-in">> svn info</div>
+    <div class="term-out">Path: .
+        URL: svn://localhost/svn/project/branches/jacks-branch
+        Repository Root: svn://localhost/svn
+        Repository UUID: 6ef053a4-0651-4e6b-8e37-4247f30db5d5
+        Revision: 6
+        Node Kind: directory
+        Schedule: normal
+        Last Changed Author: jack
+        Last Changed Rev: 6
+        Last Changed Date: 2011-12-29 14:21:26 -0600 (Thu, 29 Dec 2011)
+    </div>
+</div>
+
+
+<div class="terminal">
+    <div class="term-in">> vi com/bitbakery/project/foo.arc
+    </div>
+    <div class="term-out">; This is our first source file
+        (def hello (name) (str "Hello, " name))
+
+        (def goodbye (name) (str "Goodbye, " name))
+    </div>
+</div>
+
+
+<div class="terminal">
+    <div class="term-in">> svn commit -m "Added goodbye function"</div>
+    <div class="term-out">Sending com/bitbakery/project/foo.arc
+        Transmitting file data .
+        Committed revision 7.
+    </div>
+</div>
+
+
+FROM JILL:
+
+...but this remains invisible to Jill, who is still working on trunk:
+
+<div class="terminal">
+    <div class="term-in">> svn up</div>
+    <div class="term-out">At revision 7.</div>
+    <div class="term-in">> svn info</div>
+    <div class="term-out">Path: .
+        URL: svn://localhost/svn/project/trunk
+        Repository Root: svn://localhost/svn
+        Repository UUID: 6ef053a4-0651-4e6b-8e37-4247f30db5d5
+        Revision: 7
+        Node Kind: directory
+        Schedule: normal
+        Last Changed Author: jack
+        Last Changed Rev: 4
+        Last Changed Date: 2011-12-29 14:03:48 -0600 (Thu, 29 Dec 2011)
+    </div>
+    <div class="term-in">> svn log -q</div>
+    <div class="term-out">------------------------------------------------------------------------
+        r4 | jack | 2011-12-29 14:03:48 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r3 | jack | 2011-12-29 13:48:37 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r2 | jack | 2011-12-29 13:14:13 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r1 | jack | 2011-12-29 11:37:16 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+    </div>
+</div>
+
+
+<div class="terminal">
+    <div class="term-in">> echo "; This is our second source file" >> com/bitbakery/project/bar.arc</div>
+    <div class="term-in">> svn add com/bitbakery/project/bar.arc</div>
+    <div class="term-out">A com/bitbakery/project/bar.arc</div>
+    <div class="term-in">> svn commit -m "Added second source file"</div>
+    <div class="term-out">Adding com/bitbakery/project/bar.arc
+        Transmitting file data .
+        Committed revision 8.
+    </div>
+</div>
+
+
+BACK IN THE LAND OF JACK:
+
+
+<div class="terminal">
+    <div class="term-in">> svn merge svn://localhost/svn/project/trunk</div>
+    <div class="term-out">--- Merging r6 through r8 into '.':
+        A com/bitbakery/project/bar.arc
+    </div>
+    <div class="term-in">> svn st</div>
+    <div class="term-out"> M .
+        A + com/bitbakery/project/bar.arc
+    </div>
+    <div class="term-in">> svn commit -m "Merged in latest changes from trunk"</div>
+    <div class="term-out">Sending .
+        Adding com/bitbakery/project/bar.arc
+
+        Committed revision 9.
+    </div>
+    <div class="term-in">> svn up</div>
+    <div class="term-out">At revision 9.</div>
+    <div class="term-in">> svn log</div>
+    <div class="term-out">------------------------------------------------------------------------
+        r9 | jack | 2011-12-29 17:05:19 -0600 (Thu, 29 Dec 2011) | 1 line
+
+        Merged in latest changes from trunk
+        ------------------------------------------------------------------------
+        r7 | jack | 2011-12-29 16:44:49 -0600 (Thu, 29 Dec 2011) | 1 line
+
+        Added goodbye function
+        ------------------------------------------------------------------------
+        r6 | jack | 2011-12-29 14:21:26 -0600 (Thu, 29 Dec 2011) | 1 line
+
+        Branching from trunk at r4 to develop a particular feature
+        ------------------------------------------------------------------------
+        r4 | jack | 2011-12-29 14:03:48 -0600 (Thu, 29 Dec 2011) | 1 line
+
+        Replaced 'hi' macro with function 'hello'
+        ------------------------------------------------------------------------
+        r3 | jack | 2011-12-29 13:48:37 -0600 (Thu, 29 Dec 2011) | 1 line
+
+        Added a 'Hello, world' macro
+        ------------------------------------------------------------------------
+        r2 | jack | 2011-12-29 13:14:13 -0600 (Thu, 29 Dec 2011) | 1 line
+
+        Added first source code file to the project
+        ------------------------------------------------------------------------
+        r1 | jack | 2011-12-29 11:37:16 -0600 (Thu, 29 Dec 2011) | 1 line
+
+        Initial setup
+        ------------------------------------------------------------------------
+
+    </div>
+    <div class="term-in">> svn pg svn:mergeinfo</div>
+    <div class="term-out">/project/trunk:6-8</div>
+</div>
+
+
+BACK IN THE LAND OF JILL:
+
+
+<div class="terminal">
+    <div class="term-in">> echo "; This is our third source file" >> com/bitbakery/project/baz.arc</div>
+    <div class="term-in">> svn add com/bitbakery/project/baz.arc</div>
+    <div class="term-out">A com/bitbakery/project/baz.arc</div>
+    <div class="term-in">> svn commit -m "Added yet another source file"</div>
+    <div class="term-out">Adding com/bitbakery/project/baz.arc
+        Transmitting file data .
+        Committed revision 10.
+    </div>
+</div>
+
+
+...AND BACK IN THE LAND OF JACK:
+
+<div class="terminal">
+    <div class="term-in">> svn merge svn://localhost/svn/project/trunk</div>
+    <div class="term-out">--- Merging r9 through r10 into '.':
+        A com/bitbakery/project/baz.arc
+    </div>
+    <div class="term-in">> svn commit -m "Merged in latest changes from trunk"</div>
+    <div class="term-out">Sending .
+        Adding com/bitbakery/project/baz.arc
+
+        Committed revision 11.
+    </div>
+    <div class="term-in">> svn pg svn:mergeinfo</div>
+    <div class="term-out">/project/trunk:6-10</div>
+</div>
+
+Or to give a little more detail, let's look at the history of our branch, included that stuff which we merged in from
+trunk:
+
+
+<div class="terminal">
+    <div class="term-in">> svn log -q -g</div>
+    <div class="term-out">------------------------------------------------------------------------
+        r11 | jack | 2011-12-29 17:11:52 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r10 | jack | 2011-12-29 17:10:55 -0600 (Thu, 29 Dec 2011)
+        Merged via: r11
+        ------------------------------------------------------------------------
+        r9 | jack | 2011-12-29 17:05:19 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r8 | jack | 2011-12-29 17:01:36 -0600 (Thu, 29 Dec 2011)
+        Merged via: r9
+        ------------------------------------------------------------------------
+        r7 | jack | 2011-12-29 16:44:49 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r6 | jack | 2011-12-29 14:21:26 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r4 | jack | 2011-12-29 14:03:48 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r3 | jack | 2011-12-29 13:48:37 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r2 | jack | 2011-12-29 13:14:13 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r1 | jack | 2011-12-29 11:37:16 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+    </div>
+</div>
+
+
+This shows explicitly what Jack has done on his branch, along with those changes from trunk which Jack has merged into
+jacks-branch.
+
+
+AND BACK WE GO TO THE LAND OF JILL:
+
+
+<div class="terminal">
+    <div class="term-in">> svn pg svn:mergeinfo</div>
+    <div class="term-in">> svn merge svn://localhost/svn/project/branches/jacks-branch</div>
+    <div class="term-out">--- Merging r6 through r11 into '.':
+        C com/bitbakery/project/baz.arc
+        U com/bitbakery/project/foo.arc
+        C com/bitbakery/project/bar.arc
+        Summary of conflicts:
+        Tree conflicts: 2
+    </div>
+</div>
+
+Whah?!? What the?? A closer look reveals the issue: we're trying to merge stuff from trunk back on to itself. Let's back
+out our changes and try again:
+
+<div class="terminal">
+    <div class="term-in">> svn pg svn:mergeinfo</div>
+    <div class="term-out">/project/branches/jacks-branch:6-11</div>
+    <div class="term-in">> svn revert -R .</div>
+    <div class="term-out">Reverted '.'
+        Reverted 'com/bitbakery/project/baz.arc'
+        Reverted 'com/bitbakery/project/foo.arc'
+        Reverted 'com/bitbakery/project/bar.arc'
+        > svn pg svn:mergeinfo
+    </div>
+</div>
+
+OK, all is well again. What we need is some way to tell Subversion to "reintegrate" jacks-branch into trunk - in other
+words, merging in changes from jacks-branch whil ignoring anything which jacks-branch had pulled in from trunk:
+
+<div class="terminal">
+    <div class="term-in">> svn merge --reintegrate svn://localhost/svn/project/branches/jacks-branch</div>
+    <div class="term-out">--- Merging differences between repository URLs into '.':
+        U com/bitbakery/project/foo.arc
+    </div>
+    <div class="term-in">> svn pg svn:mergeinfo</div>
+    <div class="term-out">/project/branches/jacks-branch:6-11</div>
+    <div class="term-in">> svn commit -m "Reintegrated jacks-branch into trunk"</div>
+    <div class="term-out">Sending .
+        Sending com/bitbakery/project/foo.arc
+        Transmitting file data .
+        Committed revision 12.
+        Committed revision 12.
+    </div>
+    <div class="term-in">> svn log -q -g</div>
+    <div class="term-out">------------------------------------------------------------------------
+        r12 | jack | 2011-12-29 17:43:29 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r11 | jack | 2011-12-29 17:11:52 -0600 (Thu, 29 Dec 2011)
+        Merged via: r12
+        ------------------------------------------------------------------------
+        r10 | jack | 2011-12-29 17:10:55 -0600 (Thu, 29 Dec 2011)
+        Merged via: r12, r11
+        ------------------------------------------------------------------------
+        r9 | jack | 2011-12-29 17:05:19 -0600 (Thu, 29 Dec 2011)
+        Merged via: r12
+        ------------------------------------------------------------------------
+        r8 | jack | 2011-12-29 17:01:36 -0600 (Thu, 29 Dec 2011)
+        Merged via: r12, r9
+        ------------------------------------------------------------------------
+        r7 | jack | 2011-12-29 16:44:49 -0600 (Thu, 29 Dec 2011)
+        Merged via: r12
+        ------------------------------------------------------------------------
+        r6 | jack | 2011-12-29 14:21:26 -0600 (Thu, 29 Dec 2011)
+        Merged via: r12
+        ------------------------------------------------------------------------
+        r10 | jack | 2011-12-29 17:10:55 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r8 | jack | 2011-12-29 17:01:36 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r4 | jack | 2011-12-29 14:03:48 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r3 | jack | 2011-12-29 13:48:37 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r2 | jack | 2011-12-29 13:14:13 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+        r1 | jack | 2011-12-29 11:37:16 -0600 (Thu, 29 Dec 2011)
+        ------------------------------------------------------------------------
+    </div>
+</div>
+
+
+BACK IN JACK'S WORLD
+
+Jack is still working on his branch, and we'd like to another merge from trunk. But now we have the same problem as
+before! How do we merge changes from
+
+<div class="terminal">
+    <div class="term-in">> svn merge --record-only -c 12 svn://localhost/svn/project/trunk</div>
+    <div class="term-in">> svn pg svn:mergeinfo</div>
+    <div class="term-out">/project/trunk:6-12</div>
+</div>
+
+By performing a "record-only" merge from trunk to jacks-branch, we're essentially updating the svn:mergeinfo property so
+that we don't attempt to merge our own changes back into ourselves...
+
+XXX WHY IS THIS NECESSARY?? I DIDN'T SEE ISSUES WHEN I TRIED A REGULAR MERGE!!
+
+
+</body>
+</html>
