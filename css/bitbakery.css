@@ -96,6 +96,14 @@ a.toc:active {
     padding-right: 2px;
 }
 
+.code-table-cell {
+    font-family: Courier, sans-serif;
+    font-weight: bold;
+    font-size: 11pt;
+    padding: 5px 15px;
+    border: 1px dotted;
+}
+
 
 .terminal {
     padding: 15px;

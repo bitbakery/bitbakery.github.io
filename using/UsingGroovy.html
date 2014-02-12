@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Using Maven</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+	
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link href="../css/bitbakery.css" title="primary" rel="stylesheet" type="text/css"/>
+    <script src="../js/vendor/modernizr-2.6.2.min.js"></script>
+</head>
+<body>
+<!--[if lt IE 7]>
+	<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+
+<div class="table-of-contents">
+    <a class="toc" href="UsingGroovy.html"><b>Using Groovy</b></a><br />
+    <a class="toc" href="#ClassesAndObjects">Classes and Objects</a><br />
+    <a class="toc" href="#SimpleDataTypes">Simple Data Types</a><br />
+    <a class="toc" href="#Closures">Closures</a><br />
+    <a class="toc" href="#Iterating">Iterating</a><br />
+    <a class="toc" href="#RegularExpressions">Regular Expressions</a><br />
+    <a class="toc" href="#Metaprogramming">Metaprogramming</a><br />
+</div>
+
+
+
+<h1 id="Groovy">Using Groovy</h1>
+
+
+<p>Groovy is a Java-based scripting language which runs on the JVM and offers dynamic typing and functional abstraction.</p>
+
+<p>Groovy is freely available at <a href="http://groovy.codehaus.org">http://groovy.codehaus.org</a>. On Windows, simply
+    download the latest binaries and unzip into your directory of choice. On Linux or Mac OS X, you may choose to simply
+    download and untar, or else use a package manager such as <a class="code">apt-get</a> or <a class="code">brew</a>.
+    After you've installed Groovy, check that it's working:</p>
+
+<div class="terminal">
+<div class="term-in">> groovy -v</div>
+<div class="term-out">Groovy Version: 2.2.1 JVM: 1.7.0_45 Vendor: Oracle Corporation OS: Mac OS X</div>
+</div>
+
+
+<p>We can experiment with Groovy code directly at the command line using the Groovy console:</p>
+
+<div class="terminal">
+    <div class="term-in">> groovysh</div>
+    <div class="term-out">Groovy Shell (2.2.1, JVM: 1.7.0_45)</div>
+    <div class="term-out">Type 'help' or '\h' for help.</div>
+    <div class="term-out">------------------------------------------------------------------------------------------------</div>
+    <div class="term-in-alt">groovy:000> 1 + 2</div>
+    <div class="term-out">===> 3</div>
+    <div class="term-in-alt">groovy:000> quit</div>
+</div>
+
+<p>More typically, we'll write Groovy code as part of a project, using an IDE such as IntelliJ. </p>
+
+
+<h1>QUESTIONS</h1>
+
+<ul>
+    <li>Categories?</li>
+    <li>The with operator?</li>
+    <li>Adding a delegate to a closure?</li>
+</ul>
+
+<h3 id="ClassesAndObjects">Classes and Objects</h3>
+
+<h3 id="SimpleDataTypes">Simple Data Types</h3>
+
+<h3 id="Closures">Closures</h3>
+
+<h3 id="Iterating">Iterating</h3>
+
+<h3 id="RegularExpressions">Regular Expressions</h3>
+
+<h3 id="Metaprogramming">Metaprogramming</h3>
+
+<p>Check out: http://www.ibm.com/developerworks/opensource/library/j-pg06239/index.html</p>
+
+
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+<script src="../js/plugins.js"></script>
+<script src="../js/main.js"></script>
+
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+<script>
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+    e.src='//www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-XXXXX-X');ga('send','pageview');
+</script>
+
+
+</body>
+</html>

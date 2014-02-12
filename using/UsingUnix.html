@@ -49,13 +49,12 @@
 
 <h1>Using Unix</h1>
 
-<p>The Unix operating system is a program - or rather, a collection of programs - which control your computer. You can
+<p>The Unix operating system is a collection of programs which control your computer, managing its resources for all of
+    the other programs, helping and protecting them from one another. You can
     interact with Unix (and thus interact with your computer) using a <a class="new-term">command shell</a> (sometimes
     called a <a class="new-term">terminal</a>). There are different flavors of command shells (I recommend <a
             href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a>); we'll be using the <a class="new-term">Bash
         shell</a> because this is the default on Mac OS X, and on many flavors of Linux.</P>
-
-
 
 
 <h3 id="Exploring">Exploring</h3>
@@ -107,20 +106,20 @@ drwxr-xr-x 8 kurtc admin 272 Nov 10 12:40 openapi</div>
 
 <table>
 <tr>
-    <td class="code">l</td>
+    <td class="code-table-cell">l</td>
     <td>displays extended information</td>
 </tr>
 <tr>
-    <td class="code">a</td>
-    <td>displays hidden files and directories (anything prepended with a period)</td>
+    <td class="code-table-cell">A</td>
+    <td>displays hidden files and directories (files and directories prepended with a period)</td>
 </tr>
 <tr>
-    <td class="code">p</td>
+    <td class="code-table-cell">p</td>
     <td>appends a slash to directory names</td>
 </tr>
 </table>
 
-<p>The output of <a class="code">ls -l</a> displays a wealth of information:</p>
+<p>The output of <a class="code">ls -lAp</a> displays a wealth of information:</p>
 
 <div class="terminal">
     <div class="term-anno"> __ Is this a file, directory, link, device, socket or a named pipe?</div>
@@ -173,76 +172,76 @@ We can put anything anywhere we choose within the file system, but by convention
 certain directories:
 <table>
     <tr>
-        <td class="code">/</td>
+        <td class="code-table-cell">/</td>
         <td>The root directory</td>
     </tr>
     <tr>
-        <td class="code">/bin</td>
+        <td class="code-table-cell">/bin</td>
         <td>Shell commands, including the various shells themselves (<a class="code">bash</a>, <a class="code">zsh</a>,
             <a class="code">csh</a>, <a class="code">ksh</a>)
         </td>
     </tr>
     <tr>
-        <td class="code">/dev</td>
+        <td class="code-table-cell">/dev</td>
         <td>Device files (CD-ROM drive, USB devices, etc.)</td>
     </tr>
     <tr>
-        <td class="code">/etc</td>
+        <td class="code-table-cell">/etc</td>
         <td>Common location for system and application-specific configuration files (e.g., <a class="code">hosts</a>, <a
                 class="code">ssh_config</a>, etc.)
         </td>
     </tr>
     <tr>
-        <td class="code">/opt/local</td>
+        <td class="code-table-cell">/opt/local</td>
         <td>Common utilities (<a class="code">git</a>, <a class="code">curl</a>, <a class="code">perl</a>, <a
                 class="code">ruby</a>, <a class="code">ssh</a>, etc.)
         </td>
     </tr>
     <tr>
-        <td class="code">/private</td>
+        <td class="code-table-cell">/private</td>
         <td>Some system programs, and SSH configuration files</td>
     </tr>
     <tr>
-        <td class="code">/sbin</td>
+        <td class="code-table-cell">/sbin</td>
         <td>System utilities, such as fsck</td>
     </tr>
     <tr>
-        <td class="code">/usr/bin</td>
+        <td class="code-table-cell">/usr/bin</td>
         <td>More essential programs (<a class="code">vi</a>, <a class="code">emacs</a>, <a class="code">grep</a>, etc.)
         </td>
     </tr>
     <tr>
-        <td class="code">/usr/sbin</td>
+        <td class="code-table-cell">/usr/sbin</td>
         <td>More essential programs (<a class="code">chown</a>, <a class="code">cron</a>, etc.)</td>
     </tr>
     <tr>
-        <td class="code">/usr/local/...</td>
+        <td class="code-table-cell">/usr/local/...</td>
         <td>Still more essential programs</td>
     </tr>
     <tr>
-        <td class="code">/var</td>
+        <td class="code-table-cell">/var</td>
         <td>Common location for files which vary in size over time: log files, database file, etc.</td>
     </tr>
     <tr>
-        <td class="code">/Applications</td>
+        <td class="code-table-cell">/Applications</td>
         <td>Mac OS X - Default location of application bundles</td>
     </tr>
     <tr>
-        <td class="code">/Developer</td>
+        <td class="code-table-cell">/Developer</td>
         <td>Mac OS X - Developer SDK</td>
     </tr>
     <tr>
-        <td class="code">/Library</td>
+        <td class="code-table-cell">/Library</td>
         <td>Mac OS X - Contains third party tools and frameworks such as Java, Ruby and Python, as well as
             application-specific data and settings
         </td>
     </tr>
     <tr>
-        <td class="code">/System/Library</td>
+        <td class="code-table-cell">/System/Library</td>
         <td>Mac OS X - Contains application-specific data and settings</td>
     </tr>
     <tr>
-        <td class="code">/Users</td>
+        <td class="code-table-cell">/Users</td>
         <td>User home directories</td>
     </tr>
 </table>
@@ -352,47 +351,47 @@ a link which you wish to have persisted in a version control system).
 By now you're probably sick of typing so much. Fortunately, the shell provides some relief:
 <table>
     <tr>
-        <td class="code">ctrl-C</td>
+        <td class="code-table-cell">ctrl-C</td>
         <td>Stop the current command</td>
     </tr>
     <tr>
-        <td class="code">&lt;up/down arrows&gt;</td>
+        <td class="code-table-cell">&lt;up/down arrows&gt;</td>
         <td>Go through the history of recently executed commands</td>
     </tr>
     <tr>
-        <td class="code">tab</td>
+        <td class="code-table-cell">tab</td>
         <td>Completes the path or command</td>
     </tr>
     <tr>
-        <td class="code">tab tab</td>
+        <td class="code-table-cell">tab tab</td>
         <td>Displays all possible path or command completions</td>
     </tr>
     <tr>
-        <td class="code">ctrl-S</td>
+        <td class="code-table-cell">ctrl-S</td>
         <td>Pause output</td>
     </tr>
     <tr>
-        <td class="code">ctrl-Q</td>
+        <td class="code-table-cell">ctrl-Q</td>
         <td>Resume output</td>
     </tr>
     <tr>
-        <td class="code">ctrl-A</td>
+        <td class="code-table-cell">ctrl-A</td>
         <td>Go to the beginning of the line</td>
     </tr>
     <tr>
-        <td class="code">ctrl-E</td>
+        <td class="code-table-cell">ctrl-E</td>
         <td>Go to the end of the line</td>
     </tr>
     <tr>
-        <td class="code">ctrl-U</td>
+        <td class="code-table-cell">ctrl-U</td>
         <td>Deletes from the cursor to the beginning of the line</td>
     </tr>
     <tr>
-        <td class="code">ctrl-K</td>
+        <td class="code-table-cell">ctrl-K</td>
         <td>Deletes from the cursor to the end of the line</td>
     </tr>
     <tr>
-        <td class="code">ctrl-R</td>
+        <td class="code-table-cell">ctrl-R</td>
         <td>Search backwards through your command history</td>
     </tr>
 </table>
