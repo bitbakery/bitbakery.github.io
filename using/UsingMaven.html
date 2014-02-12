@@ -595,10 +595,8 @@ drwxr-xr-x   5 kurtc  staff    170 Nov 25 17:17 com.bitbakery.app/
 
 <h3 id="Profiles">Profiles</h3>
 
-<p>We probably don't want code coverage every time we build. For example, we may just want to build and deploy a small change to
-    see what it looks like when we run it. By wrapping our Jacoco configuration within a <a class="new-term">profile</a>,
-    we will only generate code coverage when we include the profilewe can choose to include the plugin's behavior (this is especially appropriate for our example; we probably don't want to generate code
-    coverage reports all of the time).</p>
+<p>We probably don't need code coverage every time we build. By wrapping our Jacoco configuration within a <a
+        class="new-term">profile</a>, we will only generate code coverage when we explicitly include that profile:</p>
 
 <pre class="prettyprint"><div class="pre-padding">&lt;?xml version="1.0"?&gt;
 &lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -667,8 +665,8 @@ drwxr-xr-x   5 kurtc  staff    170 Nov 25 17:17 com.bitbakery.app/
 
 <p>Complicated projects will sometimes require complicated build steps which do not fit neatly into Maven's worldview.
     To handle such cases, we can write our own Maven plugins, and then use them just as we would use any other Maven
-    plugin. To get started, we can use Maven to create an archetypal Maven plugin project:</p>
-
+    plugin. To get started, we'll navigate back to the parent directory of test-app, and then use Maven to create an
+    archetypal Maven plugin project:</p>
 
 <div class="terminal">
 <div class="term-in">> cd ..</div>
