@@ -254,7 +254,7 @@ We can also list the contents of another directory, and filter the results:
 
 <h3 id="MovingStuff">Moving Stuff</h3>
 
-Let's organize the "Documents" directory:
+<p>Let's organize the <a class="code">Documents</a> directory:</p>
 
 <div class="terminal">
     <div class="term-in">> cd ~/Documents/
@@ -266,22 +266,17 @@ Let's organize the "Documents" directory:
     </div>
 </div>
 
-
-We'll create a spot for all of our text files by making a directory where we'll
-collect our <a class="code">*.txt</a> files (the <a class="code">p</a> option enables us to specify an entire path,
-creating
-any intermediate directories as needed):
-
+<p>We'll create a spot for all of our text files by making a directory where we'll collect our <a class="code">*.txt</a>
+    files (the <a class="code">p</a> option enables us to specify an entire path, creating any intermediate directories
+    as needed):</p>
 
 <div class="terminal">
     <div class="term-in">> mkdir -p TxtDocuments/New</div>
 </div>
 
 
-<a class="new-term">Move</a> all of the text files in the current directory (that is, any files whose names match the
-pattern <a class="code">*.txt</a>) to our new
-directory:
-
+<p><a class="new-term">Move</a> all of the text files in the current directory (that is, any files whose names match the
+    pattern <a class="code">*.txt</a>) to our new directory:</p>
 
 <div class="terminal">
     <div class="term-in">> mv *.txt TxtDocuments/New</div>
@@ -402,10 +397,10 @@ directory:
 
 <h3 id="Permissions">Permissions</h3>
 
-<p>Security and permissions in UNIX is a large topic; for now it's sufficient to know that every file has "mode bits"
-    which determine the read, write and execute permissions for the file's owner, the file owner's user group, and
-    everyone else. We can change these mode bits using the <a class="code">chmod</a> (<a class="new-term">change
-        mode</a>) command:</p>
+<p>Security and permissions in UNIX is a large topic; for now it's sufficient to know that every file has <a
+        class="new-term">mode bits</a> which determine the read, write and execute permissions for the file's owner, the
+    file owner's user group, and everyone else. We can change these mode bits using the <a class="code">chmod</a> (<a
+            class="new-term">change mode</a>) command:</p>
 
 <div class="terminal">
     <div class="term-in">> ls -l *.txt</div>
@@ -491,8 +486,7 @@ sort
 
 <h3 id="DisplayingFiles">Displaying Files</h3>
 
-Display the contents of one or more files with less (because less is more):
-
+<p>Display the contents of one or more files with <a class="code">less</a> (because less is more):</p>
 
 <div class="terminal">
     <div class="term-in">> less list.txt</div>
