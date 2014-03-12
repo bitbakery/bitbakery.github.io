@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -19,32 +23,33 @@
 
 <body>
 <!--[if lt IE 7]>
-<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to
+    improve your experience.</p>
 <![endif]-->
 
 
-
 <div class="table-of-contents">
-    <a class="toc" href="UsingUnix.html"><b>Using Unix</b></a><br />
-    <a class="toc" href="#Exploring">Exploring</a><br />
-    <a class="toc" href="#TheFileSystem">The File System</a><br />
-    <a class="toc" href="#MovingStuff">Moving Stuff</a><br />
-    <a class="toc" href="#MakingLinks">Making Links</a><br />
-    <a class="toc" href="#ControllingTheCommandLine">Controlling the Command Line</a><br />
-    <a class="toc" href="#Permissions">Permissions</a><br />
-    <a class="toc" href="#CombiningCommands">Combining Commands</a><br />
-    <a class="toc" href="#DisplayingFiles">Displaying Files</a><br />
-    <a class="toc" href="#EditingFiles">Editing Files</a><br />
-    <a class="toc" href="#FindingStuff">Finding Stuff</a><br />
-    <a class="toc" href="#RegularExpressions">Regular Expressions</a><br />
-    <a class="toc" href="#Processes">Processes</a><br />
-    <a class="toc" href="#CommonUtilities">Common Utilities</a><br />
-    <a class="toc" href="#UncommonUtilities">Uncommon Utilities</a><br />
-    <a class="toc" href="#GettingHelp">Getting Help</a><br />
-    <a class="toc" href="#PimpYourShell">Pimp Your Shell</a><br />
-    <a class="toc" href="#KeepingYourSystemHealthy">Keeping Your System Healthy</a><br />
+    <a class="toc" href="UsingUnix.html"><b>Using Unix</b></a><br/>
+    <a class="toc" href="#Exploring">Exploring</a><br/>
+    <a class="toc" href="#TheFileSystem">The File System</a><br/>
+    <a class="toc" href="#MovingStuff">Moving Stuff</a><br/>
+    <a class="toc" href="#MakingLinks">Making Links</a><br/>
+    <a class="toc" href="#ControllingTheCommandLine">Controlling the Command Line</a><br/>
+    <a class="toc" href="#Permissions">Permissions</a><br/>
+    <a class="toc" href="#CombiningCommands">Combining Commands</a><br/>
+    <a class="toc" href="#DisplayingFiles">Displaying Files</a><br/>
+    <a class="toc" href="#EditingFiles">Editing Files</a><br/>
+    <a class="toc" href="#FindingStuff">Finding Stuff</a><br/>
+    <a class="toc" href="#RegularExpressions">Regular Expressions</a><br/>
+    <a class="toc" href="#Processes">Processes</a><br/>
+    <a class="toc" href="#CommonUtilities">Common Utilities</a><br/>
+    <a class="toc" href="#UncommonUtilities">Uncommon Utilities</a><br/>
+    <a class="toc" href="#PackageManagers">Package Managers</a><br/>
+    <a class="toc" href="#GettingHelp">Getting Help</a><br/>
+    <a class="toc" href="#PimpYourShell">Pimp Your Shell</a><br/>
+    <a class="toc" href="#KeepingYourSystemHealthy">Keeping Your System Healthy</a><br/>
 </div>
-
 
 
 <h1>Using Unix</h1>
@@ -91,13 +96,14 @@
 <p>Using the <a class="code">ls</a> command displays the contents of the current directory:</p>
 
 <div class="terminal">
-<div class="term-in">> ls -lAp</div>
-<div class="term-out">total 27720
--rw-r--r-- 1 kurtc admin 321297 Nov 6 07:40 ReferenceCard.pdf
--rw-r--r-- 1 kurtc admin 345226 Nov 6 07:40 ReferenceCardForMac.pdf
--rw-r--r-- 1 kurtc admin 0 Nov 17 12:09 help.txt
--rw-r--r-- 1 kurtc admin 13518530 Nov 6 08:15 ideahelp.jar
-drwxr-xr-x 8 kurtc admin 272 Nov 10 12:40 openapi</div>
+    <div class="term-in">> ls -lAp</div>
+    <div class="term-out">total 27720
+        -rw-r--r-- 1 kurtc admin 321297 Nov 6 07:40 ReferenceCard.pdf
+        -rw-r--r-- 1 kurtc admin 345226 Nov 6 07:40 ReferenceCardForMac.pdf
+        -rw-r--r-- 1 kurtc admin 0 Nov 17 12:09 help.txt
+        -rw-r--r-- 1 kurtc admin 13518530 Nov 6 08:15 ideahelp.jar
+        drwxr-xr-x 8 kurtc admin 272 Nov 10 12:40 openapi
+    </div>
 </div>
 
 <p>Notice that the behavior of commands can be modified with <a class="new-term">options</a> (also called <a
@@ -105,18 +111,18 @@ drwxr-xr-x 8 kurtc admin 272 Nov 10 12:40 openapi</div>
     different options. In the above example, we set the following options on the ls command:</p>
 
 <table>
-<tr>
-    <td class="code-table-cell">l</td>
-    <td>displays extended information</td>
-</tr>
-<tr>
-    <td class="code-table-cell">A</td>
-    <td>displays hidden files and directories (files and directories prepended with a period)</td>
-</tr>
-<tr>
-    <td class="code-table-cell">p</td>
-    <td>appends a slash to directory names</td>
-</tr>
+    <tr>
+        <td class="code-table-cell">l</td>
+        <td>displays extended information</td>
+    </tr>
+    <tr>
+        <td class="code-table-cell">A</td>
+        <td>displays hidden files and directories (files and directories prepended with a period)</td>
+    </tr>
+    <tr>
+        <td class="code-table-cell">p</td>
+        <td>appends a slash to directory names</td>
+    </tr>
 </table>
 
 <p>The output of <a class="code">ls -lAp</a> displays a wealth of information:</p>
@@ -134,25 +140,25 @@ drwxr-xr-x 8 kurtc admin 272 Nov 10 12:40 openapi</div>
     <div class="term-anno">| | | | | | | | | __ File/directory name</div>
     <div class="term-anno">| | | | | | | | | |</div>
     <div class="term-anno">---------- - ----- ----- --- ------------ -------</div>
-    <div class="term-in">d<a class="term-anno">rwx</a>r-x<a class="term-anno">r-x</a> 8 kurtc admin 272 Nov 10 12:40 openapi</div>
+    <div class="term-in">d<a class="term-anno">rwx</a>r-x<a class="term-anno">r-x</a> 8 kurtc admin 272 Nov 10 12:40
+        openapi
+    </div>
 </div>
 
 We can also list the contents of another directory, and filter the results:
 
 <div class="terminal">
-<div class="term-in">> ls -la /Applications/IntelliJ\ IDEA\ 8.0.app/help/*.pdf</div>
-<div class="term-out">-rw-r--r-- 1 kurtc admin 321297 Nov 6 07:40 ReferenceCard.pdf
--rw-r--r-- 1 kurtc admin 345226 Nov 6 07:40 ReferenceCardForMac.pdf</div>
+    <div class="term-in">> ls -la /Applications/IntelliJ\ IDEA\ 8.0.app/help/*.pdf</div>
+    <div class="term-out">-rw-r--r-- 1 kurtc admin 321297 Nov 6 07:40 ReferenceCard.pdf
+        -rw-r--r-- 1 kurtc admin 345226 Nov 6 07:40 ReferenceCardForMac.pdf
+    </div>
 </div>
 
-Note the use of the <a class="code">*</a> wildcard character, which matches any number of characters (the <a
-        class="code">?</a> wildcard character matches any
-single character).
+<p>Note the use of the <a class="code">*</a> wildcard character, which matches any number of characters (the <a
+        class="code">?</a> wildcard character matches any single character).</p>
 
-Commands like <a class="code">cd</a> and <a class="code">ls</a> are themselves small programs. We can find their
-location within the file system by using the
-<a class="code">which</a> utility:
-
+<p>Commands like <a class="code">cd</a> and <a class="code">ls</a> are themselves small programs. We can find their
+    location within the file system by using the <a class="code">which</a> utility:</p>
 
 <div class="terminal">
     <div class="term-in">> which ls</div>
@@ -164,12 +170,11 @@ location within the file system by using the
 </div>
 
 
-
-
 <h3 id="TheFileSystem">The File System</h3>
 
-We can put anything anywhere we choose within the file system, but by convention certain types of files are located in
-certain directories:
+<p>We can put anything anywhere we choose within the file system, but by convention certain types of files are located
+    in certain directories:</p>
+
 <table>
     <tr>
         <td class="code-table-cell">/</td>
@@ -247,18 +252,18 @@ certain directories:
 </table>
 
 
-
-
 <h3 id="MovingStuff">Moving Stuff</h3>
 
 Let's organize the "Documents" directory:
 
 <div class="terminal">
-<div class="term-in">> cd ~/Documents/
-> ls -la *.txt</div>
-<div class="term-out">-rwxr-xr-x 1 kurtc kurtc 1287 Apr 27 2007 RandomIdeas.txt
--rw-r--r--@ 1 kurtc kurtc 11008 Jan 6 11:16 pagequotes.txt
--rwxr-xr-x@ 1 kurtc kurtc 1574 Jul 30 13:11 todo.txt</div>
+    <div class="term-in">> cd ~/Documents/
+        > ls -la *.txt
+    </div>
+    <div class="term-out">-rwxr-xr-x 1 kurtc kurtc 1287 Apr 27 2007 RandomIdeas.txt
+        -rw-r--r--@ 1 kurtc kurtc 11008 Jan 6 11:16 pagequotes.txt
+        -rwxr-xr-x@ 1 kurtc kurtc 1574 Jul 30 13:11 todo.txt
+    </div>
 </div>
 
 
@@ -288,9 +293,9 @@ directory:
 </div>
 
 
-Wait a minute - actually, we don't want to lose these documents while we're experimenting, so we'll <a class="new-term">copy</a>
-them back to
-where they were (which, in this case, is simply the current directory):
+<p>Wait a minute - actually, we don't want to lose these documents while we're experimenting, so we'll <a
+        class="new-term">copy</a> them back to where they were (which, in this case, is simply the current directory):
+</p>
 
 
 <div class="terminal">
@@ -298,19 +303,18 @@ where they were (which, in this case, is simply the current directory):
 </div>
 
 
-In fact, let's start over - we'll <a class="new-term">remove</a> the directory we just created, along with anything
-in it (the <a class="code">r</a> option recursively removes any child directories or files):
+<p>In fact, let's start over - we'll <a class="new-term">remove</a> the directory we just created, along with anything
+    in it (the <a class="code">r</a> option recursively removes any child directories or files):</p>
 
 <div class="terminal">
     <div class="term-in">> rm -r TxtDocuments/New</div>
 </div>
 
 
-
-
 <h3 id="MakingLinks">Making Links</h3>
 
-Sometime we don't want to make a copy; we just want to create a shortcut by creating a <a class="new-term">link</a>:
+<p>Sometime we don't want to make a copy; we just want to create a shortcut by creating a <a class="new-term">link</a>:
+</p>
 
 
 <div class="terminal">
@@ -321,8 +325,8 @@ Sometime we don't want to make a copy; we just want to create a shortcut by crea
 </div>
 
 
-This creates a <a class="new-term">hard link</a>. Alternately, we can create a <a class="new-term">symbolic link</a> (or
-"<a class="new-term">soft link</a>"):
+<p>This creates a <a class="new-term">hard link</a>. Alternately, we can create a <a class="new-term">symbolic link</a>
+    (or "<a class="new-term">soft link</a>"):</p>
 
 
 <div class="terminal">
@@ -334,21 +338,17 @@ This creates a <a class="new-term">hard link</a>. Alternately, we can create a <
 </div>
 
 
-Hard links and symbolic links behave identically for most purposes. The difference is that a hard link points at
-the inode (small data structure in ) of a file, whereas a symbolic link simply contains the name of the file to which it
-is linked (in other
-words, a pointer to a pointer of the inode of a file). Most filesystems do not allow hard links to directories. Hard
-links are also limited to the local filesystem. So whether you choose to create a hard link or a soft link will
-ordinarily be determined by the type of entity to which you're linking, and how you're using that link (e.g., if you're
-creating
-a link which you wish to have persisted in a version control system).
-
-
+<p>Hard links and symbolic links behave identically for most purposes. The difference is that a hard link points at
+    the inode (small data structure in ) of a file, whereas a symbolic link simply contains the name of the file to
+    which it is linked (in other words, a pointer to a pointer of the inode of a file). Most filesystems do not allow
+    hard links to directories. Hard links are also limited to the local filesystem. So whether you choose to create a
+    hard link or a soft link will ordinarily be determined by the type of entity to which you're linking, and how you're
+    using that link (e.g., if you're creating a link which you wish to have persisted in a version control system).</p>
 
 
 <h3 id="ControllingTheCommandLine">Controlling The Command Line</h3>
 
-By now you're probably sick of typing so much. Fortunately, the shell provides some relief:
+<p>By now you're probably sick of typing so much. Fortunately, the shell provides some relief:</p>
 <table>
     <tr>
         <td class="code-table-cell">ctrl-C</td>
@@ -357,6 +357,10 @@ By now you're probably sick of typing so much. Fortunately, the shell provides s
     <tr>
         <td class="code-table-cell">&lt;up/down arrows&gt;</td>
         <td>Go through the history of recently executed commands</td>
+    </tr>
+    <tr>
+        <td class="code-table-cell">ctrl-R</td>
+        <td>Search backwards through your command history</td>
     </tr>
     <tr>
         <td class="code-table-cell">tab</td>
@@ -390,23 +394,18 @@ By now you're probably sick of typing so much. Fortunately, the shell provides s
         <td class="code-table-cell">ctrl-K</td>
         <td>Deletes from the cursor to the end of the line</td>
     </tr>
-    <tr>
-        <td class="code-table-cell">ctrl-R</td>
-        <td>Search backwards through your command history</td>
-    </tr>
 </table>
 
-Make yourself use these shortcuts when opportunities present themselves, and they'll soon be a part of your muscle
-memory.
-
-
+<p>Make yourself use these shortcuts when opportunities present themselves, and they'll soon be a part of your muscle
+    memory.</p>
 
 
 <h3 id="Permissions">Permissions</h3>
 
-Security and permissions in UNIX is a large topic; for now it's sufficient to know that every file has "mode bits" which
-determine the read, write and execute permissions for the file's owner, the file owner's user group, and everyone else.
-We can change these mode bits using the <a class="code">chmod</a> (<a class="new-term">change mode</a>) command:
+<p>Security and permissions in UNIX is a large topic; for now it's sufficient to know that every file has "mode bits"
+    which determine the read, write and execute permissions for the file's owner, the file owner's user group, and
+    everyone else. We can change these mode bits using the <a class="code">chmod</a> (<a class="new-term">change
+        mode</a>) command:</p>
 
 <div class="terminal">
     <div class="term-in">> ls -l *.txt</div>
@@ -416,7 +415,7 @@ We can change these mode bits using the <a class="code">chmod</a> (<a class="new
     <div class="term-out">-rwxr-xr-x 1 kurtc admin 446 Nov 17 12:09 help.txt</div>
 </div>
 
-We can also change the owner of a file:
+<p>We can also change the owner of a file:</p>
 
 <div class="terminal">
     <div class="term-in">> ls -l new.txt</div>
@@ -433,39 +432,36 @@ Note that in the previous example
 sudo
 
 
-
-
 <h3 id="CombiningCommands">Combining Commands</h3>
 
-One of the greatest features of the command shell is the ability to feed the output of commands as the input to files or
-other commands, and vice-versa:
+<p>One of the greatest features of the command shell is the ability to feed the output of commands as the input to files
+    or other commands, and vice-versa:</p>
 
 <table>
     <tr>
-        <td><a class="code">&lt;</a></td>
+        <td class="code-table-cell">&lt;</td>
         <td>Read in from file</td>
     </tr>
     <tr>
-        <td><a class="code">&gt;</a></td>
+        <td class="code-table-cell">&gt;</td>
         <td>Write out to file</td>
     <tr>
-        <td><a class="code">|</a></td>
+        <td class="code-table-cell">|</td>
         <td>Pipe output from one process to another</td>
     </tr>
     <tr>
-        <td><a class="code">&gt;&gt;</a></td>
+        <td class="code-table-cell">&gt;&gt;</td>
         <td>Append to an existing file</td>
     </tr>
     <tr>
-        <td><a class="code">&amp;</a></td>
+        <td class="code-table-cell">&amp;</td>
         <td>Execute the process in the background</td>
     </tr>
 </table>
 
-The ability to "pipe" input and output from one program to another is really a manifestation of a larger philosophy
-which underpins much of Unix: small, simple things which do one thing well, which in turn can be combined to do more
-complex things. For example:
-
+<p>The ability to "pipe" input and output from one program to another is really a manifestation of a larger philosophy
+    which underpins much of Unix: small, simple things which do one thing well, which in turn can be combined to do more
+    complex things. For example:</p>
 
 <div class="terminal">
     <div class="term-in">> ls -la > help.txt</div>
@@ -484,15 +480,13 @@ complex things. For example:
 </div>
 
 
-As a concrete example, consider this use of the xargs command, which applies a command to each line of output fed to it
-by a different command:
+<p>As a concrete example, consider this use of the <a class="code">xargs</a> command, which applies a command to each
+    line of output fed to it by a different command:</p>
 
 xargs...?
 
 
 sort
-
-
 
 
 <h3 id="DisplayingFiles">Displaying Files</h3>
@@ -512,114 +506,110 @@ Display the contents of one or more files with less (because less is more):
 </div>
 
 
-less has useful commands for navigating within files:
+<p><a class="code">less</a> has useful commands for navigating within files:</p>
 
 <table>
     <tr>
-        <td class="code">&lt;space&gt;</td>
+        <td class="code-table-cell">&lt;space&gt;</td>
         <td>Next page</td>
     </tr>
     <tr>
-        <td class="code">&lt;return&gt;</td>
+        <td class="code-table-cell">&lt;return&gt;</td>
         <td>Next line</td>
     </tr>
     <tr>
-        <td class="code">&lt;n&gt;f</td>
+        <td class="code-table-cell">&lt;n&gt;f</td>
         <td>move forward &lt;n&gt; lines</td>
     </tr>
     <tr>
-        <td class="code">&lt;n&gt;b</td>
+        <td class="code-table-cell">&lt;n&gt;b</td>
         <td>Move backwards &lt;n&gt; lines</td>
     </tr>
     <tr>
-        <td class="code">/&lt;word&gt; </td>
+        <td class="code-table-cell">/&lt;word&gt; </td>
         <td>Search forward for &lt;word&gt; </td>
     </tr>
     <tr>
-        <td class="code">?&lt;word&gt; </td>
+        <td class="code-table-cell">?&lt;word&gt; </td>
         <td>Search backwards for &lt;word&gt; </td>
     </tr>
     <tr>
-        <td class="code">v</td>
+        <td class="code-table-cell">v</td>
         <td>Jump into vi editor</td>
     </tr>
     <tr>
-        <td class="code">:n</td>
+        <td class="code-table-cell">:n</td>
         <td>Go to the next file (if we opened multiple files)</td>
     </tr>
     <tr>
-        <td class="code">:p</td>
+        <td class="code-table-cell">:p</td>
         <td>Go to the previous file (if we opened multiple files)</td>
     </tr>
     <tr>
-        <td class="code">q</td>
+        <td class="code-table-cell">q</td>
         <td>Quit</td>
     </tr>
 </table>
 
 
-
-
 <h3 id="EditingFiles">Editing Files</h3>
 
-The big dogs are vi and emacs, along with various lighter-weight alternatives (pico, for example). These tools are too
-rich to explore in any depth here, but we can quickly give ourselves enough information to be dangerous:
+<p>The big dogs are vi and emacs, along with various lighter-weight alternatives (pico, for example). These tools are
+    too rich to explore in any depth here, but we can quickly give ourselves enough information to be dangerous...</p>
 
+<h4>vi</h4>
 
-<h5>vi</h5>
-
-vi operates in two very distinct modes: command mode, and entry mode. When you first open vi, you are in command mode.
-In this mode, typing i or a will drop you into entry mode, which enables us to actually enter text. Hitting the esc key
-at any time will drop us back into command mode, in which we can actually run commands. The strength of vi is its
-simplicity, ubiquity, and exceptionally powerful text processing tools.
+<p><a class="code">vi</a> operates in two very distinct modes: command mode, and entry mode. When you first open <a
+        class="code">vi</a>, you are in command mode. In this mode, typing <a class="code">i</a> or <a
+        class="code">a</a> will drop you into entry mode, which enables us to actually enter text. Hitting the <a
+        class="code">esc</a> key at any time will drop us back into command mode, in which we can actually run commands.
+    The strength of <a class="code">vi</a> is its simplicity, ubiquity, and exceptionally powerful text processing
+    tools.</p>
 
 <table>
     <tr>
-        <td class="code">i</td>
+        <td class="code-table-cell">i</td>
         <td>Insert</td>
         <td>Go into entry mode, beginning at the current cursor location</td>
     </tr>
     <tr>
-        <td class="code">a</td>
+        <td class="code-table-cell">a</td>
         <td>Append</td>
         <td>Go into entry mode, beginning at the current cursor location</td>
     </tr>
     <tr>
-        <td class="code">:q!</td>
+        <td class="code-table-cell">:q!</td>
         <td>Quit</td>
         <td>Abandon any changes since the last save, and exit vi</td>
     </tr>
     <tr>
-        <td class="code">ZZ</td>
+        <td class="code-table-cell">ZZ</td>
         <td>Save and exit</td>
         <td>Save the current file and exit vi</td>
     </tr>
 </table>
 
-<h5>emacs</h5>
+<h4>emacs</h4>
 
-emacs is an exceptionally powerful text editor which has a built in extension mechanism, enabling power users
-to write their own macros to accomplish just about anything. In contrast to vi, emacs is more similar to modern
-word processors, in that rather than have a separate "command mode", emacs has elaborate key combinations (called
-"chords")
-which enable users to process text while still in "entry mode".
+<p>emacs is an exceptionally powerful text editor which has a built in extension mechanism, enabling power users to
+    write their own macros to accomplish just about anything. In contrast to vi, emacs is more similar to modern word
+    processors, in that rather than have a separate "command mode", emacs has elaborate key combinations (called
+    "chords") which enable users to process text while still in "entry mode".</p>
 
 <table>
     <tr>
-        <td class="code">XXX</td>
+        <td class="code-table-cell">XXX</td>
         <td>TBD</td>
         <td>Do the thing</td>
     </tr>
 </table>
 
 
-
-
 <h3 id="FindingStuff">Finding Stuff</h3>
 
-Unix gives us two essential search tools: find, which finds files and directories which match certain search criteria,
-and grep, which finds files containing certain text. To find one or more files with a specific name within the current
-directory:
+<p>Unix gives us two essential search tools: <a class="code">find</a>, which finds files and directories which match
+    certain search criteria, and <a class="code">grep</a>, which finds files containing certain text. To find one or
+    more files with a specific name within the current directory:</p>
 
 <div class="terminal">
     <div class="term-in"> find . -name "*.pdf" -print</div>
@@ -630,8 +620,7 @@ directory:
 <h4>TBD - Find out what works and what doesn't on Linux, Mac OS X, and Solaris</h4>
 
 
-Apply a unix command to a set of files:
-
+<p>Apply a unix command to a set of files:</p>
 
 <div class="terminal">
     <div class="term-in">> find . -name "rc.conf" -exec chmod o+r '{} ' \;</div>
@@ -646,7 +635,7 @@ user is
 the owner of the file).
 
 
-How to apply a complex selection of files (-o and -a).
+<p>How to apply a complex selection of files (-o and -a).</p>
 
 <div class="terminal">
     <div class="term-in">> find /usr/src -not \( -name "*,v" -o -name ".*,v" \) '{}' \; -print</div>
@@ -654,15 +643,30 @@ How to apply a complex selection of files (-o and -a).
 
 This command will search in the /usr/src directory and all sub directories. All files that are of the form '*,v' and
 '.*,v' are excluded. Important arguments to note are:
--not means the negation of the expression that follows
-\( means the start of a complex expression.
-\) means the end of a complex expression.
--o means a logical or of a complex expression.
-In this case the complex expression is all files like '*,v' or '.*,v'
 
-The above example is shows how to select all file that are not part of the RCS system. This is important when you want
-go through a source tree and modify all the source files... but ... you don't want to affect the RCS version control
-files.
+<table>
+    <tr>
+        <td class="code-table-cell">-not</td>
+        <td>the negation of the expression that follows</td>
+    </tr>
+    <tr>
+        <td class="code-table-cell">\(</td>
+        <td>the start of a complex expression.</td>
+    </tr>
+    <tr>
+        <td class="code-table-cell">\)</td>
+        <td>the end of a complex expression.</td>
+    </tr>
+    <tr>
+        <td class="code-table-cell">-o</td>
+        <td>a logical or of a complex expression (in this case the complex expression is all files like '*,v' or '.*,v')
+        </td>
+    </tr>
+</table>
+
+<p>The above example is shows how to select all file that are not part of the RCS system. This is important when you
+    want go through a source tree and modify all the source files... but ... you don't want to affect the RCS version
+    control files.</p>
 
 
 How to search for a string in a selection of files (-exec grep ...).
@@ -673,111 +677,108 @@ This command will search in the current directory and all sub directories. All f
 their path printed to standard output.
 
 
-
-
 <h3 id="RegularExpressions">Regular Expressions</h3>
 
-To effectively use grep (and many other commands), you need to know some regular expressions. A regular expression (or
-"regex") is simply a pattern which can be applied to some block of text to return all of the character sequences within
-that block of text which match the specified pattern:
+<p>To effectively use grep (and many other commands), you need to know some regular expressions. A regular expression
+    (or "regex") is simply a pattern which can be applied to some block of text to return all of the character sequences
+    within that block of text which match the specified pattern:</p>
 
 <b>TODO - Display standard text, with appropriate highlighting for each case</b>
 
 <table>
     <tr>
-        <td class="code">.</td>
+        <td class="code-table-cell">.</td>
         <td>Matches any single character</td>
         <td>b.t matches bat and but</td>
     </tr>
     <tr>
-        <td class="code">^</td>
+        <td class="code-table-cell">^</td>
         <td> Anchors to the beginning</td>
         <td></td>
     </tr>
 
     <tr>
-        <td class="code">$</td>
+        <td class="code-table-cell">$</td>
         <td> Anchors to the end</td>
         <td></td>
     </tr>
 
     <tr>
-        <td class="code">A</td>
+        <td class="code-table-cell">A</td>
         <td> Matches any...</td>
         <td></td>
     </tr>
     <tr>
-        <td class="code">a</td>
+        <td class="code-table-cell">a</td>
         <td> Matches any single alphabetic character</td>
         <td></td>
     </tr>
     <tr>
-        <td class="code">\d</td>
+        <td class="code-table-cell">\d</td>
         <td> Matches any single digit</td>
         <td></td>
     </tr>
 
     <tr>
-        <td class="code">\D</td>
+        <td class="code-table-cell">\D</td>
         <td> Matches any single character NOT a digit</td>
         <td></td>
     </tr>
 
     <tr>
-        <td class="code">\w</td>
+        <td class="code-table-cell">\w</td>
         <td> Matches any word (a set of characters separated from other sets of characters by whitespace)</td>
         <td></td>
     </tr>
     <tr>
-        <td class="code">[xy7]</td>
+        <td class="code-table-cell">[xy7]</td>
         <td> Matches any one of the characters 'x', 'y' or '7'</td>
         <td></td>
     </tr>
     <tr>
-        <td class="code">[A-E]</td>
+        <td class="code-table-cell">[A-E]</td>
         <td> Matches the range of characters from 'A' through 'E'</td>
         <td></td>
     </tr>
 
     <tr>
-        <td class="code">[^A-E]</td>
+        <td class="code-table-cell">[^A-E]</td>
         <td></td>
         <td></td>
     </tr>
 
-
     <tr>
-        <td class="code">X?</td>
+        <td class="code-table-cell">X?</td>
         <td> Matches X zero or one time</td>
         <td></td>
     </tr>
 
     <tr>
-        <td class="code">X*</td>
+        <td class="code-table-cell">X*</td>
         <td> Matches X zero or more times</td>
         <td></td>
     </tr>
 
     <tr>
-        <td class="code">X+</td>
+        <td class="code-table-cell">X+</td>
         <td> Matches X one or more times</td>
         <td></td>
     </tr>
 
     <tr>
-        <td class="code">X{n}</td>
+        <td class="code-table-cell">X{n}</td>
         <td> Matches X exactly n times</td>
         <td></td>
     </tr>
 
     <tr>
-        <td class="code">X{n,m}</td>
+        <td class="code-table-cell">X{n,m}</td>
         <td> Matches X n through m times</td>
         <td></td>
     </tr>
 
     <tr>
-        <td class="code">(X|Y)</td>
+        <td class="code-table-cell">(X|Y)</td>
         <td> Matches X or Y</td>
         <td></td>
     </tr>
@@ -792,15 +793,14 @@ occurrance of the search string. It then signals success to find and find contin
 find . -exec grep -q "www.athabasca" '{}' \; -print
 
 
-
-
 <h3 id="Processes">Processes</h3>
-The operating system allocates a process to run any given program. The OS can (and does) run many processes
-simultaneously,
-and is responsible for allocating resources (CPU, memory, etc.) to these processes, as well as ensuring that processes
-do not unintentionally (or maliciously) interfere with one another. The <a class="code">ps</a> command shows the
-currently running processes
-(the <a class="code">A</a> option displays <i>all</i> processes, not just those owned by the current user):
+
+<p>The operating system allocates a process to run any given program. The OS can (and does) run many processes
+    simultaneously, and is responsible for allocating resources (CPU, memory, etc.) to these processes, as well as
+    ensuring that processes do not unintentionally (or maliciously) interfere with one another. The <a
+            class="code">ps</a> command shows the currently running processes (the <a class="code">A</a> option displays
+    <i>all</i> processes, not just those owned by the current user):</p>
+
 <div class="terminal">
     <div class="term-in">> ps -A</div>
     <div class="term-out"> PID TTY TIME CMD</div>
@@ -817,12 +817,12 @@ currently running processes
     <div class="term-out"> 3015 ttys000 0:00.00 ps -A</div>
 </div>
 
-Processes have owners, and thus also have permissions... TBD
+<p>Processes have owners, and thus also have permissions... <b>TBD</b></p>
 
 <br/><br/>
 
-We create a new process simply by running a program (recall that appending an ampersand to a command spawns a child
-process for that command):
+<p>We create a new process simply by running a program (recall that appending an ampersand to a command spawns a child
+    process for that command):</p>
 
 <div class="terminal">
     <div class="term-in">> cd /Applications/Calculator.app/Contents/MacOS</div>
@@ -830,8 +830,8 @@ process for that command):
     <div class="term-out">>[1] 3122</div>
 </div>
 
-Now if we list the currently running processes, we would expect to see our Calculator process. Here we'll only display
-the processes that we own:
+<p>Now if we list the currently running processes, we would expect to see our Calculator process. Here we'll only
+    display the processes that we own:</p>
 
 <div class="terminal">
     <div class="term-in">> ps</div>
@@ -840,7 +840,7 @@ the processes that we own:
     <div class="term-out"> 3122 ttys000 0:00.25 ./Calculator</div>
 </div>
 
-As we create, so can we destroy. The <a class="code">kill</a> command destroys a process:
+<p>As we create, so can we destroy. The <a class="code">kill</a> command destroys a process:</p>
 
 <div class="terminal">
     <div class="term-in">> kill 3122</div>
@@ -851,135 +851,145 @@ As we create, so can we destroy. The <a class="code">kill</a> command destroys a
 </div>
 
 
-
-
 <h3 id="CommonUtilities">Common Utilities</h3>
 <table>
     <tr>
-        <td class="code">vi</td>
+        <td class="code-table-cell">vi</td>
         <td>The primary Unix text editor</td>
     </tr>
     <tr>
-        <td class="code">emacs</td>
+        <td class="code-table-cell">emacs</td>
         <td>The other primary Unix text editor</td>
     </tr>
     <tr>
-        <td class="code">pico</td>
+        <td class="code-table-cell">pico</td>
         <td>Yet another text editor</td>
     </tr>
     <tr>
-        <td class="code">cron</td>
+        <td class="code-table-cell">cron</td>
         <td>Job scheduler</td>
     </tr>
     <tr>
-        <td class="code">tar</td>
+        <td class="code-table-cell">tar</td>
         <td>The standard compression/decompression utility</td>
     </tr>
     <tr>
-        <td class="code">wget</td>
+        <td class="code-table-cell">wget</td>
         <td>command-line http client</td>
     </tr>
     <tr>
-        <td class="code">curl</td>
+        <td class="code-table-cell">curl</td>
         <td>wget on steroids</td>
     </tr>
     <tr>
-        <td class="code">telnet</td>
+        <td class="code-table-cell">telnet</td>
         <td>Open a shell on another computer</td>
     </tr>
     <tr>
-        <td class="code">ftp</td>
+        <td class="code-table-cell">ftp</td>
         <td>Copy files to and from another computer</td>
     </tr>
     <tr>
-        <td class="code">ssh</td>
+        <td class="code-table-cell">ssh</td>
         <td>Open a secure shell on another computer</td>
     </tr>
     <tr>
-        <td class="code">scp</td>
+        <td class="code-table-cell">scp</td>
         <td>Securely copy files over SSH</td>
     </tr>
     <tr>
-        <td class="code">rsync</td>
+        <td class="code-table-cell">rsync</td>
         <td></td>
     </tr>
 </table>
-
-
 
 
 <h3 id="UncommonUtilities">Uncommon Utilities</h3>
 
 <table>
     <tr>
-        <td class="code">cal</td>
+        <td class="code-table-cell">cal</td>
         <td></td>
     </tr>
     <tr>
-        <td class="code">date</td>
+        <td class="code-table-cell">date</td>
         <td></td>
     </tr>
     <tr>
-        <td class="code">netstat</td>
+        <td class="code-table-cell">netstat</td>
         <td></td>
     </tr>
     <tr>
-        <td class="code">ifconfig</td>
+        <td class="code-table-cell">ifconfig</td>
         <td></td>
     </tr>
 </table>
 
-
-
+<h3 id="PackageManagers">Package Managers</h3>
+<table>
+    <tr>
+        <td class="code-table-cell">cal</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="code-table-cell">date</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="code-table-cell">netstat</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td class="code-table-cell">ifconfig</td>
+        <td></td>
+    </tr>
+</table>
 
 <h3 id="GettingHelp">Getting Help</h3>
 
-If you want detailed documentation for a given command, check out its man(ual) page:
+<p>If you want detailed documentation for a given command, check out its man(ual) page:</p>
 
 <div class="terminal">
-<div class="term-in">> man who</div>
-<div class="term-out">
-WHO(1) BSD General Commands Manual WHO(1)
+    <div class="term-in">> man who</div>
+    <div class="term-out">
+        WHO(1) BSD General Commands Manual WHO(1)
 
-NAME
-who -- display who is on the system
+        NAME
+        who -- display who is on the system
 
-SYNOPSIS
-who [-HmqsTu] [am I] [file]
+        SYNOPSIS
+        who [-HmqsTu] [am I] [file]
 
-DESCRIPTION
-The who utility displays information about currently logged in users...
+        DESCRIPTION
+        The who utility displays information about currently logged in users...
+    </div>
 </div>
-</div>
 
-...and so on, including detailed descriptions of the various options, expected arguments, and common usage
-scenarios.
-
-
+<p>...and so on, including detailed descriptions of the various options, expected arguments, and common usage
+    scenarios.</p>
 
 
 <h3 id="PimpYourShell">Pimp Your Shell</h3>
 
-There are a variety of other configuration files which customize your environment, depending on the shell and
-applications you use. Configuration filenames normally begin with a period, which tells the shell (and most GUI file
-managers)
-to hide them by default. The Bash shell itself is configured (per user) within the user's <a
-        class="code">.bash_profile</a> file:
+<p>There are a variety of other configuration files which customize your environment, depending on the shell and
+    applications you use. Configuration filenames normally begin with a period, which tells the shell (and most GUI file
+    managers) to hide them by default. The Bash shell itself is configured (per user) within the user's <a class="code">.bash_profile</a>
+    file:</p>
 
 <div class="terminal">
-<div class="term-in">> cd ~</div>
-<div class="term-in">> less .bash_profile</div>
+    <div class="term-in">> cd ~</div>
+    <div class="term-in">> less .bash_profile</div>
 
-<div class="term-out">export PATH=/Applications/MzScheme\ v372/bin:/opt/local/bin:/opt/local/sbin:$PATH</div>
-<div class="term-out">export DISPLAY=:0.0</div>
-<br/>
+    <div class="term-out">export PATH=/Applications/MzScheme\ v372/bin:/opt/local/bin:/opt/local/sbin:$PATH</div>
+    <div class="term-out">export DISPLAY=:0.0</div>
+    <br/>
 
-<a class="term-out-inverse">.bash_profile (END)</a>
+    <a class="term-out-inverse">.bash_profile (END)</a>
 </div>
 
-.bash_profile is a simple shell script, a file where each line is executed as if it were entered at the command prompt.
-This enables us to do all sorts of things, like customizing the command prompt (using the built-in system property
-<a class="code">PS1</a>):
+<p>.bash_profile is a simple shell script, a file where each line is executed as if it were entered at the command
+    prompt. This enables us to do all sorts of things, like customizing the command prompt (using the built-in system
+    property <a class="code">PS1</a>):</p>
 
 
 <div class="terminal">
@@ -990,9 +1000,9 @@ This enables us to do all sorts of things, like customizing the command prompt (
 </div>
 
 
-...or creating <a class="new-term">aliases</a>, which are shortcuts for more complicated commands. For example, if we
-find ourselves <i>always</i> typing in <a class="code">ls -lAp</a>, we can add the following line to our <a
-        class="code">.bash_profile</a>:
+<p>...or creating <a class="new-term">aliases</a>, which are shortcuts for more complicated commands. For example, if we
+    find ourselves <i>always</i> typing in <a class="code">ls -lAp</a>, we can add the following line to our <a
+            class="code">.bash_profile</a>:</p>
 
 <div class="terminal">
     <div class="term-in">alias ll="ls -lAp"</div>
@@ -1024,16 +1034,12 @@ For example, to bind Option-z (meta-z) to the tty-status function, add this line
 "\M-z": tty-status
 
 
-
-
 <h3 id="Scripting">Scripting</h3>
 
 Every Unix command shell supports one or more scripting languages, which enables us to stitch together shell commands
 with loops and conditional logic in order to perform more sophisticated tasks. The simplest scripts contain a simple
 sequence of one or more shell commands (like <a class="code">.bash_profile</a>, for example); such scripts are helpful
 for automating complex and tedious sequences of commands.
-
-
 
 
 <h3>sed-fu</h3>
@@ -1053,16 +1059,14 @@ If you need more than sed and bash can provide, then you should consider a fully
 or Python or Ruby.
 
 
-
-
 <h3 id="KeepingYourSystemHealthy">Keeping Your System Healthy</h3>
 
 fsck
 
 
-<br />
-<br />
-<br />
+<br/>
+<br/>
+<br/>
 
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -1072,12 +1076,20 @@ fsck
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 <script>
-    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-        e.src='//www.google-analytics.com/analytics.js';
-        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-    ga('create','UA-XXXXX-X');ga('send','pageview');
+    (function (b, o, i, l, e, r) {
+        b.GoogleAnalyticsObject = l;
+        b[l] || (b[l] =
+                function () {
+                    (b[l].q = b[l].q || []).push(arguments)
+                });
+        b[l].l = +new Date;
+        e = o.createElement(i);
+        r = o.getElementsByTagName(i)[0];
+        e.src = '//www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e, r)
+    }(window, document, 'script', 'ga'));
+    ga('create', 'UA-XXXXX-X');
+    ga('send', 'pageview');
 </script>
 
 </body>
