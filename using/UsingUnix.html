@@ -97,13 +97,12 @@
 
 <div class="terminal">
     <div class="term-in">> ls -lAp</div>
-    <div class="term-out">total 27720
-        -rw-r--r-- 1 kurtc admin 321297 Nov 6 07:40 ReferenceCard.pdf
-        -rw-r--r-- 1 kurtc admin 345226 Nov 6 07:40 ReferenceCardForMac.pdf
-        -rw-r--r-- 1 kurtc admin 0 Nov 17 12:09 help.txt
-        -rw-r--r-- 1 kurtc admin 13518530 Nov 6 08:15 ideahelp.jar
-        drwxr-xr-x 8 kurtc admin 272 Nov 10 12:40 openapi
-    </div>
+    <div class="term-out">total 27720</div>
+    <div class="term-out">-rw-r--r-- 1 kurtc admin 321297 Nov 6 07:40 ReferenceCard.pdf</div>
+    <div class="term-out">-rw-r--r-- 1 kurtc admin 345226 Nov 6 07:40 ReferenceCardForMac.pdf</div>
+    <div class="term-out">-rw-r--r-- 1 kurtc admin 0 Nov 17 12:09 help.txt</div>
+    <div class="term-out">-rw-r--r-- 1 kurtc admin 13518530 Nov 6 08:15 ideahelp.jar</div>
+    <div class="term-out">drwxr-xr-x 8 kurtc admin 272 Nov 10 12:40 openapi</div>
 </div>
 
 <p>Notice that the behavior of commands can be modified with <a class="new-term">options</a> (also called <a
@@ -149,9 +148,8 @@ We can also list the contents of another directory, and filter the results:
 
 <div class="terminal">
     <div class="term-in">> ls -la /Applications/IntelliJ\ IDEA\ 8.0.app/help/*.pdf</div>
-    <div class="term-out">-rw-r--r-- 1 kurtc admin 321297 Nov 6 07:40 ReferenceCard.pdf
-        -rw-r--r-- 1 kurtc admin 345226 Nov 6 07:40 ReferenceCardForMac.pdf
-    </div>
+    <div class="term-out">-rw-r--r-- 1 kurtc admin 321297 Nov 6 07:40 ReferenceCard.pdf</div>
+    <div class="term-out">-rw-r--r-- 1 kurtc admin 345226 Nov 6 07:40 ReferenceCardForMac.pdf</div>
 </div>
 
 <p>Note the use of the <a class="code">*</a> wildcard character, which matches any number of characters (the <a
@@ -257,13 +255,11 @@ We can also list the contents of another directory, and filter the results:
 <p>Let's organize the <a class="code">Documents</a> directory:</p>
 
 <div class="terminal">
-    <div class="term-in">> cd ~/Documents/
-        > ls -la *.txt
-    </div>
-    <div class="term-out">-rwxr-xr-x 1 kurtc kurtc 1287 Apr 27 2007 RandomIdeas.txt
-        -rw-r--r--@ 1 kurtc kurtc 11008 Jan 6 11:16 pagequotes.txt
-        -rwxr-xr-x@ 1 kurtc kurtc 1574 Jul 30 13:11 todo.txt
-    </div>
+    <div class="term-in">> cd ~/Documents/</div>
+    <div class="term-in">> ls -la *.txt</div>
+    <div class="term-out">-rwxr-xr-x 1 kurtc kurtc 1287 Apr 27 2007 RandomIdeas.txt</div>
+    <div class="term-out">-rw-r--r--@ 1 kurtc kurtc 11008 Jan 6 11:16 pagequotes.txt</div>
+    <div class="term-out">-rwxr-xr-x@ 1 kurtc kurtc 1574 Jul 30 13:11 todo.txt</div>
 </div>
 
 <p>We'll create a spot for all of our text files by making a directory where we'll collect our <a class="code">*.txt</a>
@@ -311,7 +307,6 @@ We can also list the contents of another directory, and filter the results:
 <p>Sometime we don't want to make a copy; we just want to create a shortcut by creating a <a class="new-term">link</a>:
 </p>
 
-
 <div class="terminal">
     <div class="term-in">> ln real-file.txt hard-link.txt</div>
     <div class="term-in">> ls -lap *.txt</div>
@@ -319,10 +314,8 @@ We can also list the contents of another directory, and filter the results:
     <div class="term-out">-rw-r--r-- 2 kurtc kurtc 3 Mar 24 03:46 real-file.txt</div>
 </div>
 
-
 <p>This creates a <a class="new-term">hard link</a>. Alternately, we can create a <a class="new-term">symbolic link</a>
     (or "<a class="new-term">soft link</a>"):</p>
-
 
 <div class="terminal">
     <div class="term-in">> ln -s real-file.txt soft-link.txt</div>
