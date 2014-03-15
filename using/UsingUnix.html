@@ -107,7 +107,7 @@
 
 <p>Notice that the behavior of commands can be modified with <a class="new-term">options</a> (also called <a
         class="new-term">switches</a>). Some command options even take their own arguments. Different commands have
-    different options. In the above example, we set the following options on the ls command:</p>
+    different options. In the above example, we set the following options on the <a class="code">ls</a> command:</p>
 
 <table>
     <tr>
@@ -128,23 +128,22 @@
 
 <div class="terminal">
     <div class="term-anno"> __ Is this a file, directory, link, device, socket or a named pipe?</div>
-    <div class="term-anno">| __ Read/write/execute permissions for the file owner</div>
-    <div class="term-anno">| | __ Read/write/execute permissions for the owner's user group</div>
-    <div class="term-anno">| | | __ Read/write/execute permissions for 'other' (= everybody)</div>
-    <div class="term-anno">| | | | __ Number of child elements (if this is a directory)</div>
-    <div class="term-anno">| | | | | __ File owner</div>
-    <div class="term-anno">| | | | | | __ File owner's user group</div>
-    <div class="term-anno">| | | | | | | __ Size (in bytes)</div>
-    <div class="term-anno">| | | | | | | | __ Last modified timestamp</div>
-    <div class="term-anno">| | | | | | | | | __ File/directory name</div>
-    <div class="term-anno">| | | | | | | | | |</div>
+    <div class="term-anno">|  __ Read/write/execute permissions for the file owner</div>
+    <div class="term-anno">| |   __ Read/write/execute permissions for the owner's user group</div>
+    <div class="term-anno">| |  |   __ Read/write/execute permissions for 'other' (= everybody)</div>
+    <div class="term-anno">| |  |  |   __ Number of child elements (if this is a directory)</div>
+    <div class="term-anno">| |  |  |  |    __ File owner</div>
+    <div class="term-anno">| |  |  |  |   |      __ File owner's user group</div>
+    <div class="term-anno">| |  |  |  |   |     |     __ Size (in bytes)</div>
+    <div class="term-anno">| |  |  |  |   |     |    |        __ Last modified timestamp</div>
+    <div class="term-anno">| |  |  |  |   |     |    |       |           __ File/directory name</div>
+    <div class="term-anno">| |  |  |  |   |     |    |       |          |</div>
     <div class="term-anno">---------- - ----- ----- --- ------------ -------</div>
-    <div class="term-in">d<a class="term-anno">rwx</a>r-x<a class="term-anno">r-x</a> 8 kurtc admin 272 Nov 10 12:40
-        openapi
+    <div class="term-in">d<a class="term-anno">rwx</a>r-x<a class="term-anno">r-x</a> 8 kurtc admin 272 Nov 10 12:40 openapi
     </div>
 </div>
 
-We can also list the contents of another directory, and filter the results:
+<p>We can also list the contents of another directory, and filter the results:</p>
 
 <div class="terminal">
     <div class="term-in">> ls -la /Applications/IntelliJ\ IDEA\ 8.0.app/help/*.pdf</div>
@@ -414,10 +413,9 @@ We can also list the contents of another directory, and filter the results:
     <div class="term-out">-rw-r--r-- 1 jfilardo kurtc 7 Jan 20 21:52 new.txt</div>
 </div>
 
-Note that in the previous example
+<p>Note that in the previous example...</p>
 
-
-sudo
+<p>sudo...</p>
 
 
 <h3 id="CombiningCommands">Combining Commands</h3>
@@ -471,10 +469,9 @@ sudo
 <p>As a concrete example, consider this use of the <a class="code">xargs</a> command, which applies a command to each
     line of output fed to it by a different command:</p>
 
-xargs...?
+<p>xargs...?</p>
 
-
-sort
+<p>sort</p>
 
 
 <h3 id="DisplayingFiles">Displaying Files</h3>
@@ -613,13 +610,12 @@ sort
     <div class="term-in">> find . -name "rc.conf" -exec chmod o+r '{} ' \;</div>
 </div>
 
-This command will search in the current directory and all sub directories. All files named rc.conf will be processed by
-the chmod -o+r command. The argument '{}' inserts each found file into the chmod command line. The \; argument indicates
-the exec command line has ended.
+<p>This command will search in the current directory and all sub directories. All files named rc.conf will be processed
+    by the chmod -o+r command. The argument '{}' inserts each found file into the chmod command line. The \; argument
+    indicates the exec command line has ended.</p>
 
-The end results of this command is all rc.conf files have the other permissions set to read access (assuming the current
-user is
-the owner of the file).
+<p>The end results of this command is all rc.conf files have the other permissions set to read access (assuming the
+    current user is the owner of the file).</p>
 
 
 <p>How to apply a complex selection of files (-o and -a).</p>
@@ -628,8 +624,8 @@ the owner of the file).
     <div class="term-in">> find /usr/src -not \( -name "*,v" -o -name ".*,v" \) '{}' \; -print</div>
 </div>
 
-This command will search in the /usr/src directory and all sub directories. All files that are of the form '*,v' and
-'.*,v' are excluded. Important arguments to note are:
+<p>This command will search in the /usr/src directory and all sub directories. All files that are of the form '*,v' and
+    '.*,v' are excluded. Important arguments to note are:</p>
 
 <table>
     <tr>
