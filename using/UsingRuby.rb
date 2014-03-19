@@ -68,7 +68,7 @@ puts p.enlarge 'Wubba'
 if p.age > 60
   puts 'NOW you know something'
 elsif p.age > 40
-  puts 'You;re starting to learn...'
+  puts "You're starting to learn..."
 else
   puts 'You know very little'
 end
